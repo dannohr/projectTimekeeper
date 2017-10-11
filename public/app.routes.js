@@ -12,7 +12,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
         .state('login', {
@@ -28,19 +30,23 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
 
-        .state('timesheetdetail', {
-            url: '/timesheetdetail/:id',
-            templateUrl: './component/timesheet/timesheetdetail.html',
-            controller: 'timesheetdetalCtrl',
+        .state('timeentry', {
+            url: '/timeentry/:id',
+            templateUrl: './component/timesheet/timeentry.html',
+            controller: 'timeentryCtrl',
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -51,7 +57,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -63,6 +71,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -75,7 +86,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
                 user: (mainSrvc, $state) => mainSrvc.getUser()
                 .then(response => response.data)
                 .catch(err => {
-                    $state.go('/login')
+                    // $state.go('/login')
                 })
             }
         })
@@ -93,7 +104,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -104,7 +117,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -115,7 +130,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -126,7 +143,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 
@@ -137,7 +156,9 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
-                    .catch(err => err)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
             }
         })
 

@@ -49,7 +49,7 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
         console.log(data)
         return $http({
             method: 'POST',
-            url: '/api/timesheet',
+            url: '/api/timeentry',
             data: data,
             params: {
                 returnObject: true
@@ -59,10 +59,19 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
         });
     };
 
-    self.deleteaddTimeEntry = function (id) {
+    self.deleteTimeEntry = function (id) {
         return $http({
             method: 'DELETE',
-            url: '/api/timesheet' + '/?id=' + id
+            url: '/api/timeentry' + '/?id=' + id
+        });
+    };
+
+    self.getTimeSheetEntry = function (id) {
+        return $http({
+            method: 'GET',
+            url: '/api/timeentry' + '/?id=' + id
+        }).then(function (response) {
+            return response.data.data;
         });
     };
 

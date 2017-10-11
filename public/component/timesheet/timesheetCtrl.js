@@ -3,9 +3,20 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     // Limits date picker to only sundays          
     $scope.dataPickerFilter = timesheetSrvc.onlyPickSunday
 
-    // let weekStartDate = getMonday(new Date())
-    $scope.startDate = timesheetSrvc.getSunday(new Date())
-    
+    // $scope.startDate  = timesheetSrvc.getSunday(new Date())
+    $scope.startDate  = moment().startOf('week')._d
+
+    // Decrement or Increment Time Entry Day
+    $scope.incrementDate = function () {
+        $scope.entrydate = moment($scope.entrydate).add(1, 'days')._d
+        console.log ($scope.entrydate)
+    }
+    $scope.decrementDate = function () {
+        $scope.entrydate = moment($scope.entrydate).add(-1, 'days')._d
+        console.log ($scope.entrydate)
+    }
+
+
     // get list of users to populate ng-option
     $scope.getUsers = function () {
         usersService.readAll().then(function (response) {
@@ -31,20 +42,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             });
     }
     $scope.getProjectTasks()
-
-    console.log('Time Entry Data Is:');
-    console.log($scope.entry)
-
-   
-    // $scope.userlist = {userid: 100, username: "Test Name"}
-    // console.log($scope.userlist)
-    // console.log('user list is:');
-    // console.log($scope.userlist)
-    
     
     // Sets initial value in ng-option to currently logged in user
     $scope.userFilter = user.userid
   
+    // build req.body for get request to populate table
    $scope.apidata = {
         id: $scope.userFilter,
         week: $scope.startDate.toISOString().slice(0, 10)
@@ -53,9 +55,23 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     
     timesheet = function () {
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            // console.log(response)
+            console.log('Timesheet Date:');
+            console.log(response)
             $scope.timesheet = response
             });
+
+            $scope.dateHeader = {
+                sun: moment($scope.startDate).startOf('week').format('MM/DD'),
+                mon: moment($scope.startDate).add(1, 'days').format('MM/DD'),
+                tue: moment($scope.startDate).add(2, 'days').format('MM/DD'),
+                wed: moment($scope.startDate).add(3, 'days').format('MM/DD'),
+                thu: moment($scope.startDate).add(4, 'days').format('MM/DD'),
+                fri: moment($scope.startDate).add(5, 'days').format('MM/DD'),
+                sat: moment($scope.startDate).add(6, 'days').format('MM/DD')
+            }
+            sumColumnHours()
+
+            
     }
     
     timesheet()
@@ -68,17 +84,47 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         });
     }
 
-    $scope.deleteaddTimeEntry = function (id) {
-        console.log('data for deleting time entry api');
-        console.log(id)
-        timesheetSrvc.deleteaddTimeEntry(id.id).then(function (response) {
-            console.log(response)
+    $scope.deleteTimeEntry = function (id) {
+        timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
             timesheet()  // reload the table after deleting row
         });
     }
 
 
-    //Initial loading of timesheet
+   function sumColumnHours() {
+       var total = 0;
+       for (i=0; i <  $scope.timesheet.length; i++) {
+           if ($scope.timesheet.mon) {
+                total += $scope.timesheet.mon[i]
+           }
+       }
+       console.log('Total is: ', total)
+   }
+
+
+   
+    $scope.getTotal = function(){
+        $scope.totalHoursFooter = {
+            sun: 1,
+            mon: 1,
+            tue: 1,
+            wed: 1,
+            thu: 1,
+            fri: 1,
+            sat: 1 
+        }
+        
+        var total = 0;
+        for(var i = 0; i < $scope.cart.products.length; i++){
+            var product = $scope.cart.products[i];
+            total += (product.price * product.quantity);
+        }
+        return total;
+    }
+
+
+
+
 
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes
@@ -88,10 +134,14 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             week: $scope.startDate.toISOString().slice(0, 10)
         }
         // console.log( $scope.apidata)
+
+        $scope.entrydate = $scope.startDate
         
         timesheet()
         
      });
+
+   
 
    
 

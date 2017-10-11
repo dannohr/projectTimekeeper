@@ -9,40 +9,7 @@ angular.module('fullstack').controller("signupCtrl", function($scope, $http, $ro
         })
       }
     else {
-      console.log('passwords don not match')
+      console.log('passwords do not match')
     }
   };
 });
-
-
-//   $scope.save = function(id) {
-//     $scope.custForApi = {
-//        username: $scope.userDetails.username,
-//        firstname: $scope.userDetails.firstname,
-//        lastname: $scope.userDetails.lastname,
-//        email: $scope.userDetails.email,
-//        userstatusfk: $scope.userDetails.userstatusfk
-//        }
-       
-
-//    if(typeof id === 'undefined') {  //add new
-//        usersService.create($scope.custForApi).then (function(response) {
-//        $scope.newCustomer = response;
-//        })
-
-//    } else {  //edit existing
-//        usersService.update(id.id, $scope.custForApi).then (function(response) {
-//        })
-//    }
-//    $state.go('users');  // go back to all users screen
-
-// }
-
-
-  // $scope.custForApi = {
-        //     username: $scope.userDetails.username,
-        //     firstname: $scope.userDetails.firstname,
-        //     lastname: $scope.userDetails.lastname,
-        //     email: $scope.userDetails.email,
-        //     userstatusfk: $scope.userDetails.userstatusfk
-        // }

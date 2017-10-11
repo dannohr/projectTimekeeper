@@ -1,11 +1,8 @@
 <nav-directive> </nav-directive>
-{{ test }}
-
-
 
 <form> 
   <div class="container py-5">
-      <div class="row">
+      <div class="row py-3">
           <div class="col-md-12">
               <div class="row">
                   <div class="col-md-6 mx-auto">
@@ -20,32 +17,45 @@
                                   
                                 <div class="form-group">
                                     <label for="uname1">User</label>
-                                    <input type="text" class="form-control form-control-lg rounded-0" name="uname" id="uname" required="" ng-model="entry.userid">
+                                    <input type="text" class="form-control form-control-lg rounded-0" name="uname" id="uname" required="" ng-model="timeEntry.userid">
                                 </div> 
                                 
                                 <div class="form-group">
                                       <label for="uname1">Project</label>
-                                      <input type="text" class="form-control form-control-lg rounded-0" name="uname" id="uname" required="" ng-model="entry.projectid">
-                                  </div>
+                                      <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeEntry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"></select>
+                                    </div>
                                   
                                   
                                   <div class="form-group">
                                       <label>Task</label>
-                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskid">
-                                  </div>
+                                      <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="timeEntry.taskid" ng-options="task.taskid as task.task for task in projectTasks"></select>                          
+                                    </div>
+
 
                                   <div class="form-group">
                                       <label>Date</label>
-                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskdate">
+                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="timeEntry.taskdate">
                                   </div>
+
+
+                                  <label class="sr-only" for="inlineFormInput">Date</label>
+                                  <md-datepicker class="text-center datepicker-align" ng-model="timeEntry.taskdate" md-min-date="previousMonthMinDate"></md-datepicker> 
+                                  
+                                  <div class = "m-1">
+                                        <label class="sr-only" for="">Date</label>
+                                        <md-datepicker class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeEntry.taskdate" md-placeholder="Enter date" md-date-filter="dataPickerFilter" md-hide-icons="calendar"></md-datepicker>
+                                    </div>
+
+
 
                                   <div class="form-group">
                                       <label>Hours</label>
-                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskhours">
+                                      <input type="number" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="timeEntry.taskhours">
                                   </div>
 
+
                                 <div class="justify-content-md-center align-items-center ">
-                                  <button type="button" class="btn btn-danger btn-lg" ng-click="cancel()">Delete</button>
+                                  <button type="button" class="btn btn-danger btn-lg" ng-click="deleteTimeEntry({id: timeEntry.timeentryid})">Delete</button>
                                   <button type="button" class="btn btn-warning btn-lg" ui-sref="timesheet">Cancel</button>
                                   <button type="button" class="btn btn-primary btn-lg" ng-click="ldogin(user)">Save</button>
                                 </div>
@@ -58,8 +68,3 @@
       </div>
   </div>
 </form>
-
-<button type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
-<button type="button" class="btn btn-primary float-right" ng-click="save()" ng-show="!userDetails.userid">Save New</button>
-<button type="button" class="btn btn-primary float-right" ng-click="save({id: userDetails.userid})" ng-show="userDetails.userid
-">Save Existing</button>

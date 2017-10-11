@@ -10,8 +10,8 @@ const generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-const validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+const validPassword = function(submittedPassword, hashedPassword) {
+    return bcrypt.compareSync(submittedPassword, hashedPassword);
 };
 
 
@@ -240,9 +240,24 @@ const updateTimeSheetEntry = function(req, res, next) {
         });
 }
 
+const getTimeSheetEntry = function(req, res, next) {
+    TimeEntry
+        .where({timeentryid: req.query.id}) 
+        .fetch()
+        .then(function( data) {
+            res.json({ data });
+        })
+        .catch(function (err) {
+            res.status(500).json( {error: true, data: {message: err.message}} );
+            })
+};
+
+
 
    
-module.exports = { 
+module.exports = {
+    validPassword,
+    generateHash, 
     getUsers,
     postUser,
     deleteUser,
@@ -254,9 +269,10 @@ module.exports = {
     updateProject,
     getProjStatus,
     getProjType,
+    getProjTask,
     getWeekTimeSheet,
     postTimeSheetEntry,
-    getProjTask,
     deleteTimeSheetEntry,
-    updateTimeSheetEntry
+    updateTimeSheetEntry,
+    getTimeSheetEntry
 }

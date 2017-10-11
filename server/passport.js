@@ -11,6 +11,9 @@ var User = require('./db/model');
 // load database
 const { knex } = require('./db/db');
 
+// load database
+const { validPassword, generateHash } = require('./apiCtrl/apiCtrl.js');
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {   
     
@@ -50,8 +53,9 @@ passport.use('login', new LocalStrategy( {
     
     knex('user').where('username', username)
     .then((user, err) => {
-        console.log('password from db: ',user.password)
-        console.log('password from form: ',password)
+        console.log('hashed password: ', user[0].password)
+        console.log('submitted password: ', password)
+        console.log(validPassword(password, user[0].password))
         if (!user[0]) { //No User
             console.log('No user found')
             return done(null, false)
@@ -59,8 +63,8 @@ passport.use('login', new LocalStrategy( {
           
         } 
         
-        if (!(user[0].password == password)) {
-            console.log('bas password')
+        if (!(validPassword(password, user[0].password))) {
+            console.log('bad password')
             return done(null, false)
             // return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
         }
