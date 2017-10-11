@@ -2,12 +2,35 @@
 <h1>HOME</h1>
 <!-- check if user has an auth id (meaning its the user and not the error message) -->
 <!-- if no authid, display error, else display user info -->
-<h1 ng-if="!user.authid">{{user}}</h1>
-<div ng-if="user.authid">
-    <h1>{{user.authid}}</h1>
-    <h1>{{user.username}}</h1>
+<h1 ng-if="!user.username">{{user}}</h1>
+<div ng-if="user.username">
+    <p>Username is: {{user.username}}
+    <br>First name is: {{user.firstname}}
+    <br>Last name is: {{user.lastname}}</p> 
 </div>
-<!-- Go to Login View -->
-<a class="transition" ui-sref="login" ng-if="!user.authid"><span>login</span></a>
-<!-- Logout your user, if not user, button won't display -->
-<!-- <a class="transition" href="/auth/logout" ng-if="user.authid"><span>logout!</span></a> -->
+<hr>
+<h2> Not Done Items </h2>
+<ul style="list-style-type:square">
+    <li>Home Page</li>
+    <li>Projects Page</li>
+    <li>Reports Page</li>
+    <li>User Rights - so everyone can't do everything</li>
+</ul>
+
+<h2> Sorta Done Items / In Process </h2>
+<ul style="list-style-type:square">
+    <li>Login Page</li>
+    <li>Admin - Users</li>
+    <li>Admin - Projects</li>
+    <li>Timesheet</li>
+</ul>
+
+<h2 style="list-style-type:square"> Totally Done Items </h2>
+<ul>
+    <li>Navigation menu in both desktop and mobile</li>
+    <li>Logout Button</li>
+</ul>
+
+
+
+
