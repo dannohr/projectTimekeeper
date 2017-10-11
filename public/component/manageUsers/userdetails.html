@@ -1,0 +1,60 @@
+<nav-directive> </nav-directive>
+<h4><span ng-bind="userDetails.userid ? 'Edit User' : 'Add User'"></span></h4>
+
+
+<hr>
+<!-- <select ng-change="changed()" ng-model="userDetails.userstatusid" ng-options="data.userstatuspk as data.status for data in options"></select> -->
+
+
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Status</label>
+        <div class="col-9">
+          <!-- <input class="form-control" type="text" ng-model="userDetails.userstatusid" id="example-text-input"> -->
+          <select ng-change="changed()" ng-model="userDetails.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Username</label>
+        <div class="col-9">
+          <input class="form-control" type="text" ng-model="userDetails.username" id="example-text-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-search-input" class="col-3 col-form-label">First</label>
+        <div class="col-9">
+          <input class="form-control" type="text" ng-model="userDetails.firstname" id="example-text-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-email-input" class="col-3 col-form-label">Last</label>
+        <div class="col-9">
+          <input class="form-control" type="text" ng-model="userDetails.lastname" id="example-text-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-email-input" class="col-3 col-form-label">email</label>
+        <div class="col-9">
+            <input class="form-control" type="email" ng-model="userDetails.email" id="example-email-input">
+        </div>
+        </div>
+      <div class="form-group row">
+        <label for="example-password-input" class="col-3 col-form-label">Password</label>
+        <div class="col-9">
+          <input class="form-control" type="password" ng-model="userDetails.password" id="example-password-input">
+        </div>
+      </div>
+
+      <div class="form-group row" ng-show="userDetails.userid">
+        <label for="example-datetime-local-input" class="col-3 col-form-label">Created</label>
+        <div class="col-9">
+          <!-- <input class="form-control" type="datetime-local" ng-model="created" id="example-datetime-local-input" > -->
+          {{ created | date:'MM/dd/yyyy  h:mma'}}
+        </div>
+      </div>
+</div>
+
+<button type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save()" ng-show="!userDetails.userid">Save New</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save({id: userDetails.userid})" ng-show="userDetails.userid
+">Save Existing</button>

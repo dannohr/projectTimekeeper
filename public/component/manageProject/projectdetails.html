@@ -1,0 +1,48 @@
+<nav-directive> </nav-directive>
+
+<h4><span ng-bind="projDetails.projectid ? 'Edit Project' : 'Add Project'"></span></h4>
+
+
+<hr>
+
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Status</label>
+        <div class="col-9">
+          <!-- <input class="form-control" type="text" ng-model="projDetails.projectstatusid" id="example-text-input"> -->
+          <select ng-change="changed()" ng-model="projDetails.projectstatusid" ng-options="data.projectstatusid as data.projectstatus for data in statusoptions">  
+          </select>
+        
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-search-input" class="col-3 col-form-label">Type</label>
+        <div class="col-9">
+          <!-- <input class="form-control" type="text" ng-model="projDetails.projecttypeid" id="example-text-input"> -->
+          <select ng-change="changed()" ng-model="projDetails.projecttypeid" ng-options="data.projecttypeid as data.projecttype for data in typeoptions">
+              <option value="">-Select One-</option>  
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Project Name</label>
+        <div class="col-9">
+          <input class="form-control" type="text" ng-model="projDetails.projectname" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Created</label>
+          <div class="col-9">
+            <!-- <input class="form-control" type="text" ng-model="projDetails.create_date" id="example-text-input"> -->
+            {{ projDetails.create_date | date:'MM/dd/yyyy  h:mma'}}
+          </div>
+        </div>
+
+</div>
+
+<button type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save()" ng-show="!projDetails.projectid">Save New</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save({id: projDetails.projectid})" ng-show="projDetails.projectid">Save Existing</button>

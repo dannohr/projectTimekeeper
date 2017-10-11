@@ -1,0 +1,39 @@
+<nav-directive> </nav-directive>
+<h3> This is the users page </h3>
+
+<button type="button" class="btn btn-primary" ui-sref = "newuser">Create New User</button>
+
+<div class="pull-right">
+    <label for="statusfilter">Show Status:</label>
+    <select id="statusfilter" ng-model="showstatus" ng-options="data.userstatusid as data.status for data in options"><option value="">All</option></select>
+    
+</div>
+
+<br>
+<hr>
+
+<table border="1" class="table">
+
+    <tr class="thead-default">
+        <th> </th>
+        <th>User Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Status</th>
+        <!-- <th>  <label for="statusfilter"></label>
+        <select id="statusfilter" ng-model="showstatus" ng-options="data.userstatuspk as data.status for data in options"><option value="">All</option></select>
+        </th> -->
+    </tr>
+    
+    <tbody>                                      
+        <tr ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">
+            <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>
+            <td>{{user.username}}</td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.lastname}}</td>
+            <td> <select ng-model="user.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
+        </tr>
+    </tbody>
+
+</table>

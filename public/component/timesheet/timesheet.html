@@ -1,0 +1,77 @@
+<nav-directive> </nav-directive>
+
+<div class="container">
+    <h4 class="text-center"> Weekly Project Timesheet </h4>
+
+    <div>
+        <div>
+            <label for="userfilter">Select User:</label>
+            <select ng-model="userFilter" ng-options="user.userid as user.username for user in allusers"></select> 
+        </div>
+
+        <div>
+            <label for="">Select a Week:</label>
+            <md-datepicker ng-model="startDate" md-placeholder="Enter date" md-date-filter="dataPickerFilter"></md-datepicker>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="container">
+<form class="form-inline justify-content-center">
+    <div class = "text-center">   
+        <label class="sr-only" for="inlineFormInput">Project</label>
+        <!-- <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Project"> -->
+        <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="enterTimeProject" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">Select Project</option></select>
+
+        <label class="sr-only" for="inlineFormInput">Task</label>
+        <!-- <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Task"> -->
+        <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="enterTimeTask" ng-options="task.taskid as task.task for task in projectTasks"><option value="">Select Task</option></select>
+        
+        <label class="sr-only" for="inlineFormInput">Date</label>
+        <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="today">
+
+        <label class="sr-only" for="inlineFormInput">Hours</label>
+        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" id="inlineFormInput" placeholder="hours">
+
+        <button type="submit" class="btn btn-primary">Add Time</button>
+    </div>  
+</form>
+</div>
+
+<hr>
+<div class="container">
+<table border="1" class="table">
+        
+            <tr class="thead-default">
+                <th></th>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+            
+            <tbody ng-repeat="entry in timesheet">                                      
+                <tr>
+                    <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>   
+                    <td>{{entry.projectname}}</td>
+                    <td>{{entry.task}}</td>
+                    <td>{{entry.sun}}</td>
+                    <td>{{entry.mon}}</td>
+                    <td>{{entry.tue}}</td>
+                    <td>{{entry.wed}}</td>
+                    <td>{{entry.thu}}</td>
+                    <td>{{entry.fri}}</td>
+                    <td>{{entry.sat}}</td>
+                </tr>
+
+            </tbody>
+        
+        </table>
+    </div>
