@@ -1,0 +1,65 @@
+<nav-directive> </nav-directive>
+{{ test }}
+
+
+
+<form> 
+  <div class="container py-5">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="row">
+                  <div class="col-md-6 mx-auto">
+                      <span class="anchor" id="formLogin"></span>
+                      <div class="card rounded-0">
+                          <div class="card-header">
+                              <h3 class="mb-0">Edit Time Entry</h3>
+                          </div>
+                          
+                          <div class="card-body">
+                              <form class="form" role="form" autocomplete="off" id="editEntry">
+                                  
+                                <div class="form-group">
+                                    <label for="uname1">User</label>
+                                    <input type="text" class="form-control form-control-lg rounded-0" name="uname" id="uname" required="" ng-model="entry.userid">
+                                </div> 
+                                
+                                <div class="form-group">
+                                      <label for="uname1">Project</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="uname" id="uname" required="" ng-model="entry.projectid">
+                                  </div>
+                                  
+                                  
+                                  <div class="form-group">
+                                      <label>Task</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskid">
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label>Date</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskdate">
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label>Hours</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="entry.taskhours">
+                                  </div>
+
+                                <div class="justify-content-md-center align-items-center ">
+                                  <button type="button" class="btn btn-danger btn-lg" ng-click="cancel()">Delete</button>
+                                  <button type="button" class="btn btn-warning btn-lg" ui-sref="timesheet">Cancel</button>
+                                  <button type="button" class="btn btn-primary btn-lg" ng-click="ldogin(user)">Save</button>
+                                </div>
+                                </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+<button type="button" class="btn btn-primary" ng-click="cancel()">Cancel</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save()" ng-show="!userDetails.userid">Save New</button>
+<button type="button" class="btn btn-primary float-right" ng-click="save({id: userDetails.userid})" ng-show="userDetails.userid
+">Save Existing</button>

@@ -33,6 +33,17 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
         })
 
 
+        .state('timesheetdetail', {
+            url: '/timesheetdetail/:id',
+            templateUrl: './component/timesheet/timesheetdetail.html',
+            controller: 'timesheetdetalCtrl',
+            resolve: {
+                user: mainSrvc => mainSrvc.getUser()
+                    .then(response => response.data)
+                    .catch(err => err)
+            }
+        })
+
         .state('project', {
             url: '/project',
             templateUrl: './component/project/project.html',

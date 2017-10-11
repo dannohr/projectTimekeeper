@@ -18,13 +18,10 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
         }
 
     self.getTimesheet = function (data) {
-        console.log('data passing to API');
-        console.log(data)
         return $http({
             method: 'GET',
             url: baseUrl + data.id + '&week=' +data.week, 
         }).then(function (response) {
-            // console.log(response.data)
             return response.data;
         });
     };
@@ -34,7 +31,6 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
             method: 'GET',
             url: '/api/projects?status=1', 
         }).then(function (response) {
-            console.log(response.data)
             return response.data;
         });
     };
@@ -44,10 +40,37 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
             method: 'GET',
             url: '/api/projtask', 
         }).then(function (response) {
-            console.log(response.data)
             return response.data;
         });
     };
+
+    self.addTimeEntry = function (data) {
+        console.log('data passing to create entry API');
+        console.log(data)
+        return $http({
+            method: 'POST',
+            url: '/api/timesheet',
+            data: data,
+            params: {
+                returnObject: true
+            }
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
+    self.deleteaddTimeEntry = function (id) {
+        return $http({
+            method: 'DELETE',
+            url: '/api/timesheet' + '/?id=' + id
+        });
+    };
+
+
+
+    // console.log('data passing to API');
+    // console.log(data)
+
     // self.readOne = function (id) {
     //     return $http({
     //         method: 'GET',

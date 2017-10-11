@@ -173,8 +173,15 @@ const getProjType = function(req, res, next) {
     })
 }
 
-
-
+const getProjTask = function(req, res, next) {
+    Task.fetchAll()
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
 
 
 const getWeekTimeSheet = function(req, res, next) {
@@ -192,6 +199,7 @@ const getWeekTimeSheet = function(req, res, next) {
     })
 }
 
+
 const postTimeSheetEntry = function(req, res, next) {
     new TimeEntry({
         userid: req.body.userid,
@@ -206,16 +214,31 @@ const postTimeSheetEntry = function(req, res, next) {
         });
 }
 
-const getProjTask = function(req, res, next) {
-    Task.fetchAll()
-    .then(function (data) {
-        res.json(data);
-    })
-    .catch(function (err) {
-    res.status(500).json( {error: true, data: {message: err.message}} );
-    })
-}
+const deleteTimeSheetEntry = function(req, res, next) {
+    TimeEntry
+        .where({timeentryid: req.query.id}) 
+        .destroy()
+        .then(function( data) {
+            res.json({ data });
+        });
+};
 
+
+const updateTimeSheetEntry = function(req, res, next) {
+    TimeEntry
+        .where({timeentryid: req.query.id})
+        .save({
+            userid: req.body.userid,
+            projectid: req.body.projectid,
+            taskid: req.body.taskid,
+            taskhours: req.body.taskhours,
+            taskdate: req.body.taskdate
+            }, {patch:true}) 
+        .then(function(model) {
+            console.log('done')
+            res.json({ model });
+        });
+}
 
 
    
@@ -233,5 +256,7 @@ module.exports = {
     getProjType,
     getWeekTimeSheet,
     postTimeSheetEntry,
-    getProjTask
+    getProjTask,
+    deleteTimeSheetEntry,
+    updateTimeSheetEntry
 }

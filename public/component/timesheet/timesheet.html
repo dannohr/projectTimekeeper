@@ -16,25 +16,27 @@
     </div>
 </div>
 
+
+<!--         SECTION ON TIME ENTRY         -->
 <hr>
 <div class="container">
 <form class="form-inline justify-content-center">
     <div class = "text-center">   
         <label class="sr-only" for="inlineFormInput">Project</label>
         <!-- <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Project"> -->
-        <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="enterTimeProject" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">Select Project</option></select>
+        <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">Select Project</option></select>
 
         <label class="sr-only" for="inlineFormInput">Task</label>
         <!-- <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Task"> -->
-        <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="enterTimeTask" ng-options="task.taskid as task.task for task in projectTasks"><option value="">Select Task</option></select>
+        <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="timeentry.taskid" ng-options="task.taskid as task.task for task in projectTasks"><option value="">Select Task</option></select>
         
         <label class="sr-only" for="inlineFormInput">Date</label>
-        <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="today">
+        <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="entrydate" id="inlineFormInput" placeholder="">
 
         <label class="sr-only" for="inlineFormInput">Hours</label>
-        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" id="inlineFormInput" placeholder="hours">
+        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.taskhours" id="inlineFormInput" placeholder="hours">
 
-        <button type="submit" class="btn btn-primary">Add Time</button>
+        <button type="submit" class="btn btn-primary" ng-click="addTimeEntry(timeentry)" >Add Time</button>
     </div>  
 </form>
 </div>
@@ -58,8 +60,8 @@
             
             <tbody ng-repeat="entry in timesheet">                                      
                 <tr>
-                    <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
-                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>   
+                    <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="timesheetdetail({id: entry.timeentryid})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteaddTimeEntry({id: entry.timeentryid})"></td>   
                     <td>{{entry.projectname}}</td>
                     <td>{{entry.task}}</td>
                     <td>{{entry.sun}}</td>

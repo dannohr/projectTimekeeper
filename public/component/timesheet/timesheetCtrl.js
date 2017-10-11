@@ -1,4 +1,4 @@
-angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService) {
+angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService, $stateParams) {
     
     // Limits date picker to only sundays          
     $scope.dataPickerFilter = timesheetSrvc.onlyPickSunday
@@ -9,8 +9,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     // get list of users to populate ng-option
     $scope.getUsers = function () {
         usersService.readAll().then(function (response) {
-            console.log('users from api are:');
-            console.log(response.data)
             $scope.allusers = response.data
 
             });
@@ -20,28 +18,26 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
     $scope.getOpenProjects = function () {
         timesheetSrvc.getOpenProjects().then(function (response) {
-            console.log('open projects from api are:');
-            console.log(response.data)
             $scope.openProjects = response.data
 
             });
     }
+    $scope.getOpenProjects()
 
     $scope.getProjectTasks = function () {
         timesheetSrvc.getProjectTasks().then(function (response) {
-            console.log('tasks from api are:');
-            console.log(response.data)
-            $scope.projectTasks = response.data
+            $scope.projectTasks = response
 
             });
     }
-    
-    
-    $scope.getOpenProjects()
+    $scope.getProjectTasks()
+
+    console.log('Time Entry Data Is:');
+    console.log($scope.entry)
 
    
-    $scope.userlist = {userid: 100, username: "Test Name"}
-    console.log($scope.userlist)
+    // $scope.userlist = {userid: 100, username: "Test Name"}
+    // console.log($scope.userlist)
     // console.log('user list is:');
     // console.log($scope.userlist)
     
@@ -57,13 +53,32 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     
     timesheet = function () {
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            console.log(response)
+            // console.log(response)
             $scope.timesheet = response
             });
     }
     
-    //Initial loading of timesheet
     timesheet()
+
+    $scope.addTimeEntry = function (data) {
+        data.userid = $scope.userFilter
+        data.taskdate = $scope.entrydate.toISOString().slice(0, 10)
+        timesheetSrvc.addTimeEntry(data).then(function (response) {
+            timesheet()  // reload the table after adding new row
+        });
+    }
+
+    $scope.deleteaddTimeEntry = function (id) {
+        console.log('data for deleting time entry api');
+        console.log(id)
+        timesheetSrvc.deleteaddTimeEntry(id.id).then(function (response) {
+            console.log(response)
+            timesheet()  // reload the table after deleting row
+        });
+    }
+
+
+    //Initial loading of timesheet
 
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes
@@ -72,7 +87,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             id: $scope.userFilter,
             week: $scope.startDate.toISOString().slice(0, 10)
         }
-        console.log( $scope.apidata)
+        // console.log( $scope.apidata)
         
         timesheet()
         
