@@ -1,21 +1,42 @@
 angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService, $stateParams) {
     
     // Limits date picker to only sundays          
-    $scope.dataPickerFilter = timesheetSrvc.onlyPickSunday
+    
 
     // $scope.startDate  = timesheetSrvc.getSunday(new Date())
-    $scope.startDate  = moment().startOf('week')._d
+    $scope.startDate = moment().startOf('week')._d
+    $scope.entrydate = moment().startOf('week')._d
 
     // Decrement or Increment Time Entry Day
     $scope.incrementDate = function () {
-        $scope.entrydate = moment($scope.entrydate).add(1, 'days')._d
-        console.log ($scope.entrydate)
+         $scope.entrydate = moment($scope.entrydate).add(1, 'days').format('MM/DD/YYYY')
+         console.log ($scope.entrydate)
+
+        // If we increment into the next week, change the timesheet startDate too
+        let timeEntryWeek = moment(moment($scope.entrydate).toDate()).startOf('week')._d
+        
+        // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
+        if (!moment($scope.startDate).isSame(moment(moment($scope.entrydate).toDate()).startOf('week')._d)) {
+            console.log('weeks are not the same')
+            $scope.startDate = timeEntryWeek
+        } 
+        
+    
+
     }
     $scope.decrementDate = function () {
-        $scope.entrydate = moment($scope.entrydate).add(-1, 'days')._d
+        $scope.entrydate = moment($scope.entrydate).add(-1, 'days').format('MM/DD/YYYY')
         console.log ($scope.entrydate)
-    }
 
+        // If we decrement into the next week, change the timesheet startDate too
+        let timeEntryWeek = moment(moment($scope.entrydate).toDate()).startOf('week')._d
+        
+        // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
+        if (!moment($scope.startDate).isSame(moment(moment($scope.entrydate).toDate()).startOf('week')._d)) {
+            console.log('weeks are not the same')
+            $scope.startDate = timeEntryWeek
+        } 
+    }
 
     // get list of users to populate ng-option
     $scope.getUsers = function () {
@@ -54,8 +75,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
     
     timesheet = function () {
+        console.log('timesheet api data is:')
+        console.log($scope.apidata);
+        
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            console.log('Timesheet Date:');
+            console.log('Timesheet Data:');
             console.log(response)
             $scope.timesheet = response
             
@@ -69,15 +93,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                 sat: moment($scope.startDate).add(6, 'days').format('MM/DD')
             };
             
-            $scope.dateFooter = {
-                sun: 0,
-                mon: 0,
-                tue: 0,
-                wed: 0,
-                thu: 0,
-                fri: 0,
-                sat: 0
-              };
+            $scope.dateFooter = {sun: 0, mon: 0, tue: 0, wed: 0, thu: 0, fri: 0, sat: 0};
               
               angular.forEach($scope.timesheet,function(value){
                 $scope.dateFooter.sun += value.sun;
@@ -88,19 +104,30 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                 $scope.dateFooter.fri += value.fri;
                 $scope.dateFooter.sat += value.sat;
               });
-    
-              console.log($scope.dateFooter)
+        
         
         });
 
-
+        
     }
     
+    //Initial loading of timesheet
     timesheet()
+    
 
+
+    
+    
+    
     $scope.addTimeEntry = function (data) {
+        // Date picker puts the date in a string format of MM/DD/YYYY
+        // Rearranging it to YYYY/MM/DD for sql query
+        let sqlDate = $scope.entrydate.toString().split("/")
+        sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
+        
         data.userid = $scope.userFilter
-        data.taskdate = $scope.entrydate.toISOString().slice(0, 10)
+        data.taskdate = sqlDate
+        
         timesheetSrvc.addTimeEntry(data).then(function (response) {
             timesheet()  // reload the table after adding new row
         });
@@ -111,61 +138,93 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             timesheet()  // reload the table after deleting row
         });
     }
-
-
-//    function sumColumnHours() {
-//        var total = 0;
-//        for (i=0; i <  $scope.timesheet.length; i++) {
-//            if ($scope.timesheet.mon) {
-//                 total += $scope.timesheet.mon[i]
-//            }
-//        }
-//        console.log('Total is: ', total)
-//    }
-
-
-
-    $scope.getTotal = function(){
-        $scope.totalHoursFooter = {
-            sun: 1,
-            mon: 1,
-            tue: 1,
-            wed: 1,
-            thu: 1,
-            fri: 1,
-            sat: 1 
-        }
-        
-        var total = 0;
-        for(var i = 0; i < $scope.cart.products.length; i++){
-            var product = $scope.cart.products[i];
-            total += (product.price * product.quantity);
-        }
-        return total;
-    }
-
-
-
-
+    
 
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes
         // so forcing it here:
+     
+        // Date picker puts the date in a string format of MM/DD/YYYY
+        // Rearranging it to YYYY/MM/DD for sql query
+        let sqlDate = $scope.startDate.toString().split("/")
+        sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
+        
         $scope.apidata = {
             id: $scope.userFilter,
-            week: $scope.startDate.toISOString().slice(0, 10)
+            week: sqlDate  
         }
-        // console.log( $scope.apidata)
-
-        $scope.entrydate = $scope.startDate
-        
+              
         timesheet()
         
      });
-
+     
    
-
+     
    
-
-
-});
+     
+     
+    });
+    
+    
+    
+    //     angular.element(document).ready(function(){
+    //     //     $('#timesheettable').DataTable( {
+    //     //         "ordering": false,
+    //     //         "searching": false
+    //     //     } )
+    
+    
+    
+    //         var timesheettable = $('#timesheettable').dataTable( {
+    //             "autoWidth": true,
+                
+    //             "aaData": $scope.timesheet,
+                
+    //             "footerCallback": function(row, data, start, end, display) {
+    //                 var api = this.api();
+                   
+    //                 api.columns('.sum', {
+    //                   page: 'current'
+    //                 }).every(function() {
+    //                   var sum = this
+    //                     .data()
+    //                     .reduce(function(a, b) {
+    //                       var x = parseFloat(a) || 0;
+    //                       var y = parseFloat(b) || 0;
+    //                       return x + y;
+    //                     }, 0);
+    //                   console.log(sum); //alert(sum);
+    //                   $(this.footer()).html(sum);
+    //                 });
+    //               },
+    
+    //             "aoColumns": [
+    //                 { "mDataProp": "projectname" },
+    //                 { "mDataProp": "task" },
+    //                 { "mDataProp": "sun" },
+    //                 { "mDataProp": "mon" },
+    //                 { "mDataProp": "tue" },
+    //                 { "mDataProp": "wed" },
+    //                 { "mDataProp": "thu" },
+    //                 { "mDataProp": "fri" },
+    //                 { "mDataProp": "sat" }
+    //             ]
+    
+    
+    //           } );
+    
+    
+    
+    //           //highlight selected column
+    //           $('td',timesheettable.fnGetNodes()).hover( function() {
+    //             var iCol = $('td').index(this) % 9;
+    //             var nTrs = timesheettable.fnGetNodes();
+    //             $('td:nth-child('+(iCol+1)+')', nTrs).addClass( 'highlighted' );
+    //         }, function() {
+    //             $('td.highlighted', timesheettable.fnGetNodes()).removeClass('highlighted');
+    //         } );
+    
+    
+    
+              
+    // })

@@ -4,120 +4,117 @@
     <h3 class="py-4 text-center"> Weekly Project Timesheet </h3>
     
     
-    <div class="container">
-        <form class="form-inline justify-content-center">   
-
-            
+    <div class="container  border">
+        <h6>Select User and Week</h6>
+        <form class="form-inline justify-content-center">     
             <div class = "m-1">
                 <label for="userfilter">Select User</label>
                 <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="userFilter" ng-options="user.userid as user.username for user in allusers"></select> 
             </div>
-
             <div class = "m-1">
-                <label for="">Select a Week</label>
-                <md-datepicker class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="startDate" md-placeholder="Enter date" md-date-filter="dataPickerFilter" md-hide-icons="calendar"></md-datepicker>
+                <label for="datefilter">Select Week</label>
+                <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
+                    <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="startDate" date-time type="datetime"/>
+                  </datepicker>
             </div>
-            
         </form>
     </div>
 
+    <div class = "vert_spacer_40px"></div>
 
     <!--         SECTION ON TIME ENTRY         -->
-    <hr>
-    <div class="container">
-    <form class="form-inline justify-content-center">
-        <div class = "text-center">   
-            <label class="sr-only" for="inlineFormInput">Project</label>
-            <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">Select Project</option></select>
 
-            <label class="sr-only" for="inlineFormInput">Task</label>
-            <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="timeentry.taskid" ng-options="task.taskid as task.task for task in projectTasks"><option value="">Select Task</option></select>
-            
-            <div class = "btn-group border">
-                <span class="page-link rounded-circle"  aria-label="Previous" ng-click = "decrementDate()">
-                    <span aria-hidden="true" >&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </span>
-
-                <label class="sr-only" for="inlineFormInput">Date</label>
-                <md-datepicker class="text-center datepicker-align" ng-model="entrydate" md-placeholder="Enter date" md-hide-icons="calendar"></md-datepicker>
-                    <span class="page-link rounded-circle" aria-label="Next" ng-click = 'incrementDate()'>
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </span>
-            
-            
+    <div class="container border">
+        <h6>Add New Time Entry</h6>
+        <form class="form-inline justify-content-center">
+            <div class = "m-1">
+                <label for="userfilter">Project</label>
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"></select> 
+            </div>
+            <div class = "m-1">
+                <label for="userfilter">Task</label>
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.taskid" ng-options="task.taskid as task.task for task in projectTasks"></select> 
+            </div>
+            <div class="m-1">
+                <label for="datefilter">Hours</label>
+                <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.taskhours" type="text" placeholder="Enter Hours"/>
+            </div>
+            <div class = "m-1">
+                <label for="datefilter">Entry Date</label>
+                <datepicker class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
+                    <input class=" border-0 text-center" ng-model="entrydate" date-time type="datetime"/>
+                </datepicker>
             </div>
 
-            <label class="sr-only" for="inlineFormInput">Hours</label>
-            <input type="number" step=0.01 class="form-control mb-1 mr-sm-1 mb-sm-0 text-center" ng-model="timeentry.taskhours" id="inlineFormInput" placeholder="Enter Hours">
+            <div class = "m-1">
+                <label for="datefilter">.</label>
+                <button type="submit" class="btn btn-primary align-bottom" ng-click="addTimeEntry(timeentry)" >Add Time</button>
+            </div>   
 
-            <button type="submit" class="btn btn-primary" ng-click="addTimeEntry(timeentry)" >Add Time</button>
-        </div>  
-    </form>
+        </form>
     </div>
-
-    <hr>
-    <div class="container">
-    <table border="1" class="table">
-            
-            <tr class="thead-default">
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class = "text-center">{{ dateHeader.sun }}</th>
-                    <th class = "text-center">{{ dateHeader.mon }}</th>
-                    <th class = "text-center">{{ dateHeader.tue }}</th>
-                    <th class = "text-center">{{ dateHeader.wed }}</th>
-                    <th class = "text-center">{{ dateHeader.thu }}</th>
-                    <th class = "text-center">{{ dateHeader.fri }}</th>
-                    <th class = "text-center">{{ dateHeader.sat }}</th>
-                </tr>
-
-                <tr class="thead-default">
-                    <th></th>
-                    <th class = "text-center">Project</th>
-                    <th class = "text-center">Task</th>
-                    <th class = "text-center"> Sun</th>
-                    <th class = "text-center"> Mon</th>
-                    <th class = "text-center"> Tue</th>
-                    <th class = "text-center"> Wed</th>
-                    <th class = "text-center"> Thu</th>
-                    <th class = "text-center"> Fri</th>
-                    <th class = "text-center"> Sat</th>
-                </tr>
                 
-                <tbody ng-repeat="entry in timesheet">                                      
-                    <tr>
-                        <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="timeentry({id: entry.timeentryid})">
-                            <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteTimeEntry({id: entry.timeentryid})"></td>   
-                        <td>{{entry.projectname}}</td>
-                        <td>{{entry.task}}</td>
-                        <td>{{entry.sun}}</td>
-                        <td>{{entry.mon}}</td>
-                        <td>{{entry.tue}}</td>
-                        <td>{{entry.wed}}</td>
-                        <td>{{entry.thu}}</td>
-                        <td>{{entry.fri}}</td>
-                        <td>{{entry.sat}}</td>
-                    </tr>
+    <div class = "vert_spacer_40px"></div>
+    
+    <div class="container border">
+        <table id="timesheettable" class="table table-hover table-sm">
+            <thead>   
+                <tr>
+                    <th class = "border-0"></th>
+                    <th class = "border-0"></th>
+                    <th class = "border-0"></th>
+                    <th class = "text-center border-0">{{ dateHeader.sun }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.mon }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.tue }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.wed }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.thu }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.fri }}</th>
+                    <th class = "text-center border-0">{{ dateHeader.sat }}</th>
+                </tr>
+                <tr>
+                    <th class = "border-0"></th>
+                    <th class = "border-0">Project</th>
+                    <th class = "border-0">Task</th>
+                    <th class = "text-center border-0"> Sun</th>
+                    <th class = "text-center border-0"> Mon</th>
+                    <th class = "text-center border-0"> Tue</th>
+                    <th class = "text-center border-0"> Wed</th>
+                    <th class = "text-center border-0"> Thu</th>
+                    <th class = "text-center border-0"> Fri</th>
+                    <th class = "text-center border-0"> Sat</th>
+                </tr>
+            </thead>
+                    
+            <tbody ng-repeat="entry in timesheet">                                      
+                <tr>
+                    <td>
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="timeentry({id: entry.timeentryid})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteTimeEntry({id: entry.timeentryid})"></td>   
+                    <td class = "text-left">{{entry.projectname}}</td>
+                    <td class = "text-left">{{entry.task}}</td>
+                    <td class = "text-center border">{{entry.sun}}</td>
+                    <td class = "text-center border">{{entry.mon}}</td>
+                    <td class = "text-center border">{{entry.tue}}</td>
+                    <td class = "text-center border">{{entry.wed}}</td>
+                    <td class = "text-center border">{{entry.thu}}</td>
+                    <td class = "text-center border">{{entry.fri}}</td>
+                    <td class = "text-center border">{{entry.sat}}</td>
+                </tr>
+            </tbody>
 
-                </tbody>
-
-                <tf>
-                        <th></th>
-                        <th></th>
-                        <th class = "text-right">Total:</th>
-                        <th class = "text-center">{{ dateFooter.sun }}</th>
-                        <th class = "text-center">{{ dateFooter.mon }}</th>
-                        <th class = "text-center">{{ dateFooter.tue }}</th>
-                        <th class = "text-center">{{ dateFooter.wed }}</th>
-                        <th class = "text-center">{{ dateFooter.thu }}</th>
-                        <th class = "text-center">{{ dateFooter.fri }}</th>
-                        <th class = "text-center">{{ dateFooter.sat }}</th>
-                </tf>
-            
-            </table>
-        </div>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th class = "text-right">Total Hours:</th>
+                    <th class = "text-center">{{ dateFooter.sun }}</th>
+                    <th class = "text-center">{{ dateFooter.mon }}</th>
+                    <th class = "text-center">{{ dateFooter.tue }}</th>
+                    <th class = "text-center">{{ dateFooter.wed }}</th>
+                    <th class = "text-center">{{ dateFooter.thu }}</th>
+                    <th class = "text-center">{{ dateFooter.fri }}</th>
+                    <th class = "text-center">{{ dateFooter.sat }}</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
-</div>

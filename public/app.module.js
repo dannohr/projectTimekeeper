@@ -1,6 +1,6 @@
 
 angular
-    .module('fullstack', ['angularMoment','ui.router', 'ngAnimate','ngMaterial'])
+    .module('fullstack', ['angularMoment','ui.router', '720kb.datepicker'])
 
   $(document).ready(function () {
     
@@ -15,6 +15,9 @@ angular
             $(".nav-item-colapse").click(function(event) {
                 $(".navbar-collapse").collapse('hide');
               });
+
+            // Initialize Datatables
+            // $('#timesheettable').DataTable();  
     
               
          

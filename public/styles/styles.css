@@ -18,3 +18,12 @@ th {
 .datepicker-align {
     margin-top: 5px;
     }
+
+
+.highlighted {
+    background-color: #ffffcc;
+}
+
+.vert_spacer_40px {
+    height: 40px;
+}
