@@ -58,8 +58,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             console.log('Timesheet Date:');
             console.log(response)
             $scope.timesheet = response
-            });
-
+            
             $scope.dateHeader = {
                 sun: moment($scope.startDate).startOf('week').format('MM/DD'),
                 mon: moment($scope.startDate).add(1, 'days').format('MM/DD'),
@@ -68,10 +67,33 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                 thu: moment($scope.startDate).add(4, 'days').format('MM/DD'),
                 fri: moment($scope.startDate).add(5, 'days').format('MM/DD'),
                 sat: moment($scope.startDate).add(6, 'days').format('MM/DD')
-            }
-            sumColumnHours()
-
+            };
             
+            $scope.dateFooter = {
+                sun: 0,
+                mon: 0,
+                tue: 0,
+                wed: 0,
+                thu: 0,
+                fri: 0,
+                sat: 0
+              };
+              
+              angular.forEach($scope.timesheet,function(value){
+                $scope.dateFooter.sun += value.sun;
+                $scope.dateFooter.mon += value.mon;
+                $scope.dateFooter.tue += value.tue;
+                $scope.dateFooter.wed += value.wed;
+                $scope.dateFooter.thu += value.thu;
+                $scope.dateFooter.fri += value.fri;
+                $scope.dateFooter.sat += value.sat;
+              });
+    
+              console.log($scope.dateFooter)
+        
+        });
+
+
     }
     
     timesheet()
@@ -91,18 +113,18 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     }
 
 
-   function sumColumnHours() {
-       var total = 0;
-       for (i=0; i <  $scope.timesheet.length; i++) {
-           if ($scope.timesheet.mon) {
-                total += $scope.timesheet.mon[i]
-           }
-       }
-       console.log('Total is: ', total)
-   }
+//    function sumColumnHours() {
+//        var total = 0;
+//        for (i=0; i <  $scope.timesheet.length; i++) {
+//            if ($scope.timesheet.mon) {
+//                 total += $scope.timesheet.mon[i]
+//            }
+//        }
+//        console.log('Total is: ', total)
+//    }
 
 
-   
+
     $scope.getTotal = function(){
         $scope.totalHoursFooter = {
             sun: 1,
