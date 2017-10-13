@@ -51,12 +51,21 @@
             <div class="btn-group vol-ctr">
                 <button type="button" class="btn btn-danger btn-sm saveEditDeleteBttns" ng-click="deleteTimeEntry({id: timeEntry.timeentryid})">Delete</button>
                 <button type="button" class="btn btn-warning btn-sm saveEditDeleteBttns" ui-sref="timesheet">Cancel</button>
-                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="ldogin(user)">Save</button>
+                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="updateTimeSheetEntry({id: timeEntry.timeentryid},{data: timeEntry})">Save</button>
             </div>
         </div>  <!-- card body -->
     </div>  <!-- card -->
 </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 <!-- 
 

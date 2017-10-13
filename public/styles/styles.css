@@ -40,3 +40,8 @@ th {
  .saveEditDeleteBttns {
     width: 80px;
 }
+
+td:hover { 
+    background-color: rgb(250, 250, 107);
+    cursor: pointer;
+}

@@ -139,7 +139,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             timesheet()  // reload the table after deleting row
         });
     }
-    
+
+  
 
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes

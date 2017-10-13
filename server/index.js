@@ -71,7 +71,7 @@ app.get('/api/projTask', apiCtrl.getProjTask)
 app.get('/api/timesheet', apiCtrl.getWeekTimeSheet)
 app.post('/api/timeentry', apiCtrl.postTimeSheetEntry)
 app.delete('/api/timeentry', apiCtrl.deleteTimeSheetEntry)
-app.post('/api/timeentry', apiCtrl.updateTimeSheetEntry)
+app.put('/api/timeentry', apiCtrl.updateTimeSheetEntry)
 app.get('/api/timeentry', apiCtrl.getTimeSheetEntry)
 
 // auth endpoints

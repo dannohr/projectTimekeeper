@@ -75,6 +75,18 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
         });
     };
 
+    self.updateTimeSheetEntry = function (id, data) {
+        console.log('From Service')
+        console.log(data)
+        return $http({
+            method: 'PUT',
+            url: '/api/timeentry' + '?id=' + id,
+            data: data
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
 
 
     // console.log('data passing to API');

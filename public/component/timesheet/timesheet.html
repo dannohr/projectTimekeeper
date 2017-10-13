@@ -109,13 +109,13 @@
                         <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteTimeEntry({id: entry.timeentryid})"></td>   
                     <td class = "text-left">{{entry.projectname}}</td>
                     <td class = "text-left">{{entry.task}}</td>
-                    <td class = "text-center border">{{entry.sun}}</td>
-                    <td class = "text-center border">{{entry.mon}}</td>
-                    <td class = "text-center border">{{entry.tue}}</td>
-                    <td class = "text-center border">{{entry.wed}}</td>
-                    <td class = "text-center border">{{entry.thu}}</td>
-                    <td class = "text-center border">{{entry.fri}}</td>
-                    <td class = "text-center border">{{entry.sat}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sun}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.mon}} </td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.tue}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.wed}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.thu}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.fri}}</td>
+                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sat}}</td>
                 </tr>
             </tbody>
 
