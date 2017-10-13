@@ -22,8 +22,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             console.log('weeks are not the same')
             $scope.startDate = timeEntryWeek
         } 
-        
-
     }
 
     $scope.decrementDate = function () {
@@ -75,10 +73,12 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     // build req.body for get request to populate table
    $scope.apidata = {
         id: $scope.userFilter,
-        week: $scope.startDate.toISOString().slice(0, 10)
+        // week: $scope.startDate.toISOString().slice(0, 10)
+        week: moment($scope.startDate).format('YYYY-MM-DD')
     }
 
-    
+      
+
     timesheet = function () {
         console.log('timesheet api data is:')
         console.log($scope.apidata);
@@ -144,7 +144,75 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         });
     }
 
+
+
+
+    $scope.copyLastWeek = function () {
+        $scope.userLastWeek = {
+            id: $scope.userFilter,
+            start: moment($scope.startDate).add(-1, 'weeks').format('YYYY-MM-DD'),
+            end: moment($scope.startDate).add(-1, 'days').format('YYYY-MM-DD')
+        }
+
+        timesheetSrvc.getTimeSheetEntries($scope.userLastWeek)
+            .then(function (response) {
+                return response.data.data
+            })  //get the time sheet data from previous week and return it below to re-enter it
+
+            .then(function (lastWeekData) {
+                for (i=0; i<lastWeekData.length; i++) {
+                    lastWeekData[i].taskdate = moment(lastWeekData[i].taskdate).add(7, 'days').format('YYYY-MM-DD')
+                    timesheetSrvc
+                        .addTimeEntry(lastWeekData[i])
+                        .then(function (response) {
+                            console.log(lastWeekData[0])
+                            console.log(response)  
+                        })  
+                }
+            })
+
+            .then(function () {
+                timesheet()
+            })
+    }
+
+
+
+
+
+    // $scope.getTimeSheetEntries = function (id, start, end) {
+    //     console.log(id)
+    //     console.log(start)
+    //     console.log(end)
+
+    //     timesheetSrvc.getTimeSheetEntries(id, start, end).then(function (response) {
+    //         $scope.timeEntry = response
+    //         //In JSON, date in a string, apparently, so convert back to date
+    //         // $scope.timeEntry.taskdate = new Date($scope.timeEntry.taskdate)
+    //         console.log("last week's entries are:")
+    //         console.log(response)
+    //        });
+    // }
+
+
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes

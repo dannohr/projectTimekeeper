@@ -253,6 +253,24 @@ const getTimeSheetEntry = function(req, res, next) {
 };
 
 
+const getTimeSheetEntries = function(req, res, next) {
+    TimeEntry
+        .forge()
+        .where({userid: req.query.id})
+        .query(function(qb) {
+                qb.whereBetween('taskdate', [req.query.start,req.query.end]);
+            })
+        .fetchAll()
+        .then(function( data) {
+            res.json({ data });
+        })
+        .catch(function (err) {
+            res.status(500).json( {error: true, data: {message: err.message}} );
+            })
+};
+
+
+
 
    
 module.exports = {
@@ -274,5 +292,6 @@ module.exports = {
     postTimeSheetEntry,
     deleteTimeSheetEntry,
     updateTimeSheetEntry,
-    getTimeSheetEntry
+    getTimeSheetEntry,
+    getTimeSheetEntries
 }

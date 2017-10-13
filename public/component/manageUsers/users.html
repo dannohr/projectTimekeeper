@@ -1,43 +1,83 @@
 <nav-directive> </nav-directive>
 
 <div class = "container py-5">
-<h3 class = " py-4 text-center"> Manage Users </h3>
-
-<button type="button" class="btn btn-primary" ui-sref = "newuser">Create New User</button>
-
-<div class="pull-right">
-    <label for="statusfilter">Show Status:</label>
-    <select id="statusfilter" ng-model="showstatus" ng-options="data.userstatusid as data.status for data in options"><option value="">All</option></select>
+    <h3 class = " py-4 text-center"> Manage Users </h3>
     
-</div>
+    
+    
+    <div class = "container d-flex align-items-center h-100 inline-block">
+        <div class = "row">
+            <div class = "col border">
+                <button type="button" class="btn btn-primary" ui-sref = "newuser">Create New User</button>
+            </div>
+
+            <div class = "col border">
+                <label class = "" for="textfilter">Search</label>
+                <input class = "" type="text" name="textfilter" placeholder="enter search">
+            </div>
+
+            <div class = "col border">
+                <label  class = "" for="statusfilter">Status</label>
+                <select class = "" id="statusfilter" ng-model="showstatus" ng-options="data.userstatusid as data.status for data in options"><option value="">All</option></select>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 <br>
 <hr>
 
-<table border="1" class="table">
+<div class="container border">
+    <table id="timesheettable" class="table table-hover table-sm">
+            <thead>   
+                <tr>
+                    <th class = "border-0"></th>
+                    <th class = "border-0">Username</th>
+                    <th class = "border-0">First Name</th>
+                    <th class = "border-0">Last Name</th>
+                    <th class = "border-0">Status</th>
+                </tr>
+            </thead>
+            
+            <tbody ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">                                      
+                <tr>
+                    <td>
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>   
+                    <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.username}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.firstname}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.lastname}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.userid})"></td>
+                </tr>
+            </tbody>
 
-    <tr class="thead-default">
-        <th> </th>
-        <th>User Name</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Status</th>
-        <!-- <th>  <label for="statusfilter"></label>
-        <select id="statusfilter" ng-model="showstatus" ng-options="data.userstatuspk as data.status for data in options"><option value="">All</option></select>
-        </th> -->
-    </tr>
-    
-    <tbody>                                      
-        <tr ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">
-            <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
-                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>
-            <td>{{user.username}}</td>
-            <td>{{user.firstname}}</td>
-            <td>{{user.lastname}}</td>
-            <td> <select ng-model="user.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
-        </tr>
-    </tbody>
+           
+        </table>
 
-</table>
-
-</div>
+    </div>
+                        <!-- 
+                        <table border="1" class="table">
+                        
+                            <tr class="thead-default">
+                                <th> </th>
+                                <th>User Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Status</th>
+                            </tr>
+                            
+                            <tbody>                                      
+                                <tr ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">
+                                    <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.firstname}}</td>
+                                    <td>{{user.lastname}}</td>
+                                    <td> <select ng-model="user.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
+                                </tr>
+                            </tbody>
+                        
+                        </table> -->

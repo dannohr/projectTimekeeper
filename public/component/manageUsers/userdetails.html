@@ -1,5 +1,100 @@
 <nav-directive> </nav-directive>
-<h4><span ng-bind="userDetails.userid ? 'Edit User' : 'Add User'"></span></h4>
+<div class = "vert_spacer_75px"></div>  
+
+
+<div class="container py-10">
+        <div class="row py-3">
+            <div class="col-md-12">
+
+<div class="col-md-8 mx-auto">
+    <div class="card rounded-0">
+        <div class="card-header">
+            <h3 class="mb-0"><span ng-bind="userDetails.userid ? 'Edit User' : 'Add User'"></h3>
+        </div>
+            
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">User Status</label>
+                    <div class="col-8">
+                        <select ng-change="changed()" ng-model="userDetails.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">Username</label>
+                <div class="col-8">
+                    <input type="text" class="form-control rounded-0" id="project" required="" ng-model="userDetails.username">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">First name</label>
+                <div class="col-8">
+                    <input type="text" class="form-control rounded-0" id="project" required="" ng-model="userDetails.firstname">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">Last Name</label>
+                <div class="col-8">
+                    <input type="text" class="form-control rounded-0" id="project" required="" ng-model="userDetails.lastname">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">Email</label>
+                <div class="col-8">
+                    <input type="text" class="form-control rounded-0" id="project" required="" ng-model="userDetails.email">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">Password</label>
+                <div class="col-8">
+                    <input type="number" class="form-control rounded-0" id="project" required="" ng-model="timeEntry.taskhours">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-date-input" class="col-4 col-form-label" disabled>Last Logged In</label>
+                <div class="col-8">
+                    {{ created | date:'MM/dd/yyyy  h:mma'}}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-date-input" class="col-4 col-form-label" disabled>Create Date</label>
+                <div class="col-8">
+                    {{ created | date:'MM/dd/yyyy  h:mma'}}
+                </div>
+            </div>
+
+
+
+
+            <div class="btn-group vol-ctr">
+                <button type="button" class="btn btn-danger btn-sm saveEditDeleteBttns" ng-click="deleteTimeEntry({id: timeEntry.timeentryid})">Delete</button>
+                <button type="button" class="btn btn-warning btn-sm saveEditDeleteBttns" ui-sref="users">Cancel</button>
+                <!-- <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="updateTimeSheetEntry({id: timeEntry.timeentryid},{data: timeEntry})">Save</button> -->
+            
+                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="save()" ng-show="!userDetails.userid">Save New</button>
+                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttnst" ng-click="save({id: userDetails.userid})" ng-show="userDetails.userid">Save Existing</button>
+            
+              </div>
+        </div>  <!-- card body -->
+    </div>  <!-- card -->
+</div>
+</div>
+
+
+
+
+
+
+
 
 
 <hr>

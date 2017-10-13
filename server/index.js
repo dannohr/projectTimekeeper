@@ -73,6 +73,7 @@ app.post('/api/timeentry', apiCtrl.postTimeSheetEntry)
 app.delete('/api/timeentry', apiCtrl.deleteTimeSheetEntry)
 app.put('/api/timeentry', apiCtrl.updateTimeSheetEntry)
 app.get('/api/timeentry', apiCtrl.getTimeSheetEntry)
+app.get('/api/timeentries', apiCtrl.getTimeSheetEntries)   //get all betwwen two dates by userid
 
 // auth endpoints
 
