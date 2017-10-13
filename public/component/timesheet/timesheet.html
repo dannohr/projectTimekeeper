@@ -9,12 +9,12 @@
         <form class="form-inline justify-content-center">     
             <div class = "m-1">
                 <label for="userfilter">Select User</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="userFilter" ng-options="user.userid as user.username for user in allusers"></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.username for user in allusers"></select> 
             </div>
             <div class = "m-1">
                 <label for="datefilter">Select Week</label>
                 <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
-                    <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="startDate" date-time type="datetime"/>
+                    <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="startDate" date-time type="datetime"/>
                   </datepicker>
             </div>
         </form>
@@ -29,28 +29,27 @@
         <form class="form-inline justify-content-center">
             <div class = "m-1">
                 <label for="userfilter">Project</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">-- Select Project --</option></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">-- Select Project --</option></select> 
             </div>
             <div class = "m-1">
                 <label for="userfilter">Task</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.taskid" ng-options="task.taskid as task.task for task in projectTasks"><option value="">-- Select Task --</option></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="timeentry.taskid" ng-options="task.taskid as task.task for task in projectTasks"><option value="">-- Select Task --</option></select> 
             </div>
             <div class="m-1">
                 <label for="datefilter">Hours</label>
-                <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center" ng-model="timeentry.taskhours" type="text" placeholder="Enter Hours"/>
+                <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="timeentry.taskhours" type="text" placeholder="Enter Hours"/>
             </div>
 
             <div class = "m-1">
                 <label class = "text-center" for="datefilter">Entry Date</label>
-                <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex">
+                <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
                     <div>
                         <img src="../component/assets/back_icon_16.png" alt="" ng-click="decrementDate()" >
                     </div>
             
                     <div>
-                        <!-- <datepicker class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}"> -->
                         <datepicker class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
-                            <input class=" border-0 text-center" ng-model="entrydate" date-time type="datetime"/>
+                            <input class=" border-0 text-center finger" ng-model="entrydate" date-time type="datetime"/>
                         </datepicker>
                     </div> 
             
@@ -59,15 +58,10 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-
             <div class = "m-1">
                 <label for="datefilter">.</label>
-                <button type="submit" class="btn btn-primary align-bottom" ng-click="addTimeEntry(timeentry)" >Add Time</button>
+                <button type="submit" class="btn btn-primary align-bottom finger" ng-click="addTimeEntry(timeentry)" >Add Time</button>
             </div>   
-
         </form>
     </div>
                 
@@ -107,15 +101,15 @@
                     <td>
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="timeentry({id: entry.timeentryid})">
                         <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteTimeEntry({id: entry.timeentryid})"></td>   
-                    <td class = "text-left">{{entry.projectname}}</td>
-                    <td class = "text-left">{{entry.task}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sun}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.mon}} </td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.tue}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.wed}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.thu}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.fri}}</td>
-                    <td class = "text-center border" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sat}}</td>
+                    <td class = "text-left highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.projectname}}</td>
+                    <td class = "text-left highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.task}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sun}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.mon}} </td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.tue}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.wed}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.thu}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.fri}}</td>
+                    <td class = "text-center border highlightcell" ui-sref="timeentry({id: entry.timeentryid})">{{entry.sat}}</td>
                 </tr>
             </tbody>
 
@@ -123,7 +117,7 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th class = "text-right">Total Hours:</th>
+                    <th class = "text-right">Daily Total:</th>
                     <th class = "text-center">{{ dateFooter.sun }}</th>
                     <th class = "text-center">{{ dateFooter.mon }}</th>
                     <th class = "text-center">{{ dateFooter.tue }}</th>
@@ -132,6 +126,21 @@
                     <th class = "text-center">{{ dateFooter.fri }}</th>
                     <th class = "text-center">{{ dateFooter.sat }}</th>
                 </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class = "text-right">Total</th>
+                    <th class = "text-center">{{ weekTotal }}</th>
+                </tr>
             </tfoot>
         </table>
+        <!-- <div class = "text-right">
+            <span >Total Hours For Week: {{ weekTotal }}</span>
+        </div> -->
     </div>

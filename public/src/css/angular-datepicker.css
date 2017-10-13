@@ -99,7 +99,7 @@ datepicker, .datepicker, [datepicker],
   text-align: center;
 }
 ._720kb-datepicker-calendar-day {
-  cursor: pointer;
+  cursor: finger;
   font-size: 12.5px;
   width: 12.2%;
   margin:5px 1%;

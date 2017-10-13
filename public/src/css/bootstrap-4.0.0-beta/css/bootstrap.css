@@ -1984,7 +1984,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 
 a.btn.disabled,
 fieldset[disabled] a.btn {
-  pointer-events: none;
+  finger-events: none;
 }
 
 .btn-primary {
@@ -2810,7 +2810,7 @@ tbody.collapse.show {
 [data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
-  pointer-events: none;
+  finger-events: none;
 }
 
 .input-group {
@@ -2998,7 +2998,7 @@ tbody.collapse.show {
   display: block;
   width: 1rem;
   height: 1rem;
-  pointer-events: none;
+  finger-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -3114,7 +3114,7 @@ tbody.collapse.show {
   padding: 0.5rem 1rem;
   line-height: 1.5;
   color: #495057;
-  pointer-events: none;
+  finger-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -3906,7 +3906,7 @@ tbody.collapse.show {
 
 .page-item.disabled .page-link {
   color: #868e96;
-  pointer-events: none;
+  finger-events: none;
   background-color: #fff;
   border-color: #ddd;
 }

@@ -41,7 +41,11 @@ th {
     width: 80px;
 }
 
-td:hover { 
+.highlightcell:hover { 
     background-color: rgb(250, 250, 107);
-    cursor: pointer;
+    cursor: finger;
+}
+
+.finger {
+    cursor: finger;
 }

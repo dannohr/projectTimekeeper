@@ -99,8 +99,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             };
             
             $scope.dateFooter = {sun: 0, mon: 0, tue: 0, wed: 0, thu: 0, fri: 0, sat: 0};
-              
-              angular.forEach($scope.timesheet,function(value){
+            
+            angular.forEach($scope.timesheet,function(value){
                 $scope.dateFooter.sun += value.sun;
                 $scope.dateFooter.mon += value.mon;
                 $scope.dateFooter.tue += value.tue;
@@ -108,7 +108,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                 $scope.dateFooter.thu += value.thu;
                 $scope.dateFooter.fri += value.fri;
                 $scope.dateFooter.sat += value.sat;
-              });
+            });
+
+            $scope.weekTotal = $scope.dateFooter.sun + $scope.dateFooter.mon + $scope.dateFooter.tue
+                             + $scope.dateFooter.wed + $scope.dateFooter.thu + $scope.dateFooter.fri 
+                             + $scope.dateFooter.sat
         
         
         });
