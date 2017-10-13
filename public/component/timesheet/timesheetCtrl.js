@@ -5,7 +5,9 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
     // $scope.startDate  = timesheetSrvc.getSunday(new Date())
     $scope.startDate = moment().startOf('week')._d
-    $scope.entrydate = moment().startOf('week')._d
+    // $scope.entrydate = moment().startOf('week')._d
+
+    console.log($scope.entrydate)
 
     // Decrement or Increment Time Entry Day
     $scope.incrementDate = function () {
@@ -21,19 +23,22 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             $scope.startDate = timeEntryWeek
         } 
         
-    
 
     }
+
     $scope.decrementDate = function () {
+        
         $scope.entrydate = moment($scope.entrydate).add(-1, 'days').format('MM/DD/YYYY')
         console.log ($scope.entrydate)
 
-        // If we decrement into the next week, change the timesheet startDate too
+        //If we decrement into the next week, change the timesheet startDate too
         let timeEntryWeek = moment(moment($scope.entrydate).toDate()).startOf('week')._d
-        
-        // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
+  
+        // // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
         if (!moment($scope.startDate).isSame(moment(moment($scope.entrydate).toDate()).startOf('week')._d)) {
             console.log('weeks are not the same')
+            console.log($scope.startDate)
+            console.log(timeEntryWeek)
             $scope.startDate = timeEntryWeek
         } 
     }
@@ -113,10 +118,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     
     //Initial loading of timesheet
     timesheet()
-    
-
-
-    
     
     
     $scope.addTimeEntry = function (data) {

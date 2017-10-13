@@ -27,3 +27,16 @@ th {
 .vert_spacer_40px {
     height: 40px;
 }
+
+.vert_spacer_75px {
+    height: 75px;
+}
+
+.vol-ctr {   /* center delete, cancel, save buttons */
+    display: flex;
+    justify-content: space-around;
+ }
+
+ .saveEditDeleteBttns {
+    width: 80px;
+}

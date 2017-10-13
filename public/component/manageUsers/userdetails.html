@@ -3,10 +3,6 @@
 
 
 <hr>
-<!-- <select ng-change="changed()" ng-model="userDetails.userstatusid" ng-options="data.userstatuspk as data.status for data in options"></select> -->
-
-
-
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Status</label>
         <div class="col-9">
@@ -14,6 +10,8 @@
           <select ng-change="changed()" ng-model="userDetails.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
         </div>
       </div>
+      
+      
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Username</label>
         <div class="col-9">
