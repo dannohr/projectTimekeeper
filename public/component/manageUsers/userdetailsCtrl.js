@@ -5,16 +5,16 @@ angular.module('fullstack').controller('userdetailsCtrl', function($scope, $http
     console.log(id);
     if (id === '' || typeof id === 'undefined') {
         $scope.userDetails = {}
-        $scope.userDetails.userstatusid = 1
+        $scope.userDetails.userstatus_id = 1
 
     } else {
-      console.log(id)
         usersService.readOne(id).then(function (response) {
         $scope.userDetails = response.data
+        console.log('here it is')
         console.log($scope.userDetails)
         $scope.created = new Date($scope.userDetails.created_at)
         // https://stackoverflow.com/questions/30537886/error-ngmodeldatefmt-expected-2015-05-29t190616-693209z-to-be-a-date-a
-        });
+    });
     }
 }
 
@@ -32,7 +32,7 @@ $scope.save = function(id) {
         firstname: $scope.userDetails.firstname,
         lastname: $scope.userDetails.lastname,
         email: $scope.userDetails.email,
-        userstatusid: $scope.userDetails.userstatusid,
+        userstatus_id: $scope.userDetails.userstatus_id,
         password: $scope.userDetails.password
         }
         

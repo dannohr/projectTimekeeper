@@ -6,9 +6,9 @@
 <button type="button" class="btn btn-primary" ui-sref = "newproject">Create New Project</button>
 <div class="pull-right">
     <label for="statusfilter">Show Status:</label>
-    <select id="statusfilter" ng-model="showstatus" ng-options="data.projectstatusid as data.projectstatus for data in statusoptions"><option value="">All</option></select>
+    <select id="statusfilter" ng-model="showstatus" ng-options="data.id as data.status for data in statusoptions"><option value="">All</option></select>
     <label for="typefilter">Show Type:</label>
-    <select id="typefilter" ng-model="showtype" ng-options="data.projecttypeid as data.projecttype for data in typeoptions"><option value="">All</option></select>
+    <select id="typefilter" ng-model="showtype" ng-options="data.id as data.type for data in typeoptions"><option value="">All</option></select>
 </div>
 
 <br>
@@ -24,12 +24,12 @@
     </tr>
     
     <tbody>
-        <tr ng-repeat="project in allprojects | filter: { projectstatusid: showstatus||undefined, projecttypeid: showtype||undefined }">
+        <tr ng-repeat="project in allprojects | filter: { projectstatus_id: showstatus||undefined, projecttype_id: showtype||undefined }">
             <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="projectdetails({id: project.projectid})">
                 <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({id: project.projectid})"></td>
             <td>{{project.projectname}}</td>
-            <td> <select ng-model="project.projectstatusid" ng-options="data.projectstatusid as data.projectstatus for data in statusoptions"></select>
-            <td> <select ng-model="project.projecttypeid" ng-options="data.projecttypeid as data.projecttype for data in typeoptions"></select>
+            <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{project.projectstatus.status}}</td>
+            <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{project.projecttype.type}}</td>
         </tr>
     </tbody>
 

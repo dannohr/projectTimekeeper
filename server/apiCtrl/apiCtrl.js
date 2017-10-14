@@ -18,7 +18,7 @@ const validPassword = function(submittedPassword, hashedPassword) {
 const getUsers = function(req, res, next) {
     if (req.query.id) {
         User.where({userid: req.query.id})
-            .fetch()                         
+            .fetch(({withRelated: ['userstatus']}))                         
             .then(function(user) {
                 console.log(user)
                 res.json({ error: false, data: user.toJSON() });
@@ -28,7 +28,7 @@ const getUsers = function(req, res, next) {
             });
 
     } else {
-        User.fetchAll()
+        User.fetchAll(({withRelated: ['userstatus']}))
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -44,7 +44,7 @@ const postUser = function(req, res, next) {
       lastname: req.body.lastname,
       email: req.body.email,
       username: req.body.username,
-      userstatusid: req.body.userstatusid,
+      userstatus_id: req.body.userstatus_id,
       password: generateHash(req.body.password)
     })
       .save()
@@ -69,7 +69,7 @@ const updateUser = function(req, res, next) {
                lastname: req.body.lastname,
                email: req.body.email,
                username: req.body.username,
-               userstatusid: req.body.userstatusid,
+               userstatus_id: req.body.userstatus_id,
                password: generateHash(req.body.password)
             }, {patch:true}) 
         .then(function(model) {
@@ -90,7 +90,9 @@ const getUserStatus = function(req, res, next) {
 
 const getProjects = function(req, res, next) {
     if (req.query.id) {
-        Project.where({projectid: req.query.id}).fetch()                         
+        Project
+            .where({projectid: req.query.id})
+            .fetch()                         
             .then(function(user) {
                 res.json({ error: false, data: user.toJSON() });
             })
@@ -99,8 +101,9 @@ const getProjects = function(req, res, next) {
             });
     } else
     if (req.query.status) {
-        Project.where({projectstatusid: req.query.status})
-            .fetchAll()                         
+        Project
+            .where({projectstatusid: req.query.status})
+            .fetchAll(({withRelated: ['projectstatus','projecttype']}))                         
             .then(function(project) {
                 res.json({ error: false, data: project.toJSON() });
             })
@@ -108,7 +111,7 @@ const getProjects = function(req, res, next) {
                 res.status(500).json({ error: true, data: {message: err.message}} );
             });
     } else {
-        Project.fetchAll()
+        Project.fetchAll(({withRelated: ['projectstatus','projecttype']}))
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })

@@ -98,6 +98,7 @@ passport.authenticate('login', { successRedirect: '/' }), (req, res) => {
 app.get('/auth/me', (req, res) => {
     console.log('checked to see if logged in coming from index.js')
     if (!req.user) return res.status(401).json({err: 'User Not Authenticated'});
+    
     res.status(200).json(req.user);
 });
 

@@ -16,17 +16,32 @@ const UserStatus = Bookshelf.Model.extend(
        }
     });
 
+
+
 const Project = Bookshelf.Model.extend(
-    { tableName: 'project' }
-);
+    {   tableName: 'project',
+        projectstatus: function() {
+            return this.belongsTo(ProjectStatus)},
+        projecttype: function() {
+            return this.belongsTo(ProjectType);  
+    }
+});
 
 const ProjectStatus = Bookshelf.Model.extend(
-    { tableName: 'projectstatus' }
-);
+    {   tableName: 'projectstatus',
+        project: function() {
+        return this.hasMany(Project);
+   }
+});
 
 const ProjectType = Bookshelf.Model.extend(
-    { tableName: 'projecttype' }
-);
+    {   tableName: 'projecttype',
+        project: function() {
+        return this.hasMany(Project);
+    }
+});
+
+
 
 const TimeSheetData = Bookshelf.Model.extend(
     { tableName: 'vw_timesheetdata' }

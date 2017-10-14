@@ -18,13 +18,10 @@
 
             <div class = "col border">
                 <label  class = "" for="statusfilter">Status</label>
-                <select class = "" id="statusfilter" ng-model="showstatus" ng-options="data.userstatusid as data.status for data in options"><option value="">All</option></select>
+                <select class = "" id="statusfilter" ng-model="showstatus" ng-options="data.id as data.status for data in options"><option value="">All</option></select>
             </div>
         </div>
     </div>
-
-
-
 
 
 <br>
@@ -42,7 +39,7 @@
                 </tr>
             </thead>
             
-            <tbody ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">                                      
+            <tbody ng-repeat="user in allusers | filter: { userstatus_id: showstatus||undefined }">                                      
                 <tr>
                     <td>
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
@@ -50,7 +47,7 @@
                     <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.username}}</td>
                     <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.firstname}}</td>
                     <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.lastname}}</td>
-                    <td class = "text-left" ui-sref="userdetails({id: user.userid})"></td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.userid})">{{user.userstatus.status}}</td>
                 </tr>
             </tbody>
 
