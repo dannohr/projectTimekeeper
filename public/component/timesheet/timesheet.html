@@ -9,11 +9,11 @@
         <form class="form-inline justify-content-center">     
             <div class = "m-1">
                 <label for="userfilter">Select User</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.username for user in allusers"></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'"></select> 
             </div>
             <div class = "m-1">
                 <label for="datefilter">Select Week</label>
-                <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
+                  <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}" >
                     <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="startDate" date-time type="datetime"/>
                   </datepicker>
             </div>
@@ -53,8 +53,8 @@
                     </div>
             
                     <div>
-                        <datepicker class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
-                            <input class=" border-0 text-center finger" ng-model="entrydate" date-time type="datetime"/>
+                        <datepicker class = "text-center" date-format="MM/dd/yyyy" date-set="{{entryDate.toString()}}">
+                            <input class=" border-0 text-center finger" ng-model="entryDate" date-time type="datetime"/>
                         </datepicker>
                     </div> 
             

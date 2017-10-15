@@ -1,45 +1,19 @@
 angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService, $stateParams) {
     
-    // Limits date picker to only sundays          
-    
+// SET DEFAULTS FOR PAGE LOAD 
 
-    // $scope.startDate  = timesheetSrvc.getSunday(new Date())
+    // Sets initial week to the first day of this week.
     $scope.startDate = moment().startOf('week')._d
-    // $scope.entrydate = moment().startOf('week')._d
+    
+    // Sets initial entry date to today
+    console.log('setting entryDate')
+    $scope.entryDate  = moment().startOf('day')._d
+    
+    // Sets initial value in ng-option to currently logged in user
+    $scope.userFilter = user.userid
 
-    console.log($scope.entrydate)
 
-    // Decrement or Increment Time Entry Day
-    $scope.incrementDate = function () {
-         $scope.entrydate = moment($scope.entrydate).add(1, 'days').format('MM/DD/YYYY')
-         console.log ($scope.entrydate)
-
-        // If we increment into the next week, change the timesheet startDate too
-        let timeEntryWeek = moment(moment($scope.entrydate).toDate()).startOf('week')._d
-        
-        // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
-        if (!moment($scope.startDate).isSame(moment(moment($scope.entrydate).toDate()).startOf('week')._d)) {
-            console.log('weeks are not the same')
-            $scope.startDate = timeEntryWeek
-        } 
-    }
-
-    $scope.decrementDate = function () {
-        
-        $scope.entrydate = moment($scope.entrydate).add(-1, 'days').format('MM/DD/YYYY')
-        console.log ($scope.entrydate)
-
-        //If we decrement into the next week, change the timesheet startDate too
-        let timeEntryWeek = moment(moment($scope.entrydate).toDate()).startOf('week')._d
-  
-        // // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
-        if (!moment($scope.startDate).isSame(moment(moment($scope.entrydate).toDate()).startOf('week')._d)) {
-            console.log('weeks are not the same')
-            console.log($scope.startDate)
-            console.log(timeEntryWeek)
-            $scope.startDate = timeEntryWeek
-        } 
-    }
+// LOAD DATA FOR OPTION DROP DOWNS
 
     // get list of users to populate ng-option
     $scope.getUsers = function () {
@@ -48,16 +22,17 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
             });
     }
-    
     $scope.getUsers()
+
 
     $scope.getOpenProjects = function () {
         timesheetSrvc.getOpenProjects().then(function (response) {
             $scope.openProjects = response.data
-
+            console.log($scope.openProjects)
             });
     }
     $scope.getOpenProjects()
+
 
     $scope.getProjectTasks = function () {
         timesheetSrvc.getProjectTasks().then(function (response) {
@@ -66,26 +41,56 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             });
     }
     $scope.getProjectTasks()
-    
-    // Sets initial value in ng-option to currently logged in user
-    $scope.userFilter = user.userid
-  
-    // build req.body for get request to populate table
-   $scope.apidata = {
-        id: $scope.userFilter,
-        // week: $scope.startDate.toISOString().slice(0, 10)
-        week: moment($scope.startDate).format('YYYY-MM-DD')
+
+
+
+
+    // Decrement or Increment Time Entry Day
+    $scope.incrementDate = function () {
+         $scope.entryDate = moment($scope.entryDate).add(1, 'days').format('MM/DD/YYYY')
+         console.log ($scope.entryDate)
+
+        // If we increment into the next week, change the timesheet startDate too
+        let timeEntryWeek = moment(moment($scope.entryDate).toDate()).startOf('week')._d
+        
+        // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
+        if (!moment($scope.startDate).isSame(moment(moment($scope.entryDate).toDate()).startOf('week')._d)) {
+            console.log('weeks are not the same')
+            $scope.startDate = timeEntryWeek
+        } 
     }
 
-      
+    $scope.decrementDate = function () {
+        
+        $scope.entryDate = moment($scope.entryDate).add(-1, 'days').format('MM/DD/YYYY')
+        console.log ($scope.entryDate)
 
+        //If we decrement into the next week, change the timesheet startDate too
+        let timeEntryWeek = moment(moment($scope.entryDate).toDate()).startOf('week').format('MM/DD/YYYY')
+  
+        // // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
+        if (!moment($scope.startDate).isSame(moment(moment($scope.entryDate).toDate()).startOf('week')._d)) {
+            console.log('weeks are not the same')
+            $scope.startDate = timeEntryWeek
+        } 
+    }
+
+
+
+      
+    // Pull all the data to populate timesheer
     timesheet = function () {
-        console.log('timesheet api data is:')
-        console.log($scope.apidata);
+        $scope.apidata = {
+            id: $scope.userFilter,
+            week: moment($scope.startDate).format('YYYY-MM-DD')
+        }
+        
+        // console.log('timesheet api data is:')
+        // console.log($scope.apidata);
         
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            console.log('Timesheet Data:');
-            console.log(response)
+            // console.log('Timesheet Data:');
+            // console.log(response)
             $scope.timesheet = response
             
             $scope.dateHeader = {
@@ -113,6 +118,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             $scope.weekTotal = $scope.dateFooter.sun + $scope.dateFooter.mon + $scope.dateFooter.tue
                              + $scope.dateFooter.wed + $scope.dateFooter.thu + $scope.dateFooter.fri 
                              + $scope.dateFooter.sat
+            
+                            
         
         
         });
@@ -127,16 +134,21 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     $scope.addTimeEntry = function (data) {
         // Date picker puts the date in a string format of MM/DD/YYYY
         // Rearranging it to YYYY/MM/DD for sql query
-        let sqlDate = $scope.entrydate.toString().split("/")
+        let sqlDate = $scope.entryDate.toString().split("/")
         sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
         
         data.userid = $scope.userFilter
+        console.log('Entry Date is:')
+        console.log(sqlDate)
+
         data.taskdate = sqlDate
         
         timesheetSrvc.addTimeEntry(data).then(function (response) {
             timesheet()  // reload the table after adding new row
         });
     }
+
+
 
     $scope.deleteTimeEntry = function (id) {
         timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
@@ -179,57 +191,21 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
 
 
-
-    // $scope.getTimeSheetEntries = function (id, start, end) {
-    //     console.log(id)
-    //     console.log(start)
-    //     console.log(end)
-
-    //     timesheetSrvc.getTimeSheetEntries(id, start, end).then(function (response) {
-    //         $scope.timeEntry = response
-    //         //In JSON, date in a string, apparently, so convert back to date
-    //         // $scope.timeEntry.taskdate = new Date($scope.timeEntry.taskdate)
-    //         console.log("last week's entries are:")
-    //         console.log(response)
-    //        });
-    // }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes
         // so forcing it here:
-     
-        // Date picker puts the date in a string format of MM/DD/YYYY
-        // Rearranging it to YYYY/MM/DD for sql query
-        let sqlDate = $scope.startDate.toString().split("/")
-        sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
-        
         $scope.apidata = {
             id: $scope.userFilter,
-            week: sqlDate  
-        }
-              
+            week: moment($scope.startDate).format('YYYY-MM-DD')
+        }    
         timesheet()
         
+        // $scope.entryDate =  moment($scope.startDate).format('YYYY-MM-DD')
+
+        //     console.log('entry date is:')
+        //     console.log($scope.entrydate)
+       
+
      });
      
    
@@ -237,7 +213,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
    
      
      
-    });
+});
     
     
     

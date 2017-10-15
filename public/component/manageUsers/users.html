@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             
-            <tbody ng-repeat="user in allusers | filter: { userstatus_id: showstatus||undefined }">                                      
+            <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: { userstatus_id: showstatus||undefined }  ">                                      
                 <tr>
                     <td>
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">

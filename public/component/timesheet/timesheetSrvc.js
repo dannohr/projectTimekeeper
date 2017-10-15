@@ -29,7 +29,7 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
     self.getOpenProjects = function (data) {
         return $http({
             method: 'GET',
-            url: '/api/projects?status=1', 
+            url: '/api/projects?status_id=1', 
         }).then(function (response) {
             return response.data;
         });
