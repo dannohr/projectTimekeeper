@@ -2,21 +2,47 @@
 
 <div class="container py-5"> 
     <h3 class="py-4 text-center"> Weekly Project Timesheet </h3>
-    
-    
+
     <div class="container  border">
         <h6>Select User and Week</h6>
         <form class="form-inline justify-content-center">     
             <div class = "m-1">
-                <label for="userfilter">Select User</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'"></select> 
+                <label for="userfilter" ng-show="user.usersecuritygroup.userpermission.viewalltimesheets" >Select User</label>
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ng-show="user.usersecuritygroup.userpermission.viewalltimesheets"></select> 
+                <label for="userfilter" ng-show="!user.usersecuritygroup.userpermission.viewalltimesheets" >User</label>
+                <span class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-show="!user.usersecuritygroup.userpermission.viewalltimesheets">{{ userfullname }}</span>
             </div>
-            <div class = "m-1">
+
+
+            <!-- <div class = "m-1">
                 <label for="datefilter">Select Week</label>
                   <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}" >
                     <input class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="startDate" date-time type="datetime"/>
                   </datepicker>
+            </div> -->
+
+            <div class = "m-1">
+                <label class = "text-center" for="datefilter">Select Week</label>
+                <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
+                    <div>
+                        <img src="../component/assets/back_icon_16.png" alt="" ng-click="decrementWeek()" >
+                    </div>
+            
+                    <div>
+                        <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
+                            <input class=" border-0 text-center finger" ng-model="startDate" date-time type="datetime"/>
+                        </datepicker>
+                    </div> 
+            
+                    <div>
+                        <img src="../component/assets/next_icon_16.png" alt="" ng-click="incrementWeek()">
+                    </div>
+                </div>
             </div>
+
+
+
+
             <div class = "m-1">
                 <label for="datefilter">.</label>
                 <button type="submit" class="btn btn-outline-primary align-bottom finger" ng-click="copyLastWeek()" >Copy Last Week</button>

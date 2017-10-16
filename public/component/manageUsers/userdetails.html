@@ -22,6 +22,13 @@
             </div>
 
             <div class="form-group row">
+                <label for="example-number-input" class="col-4 col-form-label">User Permissions</label>
+                    <div class="col-8">
+                        <select ng-change="changed()" ng-model="userDetails.usersecuritygroup_id" ng-options="data.id as data.usersecuritygroup for data in securityGroup"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="example-number-input" class="col-4 col-form-label">Username</label>
                 <div class="col-8">
                     <input type="text" class="form-control rounded-0" id="project" required="" ng-model="userDetails.username">
@@ -53,15 +60,18 @@
 
             <div class="form-group row">
                 <label for="example-number-input" class="col-4 col-form-label">Password</label>
-                <div class="col-8">
+                <div class="col-6 pr-0">
                     <input type="password" class="form-control rounded-0" id="project" required="" ng-model="userDetails.password">
+                </div>
+                <div class="col-2 pl-0">
+                    <button type="button" class="btn btn-outline-danger saveEditDeleteBttns reset-pw-bttn" ng-click="updatePW({id: userDetails.userid})">Reset</button>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="example-date-input" class="col-4 col-form-label" disabled>Last Logged In</label>
                 <div class="col-8">
-                    {{ created | date:'MM/dd/yyyy  h:mma'}}
+                    {{ lastLogin | date:'MM/dd/yyyy  h:mma'}}
                 </div>
             </div>
 

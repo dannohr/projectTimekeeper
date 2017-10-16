@@ -12,6 +12,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     // Sets initial value in ng-option to currently logged in user
     $scope.userFilter = user.userid
 
+    $scope.userfullname = user.firstname + ' ' + user.lastname
+    $scope.user = user
 
 // LOAD DATA FOR OPTION DROP DOWNS
 
@@ -75,6 +77,34 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         } 
     }
 
+    $scope.incrementWeek = function () {
+        $scope.startDate = moment($scope.startDate).add(7, 'days').format('MM/DD/YYYY')
+        console.log ($scope.startDate)
+
+       // If we increment into the next week, change the timesheet startDate too
+    //    let timeEntryWeek = moment(moment($scope.startDate).toDate()).startOf('week')._d
+       
+    //    // the stuff inside 'isSame' is takinc startDate, converting it to a date, and then finding 1st day
+    //    if (!moment($scope.startDate).isSame(moment(moment($scope.startDate).toDate()).startOf('week')._d)) {
+    //        console.log('weeks are not the same')
+    //        $scope.startDate = timeEntryWeek
+    //    } 
+   }
+
+   $scope.decrementWeek = function () {
+       
+       $scope.startDate = moment($scope.startDate).add(-7, 'days').format('MM/DD/YYYY')
+       console.log ($scope.startDate)
+
+    //    //If we decrement into the next week, change the timesheet startDate too
+    //    let timeEntryWeek = moment(moment($scope.startDate).toDate()).startOf('week').format('MM/DD/YYYY')
+ 
+    //    // // the stuff inside 'isSame' is takinc startDate, converting it to a date, and then finding 1st day
+    //    if (!moment($scope.startDate).isSame(moment(moment($scope.startDate).toDate()).startOf('week')._d)) {
+    //        console.log('weeks are not the same')
+    //        $scope.startDate = timeEntryWeek
+    //    } 
+   }
 
 
       
@@ -89,8 +119,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         // console.log($scope.apidata);
         
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            // console.log('Timesheet Data:');
-            // console.log(response)
+            console.log('Timesheet Data:');
+            console.log(response)
             $scope.timesheet = response
             
             $scope.dateHeader = {

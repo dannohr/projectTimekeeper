@@ -16,9 +16,7 @@ angular
                 $(".navbar-collapse").collapse('hide');
               });
 
-            // Initialize Datatables
-            // $('#timesheettable').DataTable();  
-    
+
               
          
            

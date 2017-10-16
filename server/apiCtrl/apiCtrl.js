@@ -1,7 +1,7 @@
 
 // _____  API ______ // 
 
-const { User, UserStatus, Project, ProjectType, ProjectStatus, TimeEntry, Task } = require('../db/model.js')
+const { User, UserStatus, UserPermission, UserSecurityGroup, Project, ProjectType, ProjectStatus, TimeEntry, Task } = require('../db/model.js')
 const { knex, Bookshelf } = require('../db/db.js');
 const bcrypt   = require('bcrypt-nodejs');
 
@@ -18,7 +18,7 @@ const validPassword = function(submittedPassword, hashedPassword) {
 const getUsers = function(req, res, next) {
     if (req.query.id) {
         User.where({userid: req.query.id})
-            .fetch(({withRelated: ['userstatus']}))                         
+            .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))                         
             .then(function(user) {
                 console.log(user)
                 res.json({ error: false, data: user.toJSON() });
@@ -28,7 +28,7 @@ const getUsers = function(req, res, next) {
             });
 
     } else {
-        User.fetchAll(({withRelated: ['userstatus']}))
+        User.fetchAll(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -39,14 +39,15 @@ const getUsers = function(req, res, next) {
 }
 
 const postUser = function(req, res, next) {
-    new User({
+    new User({ 
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
       username: req.body.username,
       userstatus_id: req.body.userstatus_id,
+      usersecuritygroup_id: req.body.usersecuritygroup_id,
       password: generateHash(req.body.password)
-    })
+        })
       .save()
       .then(function(saved) {
         res.json({ saved });
@@ -63,15 +64,20 @@ const deleteUser = function(req, res, next) {
 };
 
 const updateUser = function(req, res, next) {
+    // Loop through object and if there's a password key, hash it:
+    console.log(req.body)
+    for (var prop in req.body) {
+        if (prop == ('password')) {
+            req.body.password = generateHash(req.body.password)
+        }
+    }
+    console.log('Test Hash')
+    console.log(req.body)
+
     User
         .where({userid: req.query.id})
-        .save({firstname: req.body.firstname,
-               lastname: req.body.lastname,
-               email: req.body.email,
-               username: req.body.username,
-               userstatus_id: req.body.userstatus_id,
-               password: generateHash(req.body.password)
-            }, {patch:true}) 
+        .save(req.body
+            , {patch:true}) 
         .then(function(model) {
             res.json({ model });
         });
@@ -86,6 +92,36 @@ const getUserStatus = function(req, res, next) {
     res.status(500).json( {error: true, data: {message: err.message}} );
     })
 }
+
+const getUserPermission = function(req, res, next) {
+    UserPermission.fetchAll()
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
+
+const updateUserPermission = function(req, res, next) {
+    UserPermission
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const getUserSecurityGroup = function(req, res, next) {
+    UserSecurityGroup.fetchAll()
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
+
 
 
 const getProjects = function(req, res, next) {
@@ -284,6 +320,9 @@ module.exports = {
     deleteUser,
     updateUser,
     getUserStatus,
+    getUserSecurityGroup,
+    getUserPermission,
+    updateUserPermission,
     getProjects,
     postProject,
     deleteProject,

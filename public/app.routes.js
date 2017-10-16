@@ -162,6 +162,19 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             }
         })
 
+        .state("security", {
+            url: "/security",   
+            templateUrl: './component/security/security.html',
+            controller: 'securityCtrl',
+            resolve: {
+                user: mainSrvc => mainSrvc.getUser()
+                    .then(response => response.data)
+                    .catch(err => {
+                        // $state.go('/login')
+                    })
+            }
+        })
+
 
 
 

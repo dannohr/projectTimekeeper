@@ -6,10 +6,12 @@ const Auth0Strategy = require('passport-auth0');
 const { domain, clientID, clientSecret } = require('../config').auth0;
 
 // load up the user model
-var User = require('./db/model');
+// var User = require('./db/model');
 
 // load database
-const { knex } = require('./db/db');
+// const { knex } = require('./db/db');
+const { knex } = require('./db/db.js');
+const { User } = require('./db/model.js')
 
 // load database
 const { validPassword, generateHash } = require('./apiCtrl/apiCtrl.js');
@@ -19,7 +21,12 @@ module.exports = function(passport) {
     
     passport.use(new Auth0Strategy({domain, clientID, clientSecret, callbackURL:  '/auth0/callback'}, 
         (accessToken, refreshToken, extraParams, profile, done) => {
+            
+            
+            
             knex('user').where('authid', profile._json.sub)
+            
+            
             .then((user, err) => {
                 if (!user[0]) { //if there isn't a user, we'll create one!
                     console.log('CREATING USER');
@@ -41,41 +48,46 @@ module.exports = function(passport) {
 
   
 passport.use('login', new LocalStrategy( {
-   usernameField: 'localuser', // redundant, could override
-   passwordField: 'password', // same here
+   usernameField: 'localuser', 
+   passwordField: 'password',  
    passReqToCallback: true
   }, 
-  // note first parameter is request object, because passReqToCallback=true
+  
   function(req, username, password, done) {
     console.log('Local passport authentication');
     console.log('username is ', username);
     console.log('password is ', password);
+    let user ={}
     
-    knex('user').where('username', username)
-    .then((user, err) => {
-        console.log('hashed password: ', user[0].password)
-        console.log('submitted password: ', password)
-        console.log(validPassword(password, user[0].password))
-        if (!user[0]) { //No User
-            console.log('No user found')
-            return done(null, false)
-            // return done(null, false, req.flash('loginMessage', 'No user found.'));
-          
-        } 
+    User
+        .where({username: username})
+        .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))
+        .then((user, err) => {
+                user = (user.toJSON() )
         
-        if (!(validPassword(password, user[0].password))) {
-            console.log('bad password')
-            return done(null, false)
-            // return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-        }
-        
-        
-        else { //when we find the user, return it
-            console.log('FOUND USER', user[0]);
-            // return done(err, user[0]);
-            return done(null, user[0]);
-        }
-    });
+            if (!user) { //No User
+                console.log('No user found')
+                return done(null, false)
+                // return done(null, false, req.flash('loginMessage', 'No user found.'));
+            } 
+            
+            if (!(validPassword(password, user.password))) {
+                console.log('bad password')
+                return done(null, false)
+                // return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+            }
+            
+            
+            else { //when we find the user, return it
+                // console.log('FOUND USER', user.attributes);
+                // return done(err, user[0]);
+                return done(null, user);
+            }
+        })
+        .catch((err) => {
+            console.log('caught error')
+            console.log(err)
+          });
   })
 );
 

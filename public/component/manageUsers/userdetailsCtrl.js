@@ -13,6 +13,7 @@ angular.module('fullstack').controller('userdetailsCtrl', function($scope, $http
         console.log('here it is')
         console.log($scope.userDetails)
         $scope.created = new Date($scope.userDetails.created_at)
+        $scope.lastLogin = new Date($scope.userDetails.lastlogin)
         // https://stackoverflow.com/questions/30537886/error-ngmodeldatefmt-expected-2015-05-29t190616-693209z-to-be-a-date-a
     });
     }
@@ -33,10 +34,11 @@ $scope.save = function(id) {
         lastname: $scope.userDetails.lastname,
         email: $scope.userDetails.email,
         userstatus_id: $scope.userDetails.userstatus_id,
-        password: $scope.userDetails.password
-        }
-        
+        usersecuritygroup_id: $scope.userDetails.usersecuritygroup_id  
+    }
 
+    console.log($scope.custForApi)
+        
     if(typeof id === 'undefined') {  //add new
         usersService.create($scope.custForApi).then (function(response) {
         $scope.newCustomer = response;
@@ -51,6 +53,30 @@ $scope.save = function(id) {
 }
 
 
+
+$scope.updatePW = function(id) {
+    $scope.custForApi = {
+       password: $scope.userDetails.password  
+    }
+
+   console.log($scope.custForApi)
+   usersService.update(id.id, $scope.custForApi).then (function(response) {
+ 
+    $state.go('users');  // go back to all users screen
+
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
     $scope.getUserStatus = function () {
         usersService.getStatus().then(function (response) {
             $scope.options = response.data
@@ -59,6 +85,15 @@ $scope.save = function(id) {
     }
 
     $scope.getUserStatus()
+
+    $scope.getSecurityGroup = function () {
+        usersService.getSecurityGroup().then(function (response) {
+            $scope.securityGroup = response.data
+            console.log($scope.options)
+            });
+    }
+
+    $scope.getSecurityGroup()
 
 
 

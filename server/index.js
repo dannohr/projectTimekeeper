@@ -16,7 +16,7 @@ const { secret } = require('../config').session;
 const apiCtrl = require('./apiCtrl/apiCtrl.js')
 
 const flash = require("connect-flash");
-
+// 
 const router = express.Router();
 
 // App Declaration
@@ -59,6 +59,9 @@ app.post('/api/users', apiCtrl.postUser)
 app.delete('/api/users', apiCtrl.deleteUser)
 app.put('/api/users', apiCtrl.updateUser)
 app.get('/api/userstatus', apiCtrl.getUserStatus)
+app.get('/api/userpermission', apiCtrl.getUserPermission)
+app.put('/api/userpermission', apiCtrl.updateUserPermission)
+app.get('/api/usersecuritygroup', apiCtrl.getUserSecurityGroup)
 
 app.get('/api/projects', apiCtrl.getProjects)
 app.post('/api/projects', apiCtrl.postProject)

@@ -36,6 +36,7 @@ self.create = function (data) {
 };
 
 self.update = function (id, data) {
+    console.log(data)
     return $http({
         method: 'PUT',
         url: baseUrl + '?id=' + id,
@@ -56,6 +57,13 @@ self.getStatus = function (id) {
     return $http({
         method: 'GET',
         url: '/api/userstatus'
+    });
+};
+
+self.getSecurityGroup = function (id) {
+    return $http({
+        method: 'GET',
+        url: '/api/usersecuritygroup'
     });
 };
 

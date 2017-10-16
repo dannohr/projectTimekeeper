@@ -28,6 +28,8 @@ angular.module('fullstack').controller('usersCtrl', function($scope, user, $http
 
     $scope.getUserStatus()
 
+
+
     
     
     

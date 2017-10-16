@@ -4,18 +4,18 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
     var baseUrl = '/api/timesheet?id=';
     
     // enter any date and get the sunday of that week
-    self.getSunday = function(date) {
-        var day = date.getDay() || 7;  
-        if( day !== 0 ) 
-            date.setHours(-24 * (day - 0)); 
-        return date;
-    }
+    // self.getSunday = function(date) {
+    //     var day = date.getDay() || 7;  
+    //     if( day !== 0 ) 
+    //         date.setHours(-24 * (day - 0)); 
+    //     return date;
+    // }
 
     // make it so that calendar date picker only picks sundays
-    self.onlyPickSunday = function(date) {
-        var day = date.getDay();
-        return day === 0;
-        }
+    // self.onlyPickSunday = function(date) {
+    //     var day = date.getDay();
+    //     return day === 0;
+    //     }
 
     self.getTimesheet = function (data) {
         return $http({

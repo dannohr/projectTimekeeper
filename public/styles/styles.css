@@ -49,3 +49,20 @@ th {
 .finger {
     cursor: finger;
 }
+
+.reset-pw-bttn {
+    display: inline-block;
+    padding: 0px;
+    margin: 6px 0px 0px 2px;
+    width: 50px;
+    height: 25px;
+}
+
+.reset-pw-bttn .reset-pw-bttn-span.text {
+    font-size: 9px;
+    padding: 2px;
+}
+
+.security-table-head {
+    font-size: 10px;
+}

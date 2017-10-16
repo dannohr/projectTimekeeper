@@ -1,0 +1,86 @@
+<nav-directive> </nav-directive>
+<div class = "vert_spacer_75px"></div>  
+<h3> Update Security Settings </h3>
+
+
+<div class="container border">
+    <table id="permissiontable" class="table table-hover table-sm">
+            <thead>   
+                <tr>
+                    <!-- <th class = "border-0 text-center"></th> -->
+                    <th class = "border-0 text-center security-table-head">id</th>
+                    <th class = "border-0 text-center security-table-head">Admin Menu</th>
+                    <th class = "border-0 text-center security-table-head">Manage Projects</th>
+                    <th class = "border-0 text-center security-table-head">Manage Users</th>
+                    <th class = "border-0 text-center security-table-head">Manage Security</th>
+                    <th class = "border-0 text-center security-table-head">View All Timesheets</th>
+                    <th class = "border-0 text-center security-table-head">View Reports</th>
+                </tr>
+            </thead>
+            
+            <tbody ng-repeat="permission in permissions ">                                      
+                <tr>
+                    <!-- <td>
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                        <!-- <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>    -->
+                    <td class = "text-center">{{permission.id}}</td>   
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'adminmenu', value: permission.adminmenu} )" value="{{permission.adminmenu}}" ng-model="permission.adminmenu"></td>
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'manageprojects', value: permission.manageprojects} )" value="{{permission.manageprojects}}" ng-model="permission.manageprojects"></td>
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'manageusers', value: permission.manageusers} )" value="{{permission.manageusers}}" ng-model="permission.manageusers"></td>
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'managesecurity', value: permission.managesecurity} )" value="{{permission.managesecurity}}" ng-model="permission.managesecurity"></td>
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'viewalltimesheets', value: permission.viewalltimesheets} )" value="{{permission.viewalltimesheets}}" ng-model="permission.viewalltimesheets"></td>
+                    <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'viewreports', value: permission.viewreports} )" value="{{permission.viewreports}}" ng-model="permission.viewreports"></td>
+                </tr>
+            </tbody>
+
+           
+        </table>
+
+
+<br>
+<br>
+<hr>
+
+        <table id="permissiontable" class="table table-hover table-sm">
+            <thead>   
+                <tr>
+                    <!-- <th class = "border-0 text-center"></th> -->
+                    <th class = "border-0 text-center security-table-head">id</th>
+                    <th class = "border-0 text-center security-table-head">Admin Menu</th>
+                    <th class = "border-0 text-center security-table-head">Manage Projects</th>
+                    <th class = "border-0 text-center security-table-head">Manage Users</th>
+                    <th class = "border-0 text-center security-table-head">Manage Security</th>
+                    <th class = "border-0 text-center security-table-head">View All Timesheets</th>
+                    <th class = "border-0 text-center security-table-head">View Reports</th>
+                </tr>
+            </thead>
+            
+            <tbody ng-repeat="permission in permissions ">                                      
+                <tr>
+                    <!-- <td>
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>    -->
+                    <td class = "text-center">{{permission.id}}</td>  
+                    <td class = "text-center">{{permission.adminmenu}} </td>
+                    <td class = "text-center">{{permission.manageprojects}} </td>
+                    <td class = "text-center">{{permission.manageusers}}  </td>
+                    <td class = "text-center">{{permission.managesecurity}} </td>
+                    <td class = "text-center">{{permission.viewalltimesheets}} </td>
+                    <td class = "text-center">{{permission.viewreports}} </td>
+                </tr>
+            </tbody>
+
+           
+        </table>
+
+        <br>
+        <br>
+        <hr>
+
+
+
+    </div>
+
+
+
+
