@@ -18,6 +18,7 @@ const apiCtrl = require('./apiCtrl/apiCtrl.js')
 const flash = require("connect-flash");
 // 
 const router = express.Router();
+const reports = require('./routes/reports.js')
 
 // App Declaration
 const app = express();
@@ -53,6 +54,8 @@ require('./passport')(passport); // pass passport for configuration
 
 
 // General Endpoints
+
+app.use('/api/reports', reports)
 
 app.get('/api/users', apiCtrl.getUsers)
 app.post('/api/users', apiCtrl.postUser)
