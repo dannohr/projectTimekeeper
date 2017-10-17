@@ -25,8 +25,8 @@ $scope.cancel = function() {
 
 $scope.save = function(id) {
      $scope.projForApi = {
-        projectstatusid: $scope.projDetails.projectstatusid,
-        projecttypeid: $scope.projDetails.projecttypeid,
+        projectstatus_id: $scope.projDetails.projectstatus_id,
+        projecttype_id: $scope.projDetails.projecttype_id,
         projectname: $scope.projDetails.projectname
         }
         

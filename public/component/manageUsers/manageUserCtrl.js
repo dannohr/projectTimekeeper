@@ -1,4 +1,4 @@
-angular.module('fullstack').controller('usersCtrl', function($scope, user, $http, usersService, $stateParams) {
+angular.module('fullstack').controller('manageUserCtrl', function($scope, user, $http, usersService, $stateParams) {
     
     $scope.usersTest = "Test of Users Angular"
 
@@ -27,6 +27,14 @@ angular.module('fullstack').controller('usersCtrl', function($scope, user, $http
     }
 
     $scope.getUserStatus()
+
+
+    $scope.getFilter = function() {
+        var result = {};
+        result[$scope.allusers.lastname] = $scope.usersearch;
+        console.log(result)
+        return result;
+    }
 
 
 

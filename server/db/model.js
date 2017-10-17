@@ -9,9 +9,34 @@ const User = Bookshelf.Model.extend(
         },
         usersecuritygroup: function() {
             return this.belongsTo(UserSecurityGroup);
-        } 
+        },
+        timesheetdata: function() {
+            return this.hasMany(TimeSheetData);
+        },
+        timeentry: function() {
+            return this.hasMany(TimeEntry);
+        }
     });
 
+
+
+const TimeEntry = Bookshelf.Model.extend(
+    { tableName: 'timeentry',
+        user: function() {
+            return this.belongsTo(User);
+        } 
+
+    });
+
+const TimeSheetData = Bookshelf.Model.extend(
+    {   tableName: 'vw_timesheetdata',
+        user: function() {
+        return this.belongsTo(user);
+    }
+    });
+
+
+    
 const UserStatus = Bookshelf.Model.extend(
     {   tableName: 'userstatus',
         user: function() {
@@ -62,14 +87,6 @@ const ProjectType = Bookshelf.Model.extend(
 });
 
 
-
-const TimeSheetData = Bookshelf.Model.extend(
-    { tableName: 'vw_timesheetdata' }
-);
-
-const TimeEntry = Bookshelf.Model.extend(
-    { tableName: 'timeentry' }
-);
 
 const Task = Bookshelf.Model.extend(
     { tableName: 'task' }

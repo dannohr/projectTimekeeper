@@ -8,7 +8,7 @@
         <form class="form-inline justify-content-center">     
             <div class = "m-1">
                 <label for="userfilter" ng-show="user.usersecuritygroup.userpermission.viewalltimesheets" >Select User</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.userid as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ng-show="user.usersecuritygroup.userpermission.viewalltimesheets"></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-model="userFilter" ng-options="user.id as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ng-show="user.usersecuritygroup.userpermission.viewalltimesheets"></select> 
                 <label for="userfilter" ng-show="!user.usersecuritygroup.userpermission.viewalltimesheets" >User</label>
                 <span class="form-control mb-2 mr-sm-2 mb-sm-0 finger" ng-show="!user.usersecuritygroup.userpermission.viewalltimesheets">{{ userfullname }}</span>
             </div>
@@ -60,7 +60,7 @@
         <form class="form-inline justify-content-center">
             <div class = "m-1">
                 <label for="userfilter">Project</label>
-                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="timeentry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"><option value="">-- Select Project --</option></select> 
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0 text-center finger" ng-model="timeentry.project_id" ng-options="project.id as project.projectname for project in openProjects"><option value="">-- Select Project --</option></select> 
             </div>
             <div class = "m-1">
                 <label for="userfilter">Task</label>

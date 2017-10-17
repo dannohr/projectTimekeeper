@@ -1,6 +1,5 @@
 // Bring in our required modules
-const express = require('express');
-// const bodyParser = require('body-parser');
+const express = require('express');;
 const { json } = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
@@ -29,19 +28,34 @@ app.use(json());
 app.use(cors());
 app.use(express.static(`${__dirname}/../public`));
 
+
 // setting up express sessions
 // secret: config.session.secret;
 app.use(session({
     secret,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true //,
+    //cookie: { secure: true }
 }));
+
+app.use(flash());
+// app.configure(function() {
+//     app.use(express.cookieParser('keyboard cat'));
+//     app.use(express.session({ cookie: { maxAge: 60000 }}));
+//     app.use(flash());
+//   });
+
+app.use(function(req, res, next){
+    res.locals.success = req.flash('success');
+    res.locals.errors = req.flash('error');
+    next();
+});
+
 
 // setting up passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(flash());
 
 require('./passport')(passport); // pass passport for configuration
 
@@ -79,7 +93,7 @@ app.post('/api/timeentry', apiCtrl.postTimeSheetEntry)
 app.delete('/api/timeentry', apiCtrl.deleteTimeSheetEntry)
 app.put('/api/timeentry', apiCtrl.updateTimeSheetEntry)
 app.get('/api/timeentry', apiCtrl.getTimeSheetEntry)
-app.get('/api/timeentries', apiCtrl.getTimeSheetEntries)   //get all betwwen two dates by userid
+app.get('/api/timeentries', apiCtrl.getTimeSheetEntries)   //get all betwwen two dates by user_id
 
 // auth endpoints
 

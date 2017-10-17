@@ -99,8 +99,8 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
 
         .state('users', {
             url: "/users",
-            templateUrl: './component/manageUsers/users.html',
-            controller: 'usersCtrl',
+            templateUrl: './component/manageUsers/manageuser.html',
+            controller: 'manageUserCtrl',
             resolve: {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)

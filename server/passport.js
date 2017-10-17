@@ -32,7 +32,7 @@ module.exports = function(passport) {
                     console.log('CREATING USER');
                     knex('user').insert({username: profile.nickname, authid: profile._json.sub})
                     .then((res) => {
-                        return knex('users').where('userid',res) })
+                        return knex('users').where('id',res) })
                         .then((res, err) => {
                             console.log('USER CREATED', res[0]);
                             return done(err, res[0]); // GOES TO SERIALIZE USER
@@ -67,14 +67,21 @@ passport.use('login', new LocalStrategy( {
         
             if (!user) { //No User
                 console.log('No user found')
-                return done(null, false)
-                // return done(null, false, req.flash('loginMessage', 'No user found.'));
+                // return done(null, false)
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+            }
+
+            if (user.userstatus_id === 2) {
+                console.log('inactive user')
+                // return done(null, false)
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
             } 
             
             if (!(validPassword(password, user.password))) {
                 console.log('bad password')
-                return done(null, false)
-                // return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                // return done(null, false, { message: 'Incorrect password.' })
+                // req.flash('loginMessage', 'Oops! Wrong password.')
+                return done(null, false); // create the loginMessage and save it to session as flashdata
             }
             
             

@@ -17,8 +17,8 @@ const validPassword = function(submittedPassword, hashedPassword) {
 
 const getUsers = function(req, res, next) {
     if (req.query.id) {
-        User.where({userid: req.query.id})
-            .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))                         
+        User.where({id: req.query.id})
+            .fetch({withRelated: ['userstatus','usersecuritygroup.userpermission']})                         
             .then(function(user) {
                 console.log(user)
                 res.json({ error: false, data: user.toJSON() });
@@ -28,7 +28,7 @@ const getUsers = function(req, res, next) {
             });
 
     } else {
-        User.fetchAll(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))
+        User.fetchAll({withRelated: ['userstatus','usersecuritygroup.userpermission']})
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -39,15 +39,24 @@ const getUsers = function(req, res, next) {
 }
 
 const postUser = function(req, res, next) {
-    new User({ 
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      username: req.body.username,
-      userstatus_id: req.body.userstatus_id,
-      usersecuritygroup_id: req.body.usersecuritygroup_id,
-      password: generateHash(req.body.password)
-        })
+    console.log('user before')
+    console.log(req.body)
+    req.body.password = generateHash(req.body.password)
+    console.log('password after')
+    console.log(req.body)
+    new User(req.body
+        
+    //     { 
+    //   firstname: req.body.firstname,
+    //   lastname: req.body.lastname,
+    //   email: req.body.email,
+    //   username: req.body.username,
+    //   userstatus_id: req.body.userstatus_id,
+    //   usersecuritygroup_id: req.body.usersecuritygroup_id,
+    //   password: generateHash(req.body.password)
+    //     }
+    
+    )
       .save()
       .then(function(saved) {
         res.json({ saved });
@@ -56,7 +65,7 @@ const postUser = function(req, res, next) {
 
 const deleteUser = function(req, res, next) {
     User
-        .where({userid: req.query.id}) 
+        .where({id: req.query.id}) 
         .destroy()
         .then(function(model) {
             res.json({ model });
@@ -75,7 +84,7 @@ const updateUser = function(req, res, next) {
     console.log(req.body)
 
     User
-        .where({userid: req.query.id})
+        .where({id: req.query.id})
         .save(req.body
             , {patch:true}) 
         .then(function(model) {
@@ -127,7 +136,7 @@ const getUserSecurityGroup = function(req, res, next) {
 const getProjects = function(req, res, next) {
     if (req.query.id) {
         Project
-            .where({projectid: req.query.id})
+            .where({id: req.query.id})
             .fetch()                         
             .then(function(user) {
                 res.json({ error: false, data: user.toJSON() });
@@ -159,11 +168,7 @@ const getProjects = function(req, res, next) {
 
 
 const postProject = function(req, res, next) {
-    new Project({
-      projectname: req.body.projectname,
-      projectstatusid: req.body.projectstatusid,
-      projecttypeid: req.body.projecttypeid,
-    })
+    new Project( req.body )
       .save()
       .then(function(saved) {
         res.json({ saved });
@@ -172,7 +177,7 @@ const postProject = function(req, res, next) {
 
 const deleteProject = function(req, res, next) {
     Project
-        .where({projectid: req.query.id}) 
+        .where({id: req.query.id}) 
         .destroy()
         .then(function(model) {
             res.json({ model });
@@ -181,12 +186,8 @@ const deleteProject = function(req, res, next) {
 
 const updateProject = function(req, res, next) {
     Project
-        .where({projectid: req.query.id})
-        .save({
-            projectname: req.body.projectname,
-            projectstatusid: req.body.projectstatusid,
-            projecttypeid: req.body.projecttypeid
-            }, {patch:true}) 
+        .where({id: req.query.id})
+        .save( req.body, {patch:true}) 
         .then(function(model) {
             res.json({ model });
         });
@@ -227,7 +228,7 @@ const getWeekTimeSheet = function(req, res, next) {
     
     knex('vw_timesheetdata')
         .where({
-            userid: req.query.id,
+            user_id: req.query.id,
             firstdayofweek: req.query.week
         })
     .then(function (data) {
@@ -240,13 +241,9 @@ const getWeekTimeSheet = function(req, res, next) {
 
 
 const postTimeSheetEntry = function(req, res, next) {
-    new TimeEntry({
-        userid: req.body.userid,
-        projectid: req.body.projectid,
-        taskid: req.body.taskid,
-        taskhours: req.body.taskhours,
-        taskdate: req.body.taskdate
-      })
+    console.log('data to insert it')
+    console.log(req.body)
+    new TimeEntry(req.body)
         .save()
         .then(function(saved) {
           res.json({ saved });
@@ -266,23 +263,21 @@ const deleteTimeSheetEntry = function(req, res, next) {
 const updateTimeSheetEntry = function(req, res, next) {
     TimeEntry
         .where({timeentryid: req.query.id})
-        .save({
-            userid: req.body.userid,
-            projectid: req.body.projectid,
-            taskid: req.body.taskid,
-            taskhours: req.body.taskhours,
-            taskdate: req.body.taskdate
-            }, {patch:true}) 
+        .save(req.body, {patch:true}) 
         .then(function(model) {
             console.log('done')
             res.json({ model });
-        });
+            })
+        .catch(function(error) {
+            console.log('Error in API')
+            console.log(error)
+            })
 }
 
 const getTimeSheetEntry = function(req, res, next) {
     TimeEntry
         .where({timeentryid: req.query.id}) 
-        .fetch()
+        .fetch({withRelated: ['user']})
         .then(function( data) {
             res.json({ data });
         })
@@ -295,7 +290,7 @@ const getTimeSheetEntry = function(req, res, next) {
 const getTimeSheetEntries = function(req, res, next) {
     TimeEntry
         .forge()
-        .where({userid: req.query.id})
+        .where({user_id: req.query.id})
         .query(function(qb) {
                 qb.whereBetween('taskdate', [req.query.start,req.query.end]);
             })

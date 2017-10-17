@@ -9,7 +9,7 @@
 <div class="col-md-8 mx-auto">
     <div class="card rounded-0">
         <div class="card-header">
-            <h3 class="mb-0"><span ng-bind="userDetails.userid ? 'Edit User' : 'Add User'"></h3>
+            <h3 class="mb-0"><span ng-bind="userDetails.id ? 'Edit User' : 'Add User'"></h3>
         </div>
             
         <div class="card-body">
@@ -64,7 +64,7 @@
                     <input type="password" class="form-control rounded-0" id="project" required="" ng-model="userDetails.password">
                 </div>
                 <div class="col-2 pl-0">
-                    <button type="button" class="btn btn-outline-danger saveEditDeleteBttns reset-pw-bttn" ng-click="updatePW({id: userDetails.userid})">Reset</button>
+                    <button type="button" class="btn btn-outline-danger saveEditDeleteBttns reset-pw-bttn" ng-click="updatePW({id: userDetails.id})">Reset</button>
                 </div>
             </div>
 
@@ -88,8 +88,8 @@
                 <button type="button" class="btn btn-warning btn-sm saveEditDeleteBttns" ui-sref="users">Cancel</button>
                 <!-- <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="updateTimeSheetEntry({id: timeEntry.timeentryid},{data: timeEntry})">Save</button> -->
             
-                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="save()" ng-show="!userDetails.userid">Save New</button>
-                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttnst" ng-click="save({id: userDetails.userid})" ng-show="userDetails.userid">Save Existing</button>
+                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttns" ng-click="save()" ng-show="!userDetails.id">Save New</button>
+                <button type="button" class="btn btn-primary btn-sm saveEditDeleteBttnst" ng-click="save({id: userDetails.id})" ng-show="userDetails.id">Save Existing</button>
             
               </div>
         </div>  <!-- card body -->

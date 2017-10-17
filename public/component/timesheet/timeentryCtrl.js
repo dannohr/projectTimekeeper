@@ -55,8 +55,8 @@ console.log('Time Entry ID: ', $stateParams.id)
         sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
         
         $scope.entryForApi = {
-           userid: $scope.timeEntry.userid,
-           projectid: $scope.timeEntry.projectid,
+           user_id: $scope.timeEntry.user_id,
+           project_id: $scope.timeEntry.project_id,
            taskid: $scope.timeEntry.taskid,
            taskhours: $scope.timeEntry.taskhours,
            taskdate: sqlDate

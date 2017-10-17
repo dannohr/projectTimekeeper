@@ -28,24 +28,18 @@ $scope.cancel = function() {
 
 
 $scope.save = function(id) {
-     $scope.custForApi = {
-        username: $scope.userDetails.username,
-        firstname: $scope.userDetails.firstname,
-        lastname: $scope.userDetails.lastname,
-        email: $scope.userDetails.email,
-        userstatus_id: $scope.userDetails.userstatus_id,
-        usersecuritygroup_id: $scope.userDetails.usersecuritygroup_id  
-    }
-
-    console.log($scope.custForApi)
         
     if(typeof id === 'undefined') {  //add new
-        usersService.create($scope.custForApi).then (function(response) {
+        usersService.create($scope.userDetails).then (function(response) {
         $scope.newCustomer = response;
         })
 
-    } else {  //edit existing
-        usersService.update(id.id, $scope.custForApi).then (function(response) {
+    } else {  //edit existing     delete stuff not needed
+        delete $scope.userDetails.userstatus
+        delete $scope.userDetails.usersecuritygroup
+        delete $scope.userDetails.password
+        delete $scope.userDetails.created_at
+        usersService.update(id.id, $scope.userDetails).then (function(response) {
         })
     }
     $state.go('users');  // go back to all users screen

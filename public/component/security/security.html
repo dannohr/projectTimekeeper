@@ -21,8 +21,8 @@
             <tbody ng-repeat="permission in permissions ">                                      
                 <tr>
                     <!-- <td>
-                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
-                        <!-- <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>    -->
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
+                        <!-- <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>    -->
                     <td class = "text-center">{{permission.id}}</td>   
                     <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'adminmenu', value: permission.adminmenu} )" value="{{permission.adminmenu}}" ng-model="permission.adminmenu"></td>
                     <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: permission.id, column: 'manageprojects', value: permission.manageprojects} )" value="{{permission.manageprojects}}" ng-model="permission.manageprojects"></td>
@@ -58,8 +58,8 @@
             <tbody ng-repeat="permission in permissions ">                                      
                 <tr>
                     <!-- <td>
-                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.userid})">
-                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.userid})"></td>    -->
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>    -->
                     <td class = "text-center">{{permission.id}}</td>  
                     <td class = "text-center">{{permission.adminmenu}} </td>
                     <td class = "text-center">{{permission.manageprojects}} </td>

@@ -1,0 +1,68 @@
+<nav-directive> </nav-directive>
+
+<div class = "container py-5">
+    <h3 class = " py-4 text-center"> Manage Users </h3>
+    
+    <button type="button" class="btn btn-primary" ui-sref = "newuser">Create New User</button>
+    <div class="pull-right">
+        <label for="statusfilter">Search:</label>
+        <input class = "searchbox" id="statusfilter" ng-model="usersearch"> </input>
+        <label for="typefilter">Status:</label>
+        <select id="typefilter" ng-model="showstatus" ng-options="data.id as data.status for data in options"><option value="">All</option></select>
+    </div>
+
+<br>
+<hr>
+
+<div class="container border">
+    <table id="timesheettable" class="table table-hover table-sm auto">
+            <thead>   
+                <tr>
+                    <th class = "border-0 modify-delete-col-width"></th>
+                    <th class = "border-0">Username</th>
+                    <th class = "border-0">First Name</th>
+                    <th class = "border-0">Last Name</th>
+                    <th class = "border-0">Status</th>
+                </tr>
+            </thead>
+                                    
+            <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: { userstatus_id: showstatus||undefined } | filter: usersearch: strict">
+            <!-- <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: getFilter()"> -->
+                <tr>
+                    <td class = "text-left modify-delete-col-width">
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>   
+                    <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.username}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.firstname}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.lastname}}</td>
+                    <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.userstatus.status}}</td>
+                </tr>
+            </tbody>
+
+           
+        </table>
+
+    </div>
+                        <!-- 
+                        <table border="1" class="table">
+                        
+                            <tr class="thead-default">
+                                <th> </th>
+                                <th>User Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Status</th>
+                            </tr>
+                            
+                            <tbody>                                      
+                                <tr ng-repeat="user in allusers | filter: { userstatusid: showstatus||undefined }">
+                                    <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
+                                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.firstname}}</td>
+                                    <td>{{user.lastname}}</td>
+                                    <td> <select ng-model="user.userstatusid" ng-options="data.userstatusid as data.status for data in options"></select>
+                                </tr>
+                            </tbody>
+                        
+                        </table> -->

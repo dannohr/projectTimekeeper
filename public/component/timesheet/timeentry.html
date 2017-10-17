@@ -15,13 +15,14 @@
             <div class="form-group row ">
                 <label for="example-text-input" class="col-3 col-form-label">User</label>
                 <div class="col-9">
-                    <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                    <!-- <input class="form-control" type="text" ng-model="timeEntry.userfullname" id="example-text-input"> -->
+                    <span class="form-control">{{timeEntry.user.firstname}} {{timeEntry.user.lastname}}</span>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="example-number-input" class="col-3 col-form-label">Project</label>
                     <div class="col-9">
-                    <select class="form-control" ng-model="timeEntry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"></select>
+                    <select class="form-control" ng-model="timeEntry.project_id" ng-options="project.id as project.projectname for project in openProjects"></select>
                 </div>
             </div>
             <div class="form-group row">
@@ -45,9 +46,6 @@
 
             </div>
 
-
-
-
             <div class="btn-group vol-ctr">
                 <button type="button" class="btn btn-danger btn-sm saveEditDeleteBttns" ng-click="deleteTimeEntry({id: timeEntry.timeentryid})">Delete</button>
                 <button type="button" class="btn btn-warning btn-sm saveEditDeleteBttns" ui-sref="timesheet">Cancel</button>
@@ -61,85 +59,3 @@
 
 
 
-
-
-
-
-
-
-<!-- 
-
-<div class = "vert_spacer_75px"></div>    
-
-<form> 
-  <div class="container py-10">
-      <div class="row py-3">
-          <div class="col-md-12">
-              <div class="row">
-                  <div class="col-md-6 mx-auto">
-                      
-                        <span class="anchor" id="formLogin"></span>
-                      
-                      <div class="card rounded-0">
-                          <div class="card-header">
-                              <h3 class="mb-0">Edit Time Entry</h3>
-                          </div>
-                          
-                          <div class="card-body">
-                              <form class="form" role="form" autocomplete="off" id="editEntry">
-                 
-                                <div class="form-group">
-                                    <label for="uname1">User</label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="uname" id="uname" required="" ng-model="timeEntry.userid">
-                                </div> 
-                                
-                                <div class="form-group">
-                                      <label for="uname1">Project</label>
-                                      <select class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeEntry.projectid" ng-options="project.projectid as project.projectname for project in openProjects"></select>
-                                    </div>
-                                  
-                                  
-                                  <div class="form-group">
-                                      <label>Task</label>
-                                      <select class="form-control mb-2 mr-sm-2 mb-sm-0 " ng-model="timeEntry.taskid" ng-options="task.taskid as task.task for task in projectTasks"></select>                          
-                                    </div>
-
-
-                                  <div class="form-group">
-                                      <label>Date</label>
-                                      <input type="text" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="timeEntry.taskdate">
-                                  </div>
-
-
-                                  <label class="sr-only" for="inlineFormInput">Date</label>
-                                  <md-datepicker class="text-center datepicker-align" ng-model="timeEntry.taskdate" md-min-date="previousMonthMinDate"></md-datepicker> 
-                                  
-                                  <div class="form-group">
-                                      <label>Hours</label>
-                                      <input type="number" class="form-control form-control-lg rounded-0" id="project" required="" ng-model="timeEntry.taskhours">
-                                  </div>
-
-                                  <div class = "m-1">
-                                        <label class="sr-only" for="">Date</label>
-                                        <md-datepicker class="form-control mb-2 mr-sm-2 mb-sm-0" ng-model="timeEntry.taskdate" md-placeholder="Enter date" md-date-filter="dataPickerFilter" md-hide-icons="calendar"></md-datepicker>
-                                    </div>
-
-                                  
-
-
-
-
-                                <div class="justify-content-md-center align-items-center ">
-                                  <button type="button" class="btn btn-danger btn-lg" ng-click="deleteTimeEntry({id: timeEntry.timeentryid})">Delete</button>
-                                  <button type="button" class="btn btn-warning btn-lg" ui-sref="timesheet">Cancel</button>
-                                  <button type="button" class="btn btn-primary btn-lg" ng-click="ldogin(user)">Save</button>
-                                </div>
-                                </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</form> -->

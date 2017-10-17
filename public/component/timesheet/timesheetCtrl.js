@@ -6,11 +6,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     $scope.startDate = moment().startOf('week')._d
     
     // Sets initial entry date to today
-    console.log('setting entryDate')
+    // console.log('setting entryDate')
     $scope.entryDate  = moment().startOf('day')._d
     
     // Sets initial value in ng-option to currently logged in user
-    $scope.userFilter = user.userid
+    $scope.userFilter = user.id
 
     $scope.userfullname = user.firstname + ' ' + user.lastname
     $scope.user = user
@@ -30,7 +30,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     $scope.getOpenProjects = function () {
         timesheetSrvc.getOpenProjects().then(function (response) {
             $scope.openProjects = response.data
-            console.log($scope.openProjects)
+            // console.log($scope.openProjects)
             });
     }
     $scope.getOpenProjects()
@@ -119,8 +119,8 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         // console.log($scope.apidata);
         
         timesheetSrvc.getTimesheet($scope.apidata).then(function (response) {
-            console.log('Timesheet Data:');
-            console.log(response)
+            // console.log('Timesheet Data:');
+            // console.log(response)
             $scope.timesheet = response
             
             $scope.dateHeader = {
@@ -167,7 +167,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         let sqlDate = $scope.entryDate.toString().split("/")
         sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
         
-        data.userid = $scope.userFilter
+        data.user_id = $scope.userFilter
         console.log('Entry Date is:')
         console.log(sqlDate)
 
@@ -202,7 +202,9 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             })  //get the time sheet data from previous week and return it below to re-enter it
 
             .then(function (lastWeekData) {
+                delete lastWeekData.timeentryid  
                 for (i=0; i<lastWeekData.length; i++) {
+                    delete lastWeekData[i].timeentryid    //delete key value from copy row
                     lastWeekData[i].taskdate = moment(lastWeekData[i].taskdate).add(7, 'days').format('YYYY-MM-DD')
                     timesheetSrvc
                         .addTimeEntry(lastWeekData[i])
