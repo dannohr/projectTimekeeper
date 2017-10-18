@@ -1,5 +1,5 @@
 angular.module('fullstack')
-    .controller('timeentryCtrl', function($scope, user, $http, timesheetSrvc, $stateParams, $state) {
+    .controller('timeentryCtrl', function($scope, user, $http, timesheetSrvc, $stateParams, $state, ModalService) {
     
 console.log('Time Entry ID: ', $stateParams.id)
 
@@ -40,14 +40,7 @@ console.log('Time Entry ID: ', $stateParams.id)
             });
     }
     $scope.getProjectTasks()
-
-    $scope.deleteTimeEntry = function (id) {
-        timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
-            $state.go("timesheet");
-            });
-    } 
-    
-    
+  
     $scope.updateTimeSheetEntry = function(id) {
         // Date picker puts the date in a string format of MM/DD/YYYY
         // Rearranging it to YYYY/MM/DD for sql query
@@ -78,6 +71,34 @@ console.log('Time Entry ID: ', $stateParams.id)
    
     }
 
+// Delete will pop open a modal asking you to confirm
+$scope.deleteTimeEntry = function(timeentry) {
+    
+    console.log(timeentry)
+    $scope.modalData = timeentry.timeEntry
+    console.log($scope.modalData)
+    console.log($scope.modalData.taskdate)
+      
+    ModalService.showModal({
+        templateUrl: "/component/modal/confirmdelete.html",
+        controller: "modalController",
+        inputs: { modalData: $scope.modalData,
+                  message: 'Are you sure you want to delete entry having ' + $scope.modalData.taskhours + ' hours on ' + $scope.modalData.taskdate + '?' },
+        preClose: (modal) => { modal.element.modal('hide'); }
+    })
+
+    .then(function(modal) {
+        modal.element.modal();
+        modal.close
+            .then(function(result) {  
+                if(result) {   
+                    timesheetSrvc.deleteTimeEntry( $scope.modalData.timeentryid).then(function (response) {
+                        $state.go("timesheet");
+                        });
+                }
+            })
+        })
+};
 
 
 });

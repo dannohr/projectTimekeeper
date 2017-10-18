@@ -1,4 +1,4 @@
-angular.module('fullstack').controller('projDetailsCtrl', function($scope, $http, manageProjSrvc, $stateParams, $state, user ) {
+angular.module('fullstack').controller('projDetailsCtrl', function($scope, $http, manageProjSrvc, $stateParams, $state, user, ModalService ) {
 
     $scope.getProjectDetails = function (id) {
     console.log(id);
@@ -63,7 +63,33 @@ $scope.save = function(id) {
 
     $scope.getProjectType()
 
+  // Delete will pop open a modal asking you to confirm
+  $scope.deleteProject = function(project) {
+    
+    console.log(project)
+    $scope.modalData = project.projDetails
+    console.log($scope.modalData)
+      
+    ModalService.showModal({
+        templateUrl: "/component/modal/confirmdelete.html",
+        controller: "modalController",
+        inputs: { modalData: $scope.modalData,
+                  message: 'Are you sure you want to delete project: ' + $scope.modalData.projectname + '?' },
+        preClose: (modal) => { modal.element.modal('hide'); }
+    })
 
+    .then(function(modal) {
+        modal.element.modal();
+        modal.close
+            .then(function(result) {  
+                if(result) {   
+                    manageProjSrvc.delete($scope.modalData.id).then(function (response) {
+                        $state.go('manageProj');
+                        });
+                }
+            })
+        })
+};
 
 
 });

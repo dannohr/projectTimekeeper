@@ -2,6 +2,8 @@
 
 <div class = "container py-5">
     <h3 class = " py-4 text-center"> Manage Users </h3>
+
+    
     
     <button type="button" class="btn btn-primary" ui-sref = "newuser">Create New User</button>
     <div class="pull-right">
@@ -31,7 +33,7 @@
                 <tr>
                     <td class = "text-left modify-delete-col-width">
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
-                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>   
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({user})"></td>   
                     <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.username}}</td>
                     <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.firstname}}</td>
                     <td class = "text-left" ui-sref="userdetails({id: user.id})">{{user.lastname}}</td>

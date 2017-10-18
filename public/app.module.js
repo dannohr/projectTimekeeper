@@ -1,6 +1,6 @@
 
 angular
-    .module('fullstack', ['angularMoment','ui.router', '720kb.datepicker', 'ngFlash'])
+    .module('fullstack', ['angularMoment','ui.router', '720kb.datepicker', 'ngFlash', 'angularModalService'])
 
   $(document).ready(function () {
     

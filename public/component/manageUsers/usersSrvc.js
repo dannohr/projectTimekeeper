@@ -47,6 +47,7 @@ self.update = function (id, data) {
 };
 
 self.delete = function (id) {
+    console.log('deleting someone')
     return $http({
         method: 'DELETE',
         url: baseUrl + '/?id=' + id

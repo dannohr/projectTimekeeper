@@ -35,7 +35,7 @@
                 <tr>
                     <td class = "text-left modify-delete-col-width">
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="projectdetails({id: project.id})">
-                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({id: project.id})"></td>   
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
                     <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{project.projectname}}</td>
                     <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{project.projectstatus.status}}</td>
                     <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{project.projecttype.type}}</td>
@@ -44,24 +44,4 @@
         </table>
     </div>
 </div>
-                    <!-- 
-                    <table border="1" class="table">
-                    
-                        <tr class="thead-default">
-                            <th> </th>
-                            <th>Project Name</th>
-                            <th>Status</th>
-                            <th>Type</th>
-                        </tr>
-                        
-                        <tbody>
-                            <tr ng-repeat="project in allprojects | filter: { projectstatus_id: showstatus||undefined, projecttype_id: showtype||undefined }">
-                                <td><img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="projectdetails({id: project.id})">
-                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({id: project.id})"></td>
-                                <td>{{project.projectname}}</td>
-                                <td class = "text-left" ui-sref="userdetails({id: user.id})">{{project.projectstatus.status}}</td>
-                                <td class = "text-left" ui-sref="userdetails({id: user.id})">{{project.projecttype.type}}</td>
-                            </tr>
-                        </tbody>
-                    
-                    </table> -->
+        

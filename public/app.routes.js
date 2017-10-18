@@ -13,6 +13,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
                 user: mainSrvc => mainSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
+                        // console.log(err)
                         // $state.go('/login')
                     })
             }
@@ -22,6 +23,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/login/login.html',
             controller: 'mainCtrl'
         })
+
 
         .state('timesheet', {
             url: '/timesheet',
