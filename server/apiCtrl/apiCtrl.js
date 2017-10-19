@@ -28,7 +28,7 @@ const getUsers = function(req, res, next) {
             });
 
     } else {
-        User.fetchAll({withRelated: ['userstatus','usersecuritygroup.userpermission']})
+        User.fetchAll({withRelated: ['userstatus','usersecuritygroup.userpermission','projectuser']})
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -152,7 +152,8 @@ const getProjects = function(req, res, next) {
                 res.status(500).json({ error: true, data: {message: err.message}} );
             });
     } else {
-        Project.fetchAll({withRelated: ['projectstatus','projecttype','projectuser']})
+        Project
+            .fetchAll({withRelated: ['projectstatus','projecttype','projectuser']})
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -340,6 +341,19 @@ const getProjRole = function(req, res, next) {
 }
 
 
+const getProjectUser = function(req, res, next) {
+    ProjectUser
+    .where({user_id: req.query.id})
+    .fetchAll({withRelated: ['user','project','projectrole', 'project.projectstatus', 'project.projecttype', 'project.projectnotes']})
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
+
+
 
 const updateProjectUser = function(req, res, next) {
     ProjectUser
@@ -382,5 +396,6 @@ module.exports = {
     postProjectUser,
     deleteProjectUser,
     getProjRole,
-    updateProjectUser
+    updateProjectUser,
+    getProjectUser
 }

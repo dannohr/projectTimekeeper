@@ -74,6 +74,8 @@ const Project = Bookshelf.Model.extend(
             return this.belongsTo(ProjectStatus)},
         projectuser: function() {
             return this.hasMany(ProjectUser)},
+        projectnotes: function() {
+            return this.hasMany(ProjectNotes)},
         projecttype: function() {
             return this.belongsTo(ProjectType)}
     });
@@ -113,6 +115,12 @@ const Task = Bookshelf.Model.extend(
     { tableName: 'task' }
 );
 
+const ProjectNotes = Bookshelf.Model.extend(
+    { tableName: 'projectnotes',
+        project: function() {
+            return this.belongsTo(Project)} }
+);
+
 
 
  module.exports = {
@@ -128,7 +136,8 @@ const Task = Bookshelf.Model.extend(
             Task,
             TotalHoursByWeek,
             ProjectUser,
-            ProjectRole
+            ProjectRole,
+            ProjectNotes
         };
 
 

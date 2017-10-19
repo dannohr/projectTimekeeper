@@ -1,5 +1,57 @@
 <nav-directive> </nav-directive>
 <div class = "vert_spacer_75px"></div>
 
-<h3> This is the projects page </h3>
-{{ projectTest }}
+<h3> Project Information </h3>
+
+<!-- <p>Logged in User is: <b>{{user.id}}</b></p>
+<p>Showing Projects for user ID: <b>{{userFilter}}</b></p> -->
+
+<div class="container border-0">
+
+    <div class="container form-group row">
+        <label for="example-number-input" class="col-3 col-form-label text-right">Projects Assigned To:</label>
+            <div class="">
+            <select class="form-control" ng-change="getProjectUser(userFilter)" ng-model="userFilter" ng-options="user.id as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ng-show="user.usersecuritygroup.userpermission[0].viewallprojects"></select>
+            <span class="form-control mb-2 mr-sm-2 mb-sm-4 finger" ng-show="!user.usersecuritygroup.userpermission[0].viewalltimesheets">{{ user.firstname }} {{ user.lastname }}</span>
+        </div>
+    </div>
+    
+</div>
+
+
+<div class = "container">
+    <div ng-repeat="projects in projectuser">
+        <span><b>{{projects.project.projectname}}</b></span>
+
+        <!-- <div ng-repeat="notes in projects.project.projectnotes"> 
+            <div>
+                <input type="text" class="form-control rounded-0" id="projectnotes" ng-model="notes.projectnotes"> 
+            <br>
+        </div>  -->
+
+        <table id="projecttable" class="table table-hover table-sm">
+            <thead>   
+                <tr>
+                    <!-- <th class = "border-0 modify-delete-col-width"></th> -->
+                    <th class = "border-0">Created</th>
+                    <th class = "border-0">User ID</th>
+                    <th class = "border-0">Notes</th>
+                </tr>
+            </thead>
+            
+            <tbody ng-repeat="notes in projects.project.projectnotes | gorderBy: ['createdate']">                                      
+                <tr>
+                    <!-- <td class = "text-left modify-delete-col-width">
+                        <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="projectdetails({id: project.id})">
+                        <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>    -->
+                    <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.createdate | amDateFormat:'MM/DD/YYYY'}}</td>
+                    <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.user_id}}</td>
+                    <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.projectnotes}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+    </div>
+</div>
+                        

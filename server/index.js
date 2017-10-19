@@ -59,12 +59,12 @@ app.use(passport.session());
 
 require('./passport')(passport); // pass passport for configuration
 
- app.use((req, res, next) => {
-    console.log('REQ BODY', req.body);
-    console.log('REQ QUERY', req.query);
-    console.log('REQ PARAMS', req.params);
-    next();
-});
+//  app.use((req, res, next) => {
+//     console.log('REQ BODY', req.body);
+//     console.log('REQ QUERY', req.query);
+//     console.log('REQ PARAMS', req.params);
+//     next();
+// });
 
 
 // General Endpoints
@@ -87,9 +87,12 @@ app.put('/api/projects', apiCtrl.updateProject)
 app.get('/api/projStatus', apiCtrl.getProjStatus)
 app.get('/api/projType', apiCtrl.getProjType)
 app.get('/api/projTask', apiCtrl.getProjTask)
+
+app.get('/api/projectuser', apiCtrl.getProjectUser)
 app.post('/api/projectuser', apiCtrl.postProjectUser)
 app.delete('/api/projectuser', apiCtrl.deleteProjectUser)
 app.put('/api/projectuser', apiCtrl.updateProjectUser)
+
 app.get('/api/projrole', apiCtrl.getProjRole)
 
 
@@ -122,7 +125,7 @@ passport.authenticate('login', { successRedirect: '/' }), (req, res) => {
 // if not logged in, send error message and catch in resolve
 // else send user
 app.get('/auth/me', (req, res) => {
-    console.log('checked to see if logged in coming from index.js')
+    // console.log('checked to see if logged in coming from index.js')
     if (!req.user) return res.status(401).json({err: 'User Not Authenticated'});
     
     res.status(200).json(req.user);

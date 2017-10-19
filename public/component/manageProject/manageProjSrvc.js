@@ -106,6 +106,16 @@ angular.module('fullstack').service('manageProjSrvc', function($http) {
         });
     };
 
+    
+    self.getProjectUser = function (id) {
+        return $http({
+            method: 'GET',
+            url: '/api/projectuser/?id=' + id
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
 
 
     

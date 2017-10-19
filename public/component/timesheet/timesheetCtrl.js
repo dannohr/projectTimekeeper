@@ -80,30 +80,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     $scope.incrementWeek = function () {
         $scope.startDate = moment($scope.startDate).add(7, 'days').format('MM/DD/YYYY')
         console.log ($scope.startDate)
-
-       // If we increment into the next week, change the timesheet startDate too
-    //    let timeEntryWeek = moment(moment($scope.startDate).toDate()).startOf('week')._d
-       
-    //    // the stuff inside 'isSame' is takinc startDate, converting it to a date, and then finding 1st day
-    //    if (!moment($scope.startDate).isSame(moment(moment($scope.startDate).toDate()).startOf('week')._d)) {
-    //        console.log('weeks are not the same')
-    //        $scope.startDate = timeEntryWeek
-    //    } 
    }
 
    $scope.decrementWeek = function () {
-       
        $scope.startDate = moment($scope.startDate).add(-7, 'days').format('MM/DD/YYYY')
        console.log ($scope.startDate)
-
-    //    //If we decrement into the next week, change the timesheet startDate too
-    //    let timeEntryWeek = moment(moment($scope.startDate).toDate()).startOf('week').format('MM/DD/YYYY')
- 
-    //    // // the stuff inside 'isSame' is takinc startDate, converting it to a date, and then finding 1st day
-    //    if (!moment($scope.startDate).isSame(moment(moment($scope.startDate).toDate()).startOf('week')._d)) {
-    //        console.log('weeks are not the same')
-    //        $scope.startDate = timeEntryWeek
-    //    } 
    }
 
 
@@ -149,12 +130,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                              + $scope.dateFooter.wed + $scope.dateFooter.thu + $scope.dateFooter.fri 
                              + $scope.dateFooter.sat
             
-                            
-        
-        
         });
-
-        
     }
     
     //Initial loading of timesheet
@@ -200,27 +176,13 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                     timesheetSrvc
                         .addTimeEntry(lastWeekData[i])
                         .then(function (response) {
-                            // console.log(lastWeekData[0])
-                            // console.log(response)  
                         })
                         .then(function () {
                             timesheet()
                         })  
                 }
             })
-            // .then(function () {
-            //     timesheet()
-            // })
     }
-
-
-
-
-    // $scope.deleteTimeEntry = function (id) {
-    //     timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
-    //         timesheet()  // reload the table after deleting row
-    //     });
-    // }
 
 
 
@@ -256,10 +218,7 @@ $scope.deleteTimeEntry = function(timeentry) {
 
 
 
-
-
-
-    $scope.$watch('[startDate,userFilter]', function(newValue, oldValue){  
+    $scope.$watch('[startDate, userFilter]', function(newValue, oldValue){  
         // The timesheet isn't updating when the calendar changes
         // so forcing it here:
         $scope.apidata = {
@@ -267,16 +226,10 @@ $scope.deleteTimeEntry = function(timeentry) {
             week: moment($scope.startDate).format('YYYY-MM-DD')
         }    
         timesheet()
-        
-        // $scope.entryDate =  moment($scope.startDate).format('YYYY-MM-DD')
-
-        //     console.log('entry date is:')
-        //     console.log($scope.entrydate)
-       
-
      });
      
    
+     
      
    
      

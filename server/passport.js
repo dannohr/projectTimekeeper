@@ -101,12 +101,12 @@ passport.use('login', new LocalStrategy( {
 
 
 passport.serializeUser(function(user, done) {
-    console.log('serialized user')
+    // console.log('serialized user')
     done(null, user);
     });  //Adds user to the session
 
 passport.deserializeUser(function(user, done) {
-    console.log('deserializeUser user')
+    // console.log('deserializeUser user')
     done(null, user);
     });   // Pulls user off session and un-hashes it so you can see and use it
             // will now have reg.user, use to interact with the users info
