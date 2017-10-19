@@ -5,17 +5,15 @@ var { Bookshelf } = require('./db');
 const User = Bookshelf.Model.extend(
     {   tableName: 'user',
         userstatus: function() {
-            return this.belongsTo(UserStatus);
-        },
+            return this.belongsTo(UserStatus)},
         usersecuritygroup: function() {
-            return this.belongsTo(UserSecurityGroup);
-        },
+            return this.belongsTo(UserSecurityGroup)},
         timesheetdata: function() {
-            return this.hasMany(TimeSheetData);
-        },
+            return this.hasMany(TimeSheetData)},
         timeentry: function() {
-            return this.hasMany(TimeEntry);
-        }
+            return this.hasMany(TimeEntry)},
+        projectuser: function() {
+            return this.hasMany(ProjectUser)}
     });
 
 
@@ -30,6 +28,13 @@ const TimeEntry = Bookshelf.Model.extend(
 
 const TimeSheetData = Bookshelf.Model.extend(
     {   tableName: 'vw_timesheetdata',
+        user: function() {
+        return this.belongsTo(user);
+    }
+    });
+
+const TotalHoursByWeek = Bookshelf.Model.extend(
+    {   tableName: 'vw_totalhoursbyweek',
         user: function() {
         return this.belongsTo(user);
     }
@@ -50,14 +55,14 @@ const UserSecurityGroup = Bookshelf.Model.extend(
             return this.hasMany(User);
         },
         userpermission: function() {
-            return this.belongsTo(UserPermission);
+            return this.hasMany(UserPermission);
         }
     });
 
 const UserPermission = Bookshelf.Model.extend(
     {   tableName: 'userpermission',
         usersecuritygroup: function() {
-            return this.hasMany(UserSecurityGroup);
+            return this.belongsTo(UserSecurityGroup);
         }
     });
 
@@ -67,10 +72,11 @@ const Project = Bookshelf.Model.extend(
     {   tableName: 'project',
         projectstatus: function() {
             return this.belongsTo(ProjectStatus)},
+        projectuser: function() {
+            return this.hasMany(ProjectUser)},
         projecttype: function() {
-            return this.belongsTo(ProjectType);  
-    }
-});
+            return this.belongsTo(ProjectType)}
+    });
 
 const ProjectStatus = Bookshelf.Model.extend(
     {   tableName: 'projectstatus',
@@ -86,6 +92,21 @@ const ProjectType = Bookshelf.Model.extend(
     }
 });
 
+const ProjectUser = Bookshelf.Model.extend(
+    {   tableName: 'projectuser',
+        project: function() {
+        return this.belongsTo(Project)},
+        user: function() {
+        return this.belongsTo(User)},
+        projectrole: function() {
+        return this.belongsTo(ProjectRole)}
+    });
+
+const ProjectRole = Bookshelf.Model.extend(
+    {   tableName: 'projectrole',
+        projectuser: function() {
+        return this.belongsTo(ProjectUser)}
+    });
 
 
 const Task = Bookshelf.Model.extend(
@@ -104,7 +125,10 @@ const Task = Bookshelf.Model.extend(
             ProjectType,
             TimeSheetData,
             TimeEntry,
-            Task
+            Task,
+            TotalHoursByWeek,
+            ProjectUser,
+            ProjectRole
         };
 
 

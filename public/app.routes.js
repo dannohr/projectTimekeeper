@@ -7,10 +7,10 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: './component/home/homeTmpl.html',
+            templateUrl: './component/home/home.html',
             controller: 'homeCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // console.log(err)
@@ -21,7 +21,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
         .state('login', {
             url: '/',
             templateUrl: './component/login/login.html',
-            controller: 'mainCtrl'
+            controller: 'loginCtrl'
         })
 
 
@@ -30,7 +30,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/timesheet/timesheet.html',
             controller: 'timesheetCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -44,7 +44,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/timesheet/timeentry.html',
             controller: 'timeentryCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -57,7 +57,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/project/project.html',
             controller: 'projectCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -71,7 +71,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/reports/reports.html',
             controller: 'reportsCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -85,7 +85,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageProject/manageproject.html',
             controller: 'manageProjCtrl',
             resolve: {
-                user: (mainSrvc, $state) => mainSrvc.getUser()
+                user: (loginSrvc, $state) => loginSrvc.getUser()
                 .then(response => response.data)
                 .catch(err => {
                     // $state.go('/login')
@@ -104,7 +104,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageUsers/manageuser.html',
             controller: 'manageUserCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -117,7 +117,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageUsers/userdetails.html',
             controller: 'userdetailsCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -130,7 +130,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageUsers/userdetails.html',
             controller: 'userdetailsCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -143,7 +143,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageProject/projectdetails.html',
             controller: 'projDetailsCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -156,7 +156,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/manageProject/projectdetails.html',
             controller: 'projDetailsCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')
@@ -169,7 +169,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             templateUrl: './component/security/security.html',
             controller: 'securityCtrl',
             resolve: {
-                user: mainSrvc => mainSrvc.getUser()
+                user: loginSrvc => loginSrvc.getUser()
                     .then(response => response.data)
                     .catch(err => {
                         // $state.go('/login')

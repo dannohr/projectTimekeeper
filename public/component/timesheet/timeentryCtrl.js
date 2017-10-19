@@ -1,15 +1,13 @@
 angular.module('fullstack')
     .controller('timeentryCtrl', function($scope, user, $http, timesheetSrvc, $stateParams, $state, ModalService) {
     
-console.log('Time Entry ID: ', $stateParams.id)
-
     $scope.getTimeSheetEntry = function (id) {
         timesheetSrvc.getTimeSheetEntry(id).then(function (response) {
             $scope.timeEntry = response
             //In JSON, date in a string, apparently, so convert back to date
             $scope.timeEntry.taskdate = new Date($scope.timeEntry.taskdate)
-            console.log("Time Entry is:")
-            console.log(response)
+            // console.log("Time Entry is:")
+            // console.log(response)
            });
     }
     
@@ -21,7 +19,7 @@ console.log('Time Entry ID: ', $stateParams.id)
     }
 
 
-    console.log('This Sunday Is: ', moment().startOf('week').format('MM/DD'));
+    // console.log('This Sunday Is: ', moment().startOf('week').format('MM/DD'));
 
     // Load Data for Dropdowns
     $scope.getOpenProjects = function () {
@@ -54,13 +52,9 @@ console.log('Time Entry ID: ', $stateParams.id)
            taskhours: $scope.timeEntry.taskhours,
            taskdate: sqlDate
            }
-        console.log(id.id)
-        console.log($scope.entryForApi)
 
         timesheetSrvc.updateTimeSheetEntry(id.id, $scope.entryForApi)
             .then (function(response) {
-                console.log("Updated Time Entry, Response:")
-                console.log(response)
             })
 
             .catch (function(err) {

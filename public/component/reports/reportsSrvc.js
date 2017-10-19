@@ -5,6 +5,21 @@ angular.module('fullstack').service('reportService', function($http) {
 
 
 
+    self.getWeeklyTotalHours = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/reports/totalhours' 
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
+
+
+
+
+
+
 
 
     self.getUserReport = function (data) {

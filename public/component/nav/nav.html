@@ -23,17 +23,17 @@
         </li> 
 
         <li class="nav-item">
-            <a class="nav-link nav-item-colapse" ng-show="user.usersecuritygroup.userpermission.viewreports" ui-sref="reports">Reports</a>
+            <a class="nav-link nav-item-colapse" ng-show="user.usersecuritygroup.userpermission[0].viewreports" ui-sref="reports">Reports</a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" ng-show="user.usersecuritygroup.userpermission.adminmenu" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" ng-show="user.usersecuritygroup.userpermission[0].adminmenu" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <div class="dropdown-menu" style="right: 0; left: auto;" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission.manageprojects" ui-sref="manageProj">Manage Projects</a>
-            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission.manageusers" ui-sref="users">Manage Users</a>
-            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission.managesecurity" ui-sref="security">Manage Security</a>
+            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission[0].manageprojects" ui-sref="manageProj">Manage Projects</a>
+            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission[0].manageusers" ui-sref="users">Manage Users</a>
+            <a class="dropdown-item nav-item-colapse" ng-show="user.usersecuritygroup.userpermission[0].managesecurity" ui-sref="security">Manage Security</a>
           </div>
         </li>
 

@@ -1,7 +1,7 @@
 
 // _____  API ______ // 
 
-const { User, UserStatus, UserPermission, UserSecurityGroup, Project, ProjectType, ProjectStatus, TimeEntry, Task } = require('../db/model.js')
+const { User, UserStatus, UserPermission, UserSecurityGroup, Project, ProjectType, ProjectRole, ProjectStatus, ProjectUser, TimeEntry, Task, TotalHoursByWeek } = require('../db/model.js')
 const { knex, Bookshelf } = require('../db/db.js');
 const bcrypt   = require('bcrypt-nodejs');
 
@@ -74,15 +74,11 @@ const deleteUser = function(req, res, next) {
 
 const updateUser = function(req, res, next) {
     // Loop through object and if there's a password key, hash it:
-    console.log(req.body)
     for (var prop in req.body) {
         if (prop == ('password')) {
             req.body.password = generateHash(req.body.password)
         }
     }
-    console.log('Test Hash')
-    console.log(req.body)
-
     User
         .where({id: req.query.id})
         .save(req.body
@@ -101,9 +97,9 @@ const getUserStatus = function(req, res, next) {
     res.status(500).json( {error: true, data: {message: err.message}} );
     })
 }
-
+// .fetch({withRelated: ['userstatus','usersecuritygroup.userpermission']})  
 const getUserPermission = function(req, res, next) {
-    UserPermission.fetchAll()
+    UserPermission.fetchAll({withRelated: ['usersecuritygroup']})
     .then(function (data) {
         res.json(data);
     })
@@ -122,7 +118,7 @@ const updateUserPermission = function(req, res, next) {
 }
 
 const getUserSecurityGroup = function(req, res, next) {
-    UserSecurityGroup.fetchAll()
+    UserSecurityGroup.fetchAll({withRelated: ['userpermission']})
     .then(function (data) {
         res.json(data);
     })
@@ -137,7 +133,7 @@ const getProjects = function(req, res, next) {
     if (req.query.id) {
         Project
             .where({id: req.query.id})
-            .fetch()                         
+            .fetch({withRelated: ['projectuser.user','projectstatus','projecttype','projectuser.projectrole']})                         
             .then(function(user) {
                 res.json({ error: false, data: user.toJSON() });
             })
@@ -148,7 +144,7 @@ const getProjects = function(req, res, next) {
     if (req.query.status) {
         Project
             .where({projectstatusid: req.query.status})
-            .fetchAll(({withRelated: ['projectstatus','projecttype']}))                         
+            .fetchAll({withRelated: ['projectstatus','projecttype','projectuser.user']})                         
             .then(function(project) {
                 res.json({ error: false, data: project.toJSON() });
             })
@@ -156,7 +152,7 @@ const getProjects = function(req, res, next) {
                 res.status(500).json({ error: true, data: {message: err.message}} );
             });
     } else {
-        Project.fetchAll(({withRelated: ['projectstatus','projecttype']}))
+        Project.fetchAll({withRelated: ['projectstatus','projecttype','projectuser']})
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -225,12 +221,22 @@ const getProjTask = function(req, res, next) {
 
 
 const getWeekTimeSheet = function(req, res, next) {
-    
     knex('vw_timesheetdata')
         .where({
             user_id: req.query.id,
             firstdayofweek: req.query.week
         })
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
+
+
+const getTotalHoursByWeek = function(req, res, next) {
+    knex.raw('Call sp_totaltimebyuserweektwo();')
     .then(function (data) {
         res.json(data);
     })
@@ -304,6 +310,47 @@ const getTimeSheetEntries = function(req, res, next) {
 };
 
 
+const postProjectUser = function(req, res, next) {
+    console.log(req.body)
+    new ProjectUser( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+};
+
+const deleteProjectUser = function(req, res, next) {
+    ProjectUser
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function( data) {
+            res.json({ data });
+        });
+}
+
+
+const getProjRole = function(req, res, next) {
+    ProjectRole.fetchAll()
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
+
+
+
+const updateProjectUser = function(req, res, next) {
+    ProjectUser
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+
 
 
    
@@ -330,5 +377,10 @@ module.exports = {
     deleteTimeSheetEntry,
     updateTimeSheetEntry,
     getTimeSheetEntry,
-    getTimeSheetEntries
+    getTimeSheetEntries,
+    getTotalHoursByWeek,
+    postProjectUser,
+    deleteProjectUser,
+    getProjRole,
+    updateProjectUser
 }

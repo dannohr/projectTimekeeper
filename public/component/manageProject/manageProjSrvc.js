@@ -65,9 +65,49 @@ angular.module('fullstack').service('manageProjSrvc', function($http) {
             url: '/api/projType'
         });
     };
+
+    
+    self.getProjectRole = function (id) {
+        return $http({
+            method: 'GET',
+            url: '/api/projrole'
+        });
+    };
+    
+    self.createProjectUser = function (data) {
+        console.log(data)
+        return $http({
+            method: 'POST',
+            url: '/api/projectuser',
+            data: data   //,
+            // params: {
+            //     returnObject: true
+            // }
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
+    self.deleteProjectUser = function (id) {
+        return $http({
+            method: 'DELETE',
+            url: '/api/projectuser/?id=' + id
+        });
+    };
     
     
-    
+    self.updateProjectUser = function (id, data) {
+        return $http({
+            method: 'PUT',
+            url: '/api/projectuser/?id=' + id,
+            data: data
+        }).then(function (response) {
+            return response.data;
+        });
+    };
+
+
+
     
     })
     

@@ -17,14 +17,14 @@
         <div class="form-group row">
             <label for="example-number-input" class="col-4 col-form-label">Project Status</label>
                 <div class="col-8">
-                    <select ng-change="changed()" ng-model="projDetails.projectstatus_id" ng-options="data.id as data.status for data in statusoptions"></select>
+                    <select class = "form-control rounded-0" ng-change="changed()" ng-model="projDetails.projectstatus_id" ng-options="data.id as data.status for data in statusoptions"></select>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="example-number-input" class="col-4 col-form-label">Project Type</label>
                 <div class="col-8">
-                    <select ng-change="changed()" ng-model="projDetails.projecttype_id" ng-options="data.id as data.type for data in typeoptions"></select>
+                    <select class = "form-control rounded-0" ng-change="changed()" ng-model="projDetails.projecttype_id" ng-options="data.id as data.type for data in typeoptions"></select>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
         <div class="form-group row">
             <label for="example-number-input" class="col-4 col-form-label">Created</label>
             <div class="col-8">
-               {{ projDetails.create_date | date:'MM/dd/yyyy  h:mma'}}
+               <span class="form-control rounded-0 border-0"> {{ projDetails.create_date | date:'MM/dd/yyyy  h:mma'}} </span>
             </div>
         </div>
 
@@ -62,21 +62,60 @@
 
 
 
-<div class="container py-10">
-        <div class="row py-3">
-            <div class="col-md-12">
+<div class="container py-10" ng-show="projDetails.id">
+    <div class="row py-3">
+        <div class="col-md-12">
     
-    <div class="col-md-8 mx-auto">
-    <div class="card rounded-0">
-        <div class="card-header">
-            <h3 class="mb-0"><span ng-bind = "projDetails.id ? 'Add Users to Project' : 'Add Project'"></h3>
-        </div>
-            
-        <div class="card-body">
+            <div class="col-md-8 mx-auto">
+                <div class="card rounded-0">
+                    <div class="card-header">
+                        <h3 class="mb-0"><span ng-bind = "projDetails.id ? 'Assign Users to Project' : 'Add Project'"></h3>
+                    </div>
+                        
+                    <div class="card-body">
 
-        </div>  <!-- card body -->
-    </div>  <!-- card -->
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-4 col-form-label">Select User</label>
+                            <div class="col-6 pr-0">
+                                    <select class = "form-control rounded-0" ng-change="addUserToProject({project_id: projDetails.id, user_id: userToAdd })" ng-model="userToAdd" ng-options="user.id as (user.firstname + ' ' + user.lastname) for user in allusers | filter:{userstatus_id:'1'} | orderBy:'firstname'"></select>
+                            </div>
+                            <!-- <div class="col-2 pl-0">
+                                <button type="button" class="btn btn-outline-success saveEditDeleteBttns reset-pw-bttn" ng-click="updatePW({id: userDetails.id})">Add</button>
+                            </div> -->
+                        </div>
+                        <hr>
+
+                        <div class="container border">
+                                <table id="projecttable" class="table table-hover table-sm">
+                                    <thead>   
+                                        <tr>
+                                            <th class = "border-0 modify-delete-col-width"></th>
+                                            <th class = "text-left border-0">User</th>
+                                            <th class = "text-left border-0">Role</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody ng-repeat="user in projDetails.projectuser">                                      
+                                        <tr>
+                                            <td class = "text-center modify-delete-col-width">
+                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProjectUser({project: projDetails, user: user})"></td>   
+                                            <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{user.user.firstname}} {{user.user.lastname}}</td>
+                                            <td class = "text-left"><select class = "text-left" ng-change="updateUserRole({id: user.id, projectrole_id: user.projectrole_id})" ng-model="user.projectrole_id" ng-options="role.id as role.projectrole for role in projectrole"></select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+
+
+                    </div>  <!-- card body -->
+                </div>  <!-- card -->
+            </div>
+        </div>
     </div>
-    </div>
+</div>
     
     

@@ -1,5 +1,5 @@
-// angular.module('fullstack').controller('mainCtrl', function (mainSrvc, $scope, $location, $http, $rootScope, $state) {
-angular.module('fullstack').controller('mainCtrl', function (mainSrvc, $scope, $http, $state, Flash) {
+// angular.module('fullstack').controller('loginCtrl', function (loginSrvc, $scope, $location, $http, $rootScope, $state) {
+angular.module('fullstack').controller('loginCtrl', function (loginSrvc, $scope, $http, $state, Flash) {
 
 
   $scope.login = function(user) {
@@ -14,14 +14,6 @@ angular.module('fullstack').controller('mainCtrl', function (mainSrvc, $scope, $
           console.log(response)
         })
   }
-
-
-
-
-
-
-
-
 
 
 

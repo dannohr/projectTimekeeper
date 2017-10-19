@@ -67,7 +67,7 @@ th {
     font-size: 10px;
 }
 
-.testreport {   /* added when playing with charts */
+.anychart {   /* used on AnyChart on Reports page */
     width: 100%;
     height: 475px;
     margin: 0;

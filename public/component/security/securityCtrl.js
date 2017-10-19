@@ -4,7 +4,7 @@ angular.module('fullstack').controller('securityCtrl', function($scope, user, se
         
     $scope.getSecurityGroup = function () {
         securityService.getSecurityGroup().then(function (response) {
-            // console.log(response.data)
+            console.log(response.data)
             $scope.securityGroups = response.data
             });
     }
@@ -12,14 +12,14 @@ angular.module('fullstack').controller('securityCtrl', function($scope, user, se
     $scope.getSecurityGroup()
 
     
-    $scope.getPermissions = function () {
-        securityService.getPermissions().then(function (response) {
-            // console.log(response.data)
-            $scope.permissions = response.data
-            });
-    }
+    // $scope.getPermissions = function () {
+    //     securityService.getPermissions().then(function (response) {
+    //         console.log(response.data)
+    //         $scope.permissions = response.data
+    //         });
+    // }
     
-    $scope.getPermissions()
+    // $scope.getPermissions()
 
     
 
@@ -29,8 +29,7 @@ angular.module('fullstack').controller('securityCtrl', function($scope, user, se
         body[data.column] = data.value;
              
         securityService.updatePermissions(data.id, body).then(function (response) {
-            console.log(response.data)
-            $scope.getPermissions()   //refresh screen
+            $scope.getSecurityGroup()   //refresh screen
             });
     }
     

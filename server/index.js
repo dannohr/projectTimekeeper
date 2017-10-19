@@ -87,6 +87,11 @@ app.put('/api/projects', apiCtrl.updateProject)
 app.get('/api/projStatus', apiCtrl.getProjStatus)
 app.get('/api/projType', apiCtrl.getProjType)
 app.get('/api/projTask', apiCtrl.getProjTask)
+app.post('/api/projectuser', apiCtrl.postProjectUser)
+app.delete('/api/projectuser', apiCtrl.deleteProjectUser)
+app.put('/api/projectuser', apiCtrl.updateProjectUser)
+app.get('/api/projrole', apiCtrl.getProjRole)
+
 
 app.get('/api/timesheet', apiCtrl.getWeekTimeSheet)
 app.post('/api/timeentry', apiCtrl.postTimeSheetEntry)
@@ -94,6 +99,7 @@ app.delete('/api/timeentry', apiCtrl.deleteTimeSheetEntry)
 app.put('/api/timeentry', apiCtrl.updateTimeSheetEntry)
 app.get('/api/timeentry', apiCtrl.getTimeSheetEntry)
 app.get('/api/timeentries', apiCtrl.getTimeSheetEntries)   //get all betwwen two dates by user_id
+app.get('/api/reports/totalhours', apiCtrl.getTotalHoursByWeek)
 
 // auth endpoints
 

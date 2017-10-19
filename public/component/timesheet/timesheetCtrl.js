@@ -1,4 +1,4 @@
-angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService, $stateParams) {
+angular.module('fullstack').controller('timesheetCtrl', function($scope, user, timesheetSrvc, usersService, $stateParams, ModalService) {
     
 // SET DEFAULTS FOR PAGE LOAD 
 
@@ -57,7 +57,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
         
         // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
         if (!moment($scope.startDate).isSame(moment(moment($scope.entryDate).toDate()).startOf('week')._d)) {
-            console.log('weeks are not the same')
+            // console.log('weeks are not the same')
             $scope.startDate = timeEntryWeek
         } 
     }
@@ -72,7 +72,7 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
   
         // // the stuff inside 'isSame' is takinc entryDate, converting it to a date, and then finding 1st day
         if (!moment($scope.startDate).isSame(moment(moment($scope.entryDate).toDate()).startOf('week')._d)) {
-            console.log('weeks are not the same')
+            // console.log('weeks are not the same')
             $scope.startDate = timeEntryWeek
         } 
     }
@@ -180,15 +180,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
 
 
 
-    $scope.deleteTimeEntry = function (id) {
-        timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
-            timesheet()  // reload the table after deleting row
-        });
-    }
-
-
-
-
     $scope.copyLastWeek = function () {
         $scope.userLastWeek = {
             id: $scope.userFilter,
@@ -209,16 +200,61 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
                     timesheetSrvc
                         .addTimeEntry(lastWeekData[i])
                         .then(function (response) {
-                            console.log(lastWeekData[0])
-                            console.log(response)  
+                            // console.log(lastWeekData[0])
+                            // console.log(response)  
+                        })
+                        .then(function () {
+                            timesheet()
                         })  
                 }
             })
-
-            .then(function () {
-                timesheet()
-            })
+            // .then(function () {
+            //     timesheet()
+            // })
     }
+
+
+
+
+    // $scope.deleteTimeEntry = function (id) {
+    //     timesheetSrvc.deleteTimeEntry(id.id).then(function (response) {
+    //         timesheet()  // reload the table after deleting row
+    //     });
+    // }
+
+
+
+// Delete will pop open a modal asking you to confirm
+$scope.deleteTimeEntry = function(timeentry) {
+    
+    console.log(timeentry)
+    $scope.modalData = timeentry.entry
+    console.log($scope.modalData)
+    console.log($scope.modalData.projectname)
+      
+    ModalService.showModal({
+        templateUrl: "/component/modal/confirmdelete.html",
+        controller: "modalController",
+        inputs: { modalData: $scope.modalData,
+                  message: 'Are you sure you want to horus for project ' + $scope.modalData.projectname + ' and task ' + $scope.modalData.task + '?' },
+        preClose: (modal) => { modal.element.modal('hide'); }
+    })
+
+    .then(function(modal) {
+        modal.element.modal();
+        modal.close
+            .then(function(result) {  
+                if(result) {   
+                    timesheetSrvc.deleteTimeEntry( $scope.modalData.timeentryid).then(function (response) {
+                        timesheet();
+                        });
+                }
+            })
+        })
+};
+
+
+
 
 
 

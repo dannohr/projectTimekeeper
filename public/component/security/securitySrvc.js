@@ -17,7 +17,6 @@ angular.module('fullstack').service('securityService', function($http) {
     };
 
     self.updatePermissions = function (id, data) {
-        console.log(data)
         return $http({
             method: 'PUT',
             url: '/api/userpermission/?id=' + id,

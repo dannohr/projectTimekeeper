@@ -13,5 +13,4 @@ angular.module('fullstack').controller('homeCtrl', function($scope, $state, user
     }
 
 
-    // $route.reload();
 })
