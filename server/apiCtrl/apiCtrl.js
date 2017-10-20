@@ -344,7 +344,7 @@ const getProjRole = function(req, res, next) {
 const getProjectUser = function(req, res, next) {
     ProjectUser
     .where({user_id: req.query.id})
-    .fetchAll({withRelated: ['user','project','projectrole', 'project.projectstatus', 'project.projecttype', 'project.projectnotes']})
+    .fetchAll({withRelated: ['user','project','projectrole', 'project.projectstatus', 'project.projecttype', 'project.projectnotes.user']})
     .then(function (data) {
         res.json(data);
     })

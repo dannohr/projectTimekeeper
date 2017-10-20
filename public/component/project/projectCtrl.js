@@ -20,7 +20,7 @@ angular.module('fullstack').controller('projectCtrl', function($scope, user, man
     $scope.getUsers = function () {
         usersService.readAll().then(function (response) {
             $scope.allusers = response.data
-            console.log($scope.allusers)
+            // console.log($scope.allusers)
             });
     }
     $scope.getUsers()

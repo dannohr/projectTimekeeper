@@ -39,13 +39,13 @@
                 </tr>
             </thead>
             
-            <tbody ng-repeat="notes in projects.project.projectnotes | gorderBy: ['createdate']">                                      
+            <tbody ng-repeat="notes in projects.project.projectnotes | orderBy: ['createdate']">                                      
                 <tr>
                     <!-- <td class = "text-left modify-delete-col-width">
                         <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="projectdetails({id: project.id})">
                         <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>    -->
                     <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.createdate | amDateFormat:'MM/DD/YYYY'}}</td>
-                    <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.user_id}}</td>
+                    <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.user.firstname}} {{notes.user.lastname}}</td>
                     <td class = "text-left" ui-sref="projectdetails({id: project.id})">{{notes.projectnotes}}</td>
                 </tr>
             </tbody>

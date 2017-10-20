@@ -13,7 +13,9 @@ const User = Bookshelf.Model.extend(
         timeentry: function() {
             return this.hasMany(TimeEntry)},
         projectuser: function() {
-            return this.hasMany(ProjectUser)}
+            return this.hasMany(ProjectUser)},
+        projectnotes: function() {
+            return this.hasMany(ProjectNotes)}
     });
 
 
@@ -118,7 +120,11 @@ const Task = Bookshelf.Model.extend(
 const ProjectNotes = Bookshelf.Model.extend(
     { tableName: 'projectnotes',
         project: function() {
-            return this.belongsTo(Project)} }
+            return this.belongsTo(Project)},
+        user: function() {
+            return this.belongsTo(User)}
+        
+        }
 );
 
 
