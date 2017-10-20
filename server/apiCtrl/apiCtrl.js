@@ -237,7 +237,7 @@ const getWeekTimeSheet = function(req, res, next) {
 
 
 const getTotalHoursByWeek = function(req, res, next) {
-    knex.raw('Call sp_totaltimebyuserweektwo();')
+    knex.raw('Call sp_totaltimebyuserweek();')
     .then(function (data) {
         res.json(data);
     })

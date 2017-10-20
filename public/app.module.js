@@ -1,6 +1,25 @@
 
 angular
-    .module('fullstack', ['angularMoment','ui.router', '720kb.datepicker', 'ngFlash', 'angularModalService'])
+    .module('fullstack', ['angularMoment','ui.router', '720kb.datepicker', 'ngFlash', 'angularModalService','chart.js'])
+
+    // Optional configuration
+    .config(['ChartJsProvider', function (ChartJsProvider) {
+      // Configure all charts
+      ChartJsProvider.setOptions({
+        chartColors: ['#FF5252', '#FF8A80'],
+        responsive: false
+      });
+      // Configure all line charts
+      ChartJsProvider.setOptions('line', {
+        showLines: true,
+        fill: false
+      });
+    }])
+
+    
+
+
+
 
   $(document).ready(function () {
     

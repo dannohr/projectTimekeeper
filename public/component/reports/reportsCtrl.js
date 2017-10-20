@@ -1,5 +1,4 @@
-angular.module('fullstack').controller('reportsCtrl', function($scope, user, reportService) {
-    
+angular.module('fullstack').controller('reportsCtrl', function($scope, user, reportService, $timeout) {
 
 
     $scope.getWeeklyData = function () {
@@ -7,248 +6,397 @@ angular.module('fullstack').controller('reportsCtrl', function($scope, user, rep
         reportService.getWeeklyTotalHours()
             .then(function (response) {
                 dbData = response[0][0]   // this returns an object with the data I need
-            
+                console.log('Data from Database')
+                console.log(dbData)
                 // but for the report to work, it needs to be in an array
-                let reportData = [];
+                let lineChartLabels = [];
+                let lineChartData = [];
+                let lineChartSeries = [];
                 
+                //Build array with usernames
                 for (let i=0; i<dbData.length; i++) {
+                    lineChartSeries.push(dbData[i].userfullname);
+                }
+                    
+                // look at the first element on the object to get the dates
+                for (var key in dbData[0]) {
+                    lineChartLabels.push(key.substring(5));
+                }
+             
+                //remove the first element in the new array since it's a name not a date
+                lineChartLabels.shift()
+
+                
+                var keys = Object.keys(dbData[0]);
+                
+
+                for (var i = 0; i < dbData.length; i++) {
+                    var result = [];
+                    for (var j = 0, len = keys.length; j < len; j++) {
+                        // result[i].push(dbData [i]  [keys[j]]   );
+                        result.push(dbData [i]  [keys[j]]   );
+                    }
+                    result.shift()  //remove the name
+
+                    lineChartData.push(result)
+                }
+                
+                console.log('result')
+                console.log(result)
+                console.log(lineChartData)
+
+
+
+
+                // console.log('db[0]')
+                // console.log(dbData[0])
+                // // for (i=0; i<dbData.length; i++) {
+                //     for (var value in dbData[1]) {
+                //         // lineChartSeries.push(dbData[i]);
+                //            lineChartSeries.push(dbData[value]);
+                //     }
+
+                //     var result = [];
+                //     var keys = Object.keys(dbData);
+                    
+                //     for (var i = 0, len = keys.length; i < len; i++) {
+                //         result.push(dbData[keys[i]]);
+                //     }
+                //     console.log('result')
+                //     console.log(result)
+                // // }
+                // console.log('new array')
+                // console.log(lineChartSeries)
+              
+                
+                
+                    
+                    
                     //Pull week out of object and put into report data array as the first item
-                    reportData[i] = [moment(dbData[i].Week).format('MM/DD/YYYY')]
+                    // labelData[i] = [moment(dbData[i].Week).format('MM/DD/YYYY')]
                     
                     //Delete the week from the original object
-                    delete dbData[i].Week
+                    // delete dbData[i].Week
                     
                     //push the hours (what's left in the object) into the new array
-                    for (let hours in dbData[i]) {
-                        reportData[i].push(dbData[i][hours]);
-                      }
+                    // for (let userfullname in dbData[i]) {
+                    
+                    // console.log(lineChartLabels)
+                    // $scope.lineChartLabels = lineChartLabels
+                    // console.log($scope.lineChartLabels)
 
-                }
-                return(reportData)   
-            })
-            
-            .then(function(reportData) {
-                angular.element(document).ready(function(){
-                    console.log(reportData)
-                    console.log(reportData.length)
-                    // create data set on our data
-                    var dataSet = anychart.data.mapAsTable(reportData);
-            
-                    // map data for the first series, take x from the zero column and value from the first column of data set
-                    // for (i=1; i<reportData[0].length; i++) {  //column 0 is x axis label, so don't include it in the date
-                    //     let j = 1; 
-                    //     global['seriesData_' + j] = 1
-                    //      console.log(seriesData_1)
+
+                    // for (let hours in dbData[i]) {
+                    // lineChartData[i].push(dbData[i][hours]);
                     // }
-                    // var seriesData_1 = dataSet.mapAs({'x': 0, 'value': 1});
-                    // var seriesData_2 = dataSet.mapAs({'x': 0, 'value': 2});
-                    // var seriesData_3 = dataSet.mapAs({'x': 0, 'value': 3});
-                    // var seriesData_4 = dataSet.mapAs({'x': 0, 'value': 4})
-                    // var seriesData_5 = dataSet.mapAs({'x': 0, 'value': 5})
-                    // var seriesData_6 = dataSet.mapAs({'x': 0, 'value': 6})
-                    // var seriesData_7 = dataSet.mapAs({'x': 0, 'value': 7})
-                    // var seriesData_8 = dataSet.mapAs({'x': 0, 'value': 8})
-                    // var seriesData_9 = dataSet.mapAs({'x': 0, 'value': 9})
-                    // var seriesData_10 = dataSet.mapAs({'x': 0, 'value': 10})
-                    // var seriesData_11 = dataSet.mapAs({'x': 0, 'value': 11})
-            
-                    // create line chart
-                    chart = anychart.line(dataSet[0], dataSet[1], dataSet[2], dataSet[3], dataSet[4], dataSet[5]);
-                    
-                    for (i=0; i<6; i++) {
-                        console.log(reportData[i])
-                        chart.getSeries(i).name(reportData[i][0]);
-                    }
-                    // chart.getSeries(0).name('New York');
-                    // chart.getSeries(1).name('San Francisco');
-                    // chart.getSeries(2).name('Los Angeles');
-            
-                    // // turn on chart animation
-                    // chart.animation(true);
-            
-                    // // set chart padding
-                    // chart.padding([10, 20, 5, 20]);
-            
-                    // // turn on the crosshair
-                    // chart.crosshair()
-                    //         .enabled(true)
-                    //         .yLabel(false)
-                    //         .yStroke(null);
-            
-                    // // set tooltip mode to point
-                    // chart.tooltip().positionMode('point');
-            
-                    // set chart title text settings
-                    chart.title('Total Hours by Employee');
-            
-                    // set yAxis title
-                    chart.yAxis().title('Total Hours');
-                    chart.xAxis().labels().padding(5);
-            
-                    // // create first series with mapped data
-                    // var series_1 = chart.line(seriesData_1);
-                    // series_1.name('Someone Name');
-                    // series_1.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_1.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    
-                    
-                    // // console.log('this is series one')
-                    // // console.log(series_1)
-                    
-                    
-                    
-                    
-                    // // create second series with mapped data
-                    // var series_2 = chart.line(seriesData_2);
-                    // series_2.name('Person 2');
-                    // series_2.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_2.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-            
-                    // // create third series with mapped data
-                    // var series_3 = chart.line(seriesData_3);
-                    // series_3.name('Person 3');
-                    // series_3.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_3.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                            
-                    // // create third series with mapped data
-                    // var series_4 = chart.line(seriesData_4);
-                    // series_4.name('Person 4');
-                    // series_4.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_4.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_5 = chart.line(seriesData_5);
-                    // series_5.name('Person 5');
-                    // series_5.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_5.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_6 = chart.line(seriesData_6);
-                    // series_6.name('Person 6');
-                    // series_6.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_6.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_7 = chart.line(seriesData_7);
-                    // series_7.name('Person 7');
-                    // series_7.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_7.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_8 = chart.line(seriesData_8);
-                    // series_8.name('Person 8');
-                    // series_8.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_8.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_9 = chart.line(seriesData_9);
-                    // series_9.name('Person 9');
-                    // series_9.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_9.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_10 = chart.line(seriesData_10);
-                    // series_10.name('Person 10');
-                    // series_10.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_10.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // create third series with mapped data
-                    // var series_11 = chart.line(seriesData_11);
-                    // series_11.name('Person 11');
-                    // series_11.hovered().markers()
-                    //         .enabled(true)
-                    //         .type('circle')
-                    //         .size(4);
-                    // series_11.tooltip()
-                    //         .position('right')
-                    //         .anchor('left-center')
-                    //         .offsetX(5)
-                    //         .offsetY(5);
-                    // // turn the legend on
-                    // chart.legend()
-                    //         .enabled(true)
-                    //         .fontSize(13)
-                    //         .padding([0, 0, 10, 0]);
-            
-                    // set container id for the chart and set up paddings
-                    chart.container('UserTotalHoursByWeek');
-            
-                    // initiate chart drawing
-                    chart.draw();
-            
-            
-                });
-                        
-            }) 
-            
 
+                
+                // console.log(labelData)
+                // $scope.labelData = labelData
+                // return(reportData)   
+
+
+
+
+    // Sample Report
+    
+    // X Axis Labels   (Week)
+    $scope.labels = lineChartLabels //["10/1", "10/7", "10/14", "10/21", "11/1", "11/7", "11/14"];
+    // $scope.labels = $scope.lineChartLabels
+    // User Names
+    $scope.series = lineChartSeries //['Joe', 'Sam','Oscar','Pete','Jeff','Scott','Fred','Andrew','John','Brian','Cheryl'];
+    
+    //Total Hours
+     $scope.data =   lineChartData // [
+    //                     [95, 100, 95, 100, 95, 100, 95],
+    //                     [90, 95, 90, 95, 90, 95, 90],
+    //                     [28, 60, 40, 19, 86, 27, 80],
+    //                     [28, 78, 40, 19, 86, 27, 70],
+    //                     [28, 88, 40, 19, 86, 27, 60],
+    //                     [28, 78, 40, 19, 86, 27, 50],
+    //                     [28, 48, 40, 19, 86, 97, 40],
+    //                     [28, 48, 40, 19, 86, 87, 30],
+    //                     [28, 48, 40, 19, 86, 77, 20],
+    //                     [28, 48, 40, 19, 86, 67, 10],
+    //                     [28, 48, 40, 19, 86, 57, 10]
+    //                 ];
+    
+    $scope.onClick = function (points, evt) {
+      console.log(points, evt);
+    };
+    
+    // $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+    
+    $scope.options = {
+        legend: {display: true},
+      scales: {
+        showLine: [{ display: true }],
+        yAxes: [
+          {
+            id: 'y-axis-1',
+            type: 'linear',
+            display: true,
+            position: 'left'
+          }
+        //   ,
+        //   {
+        //     id: 'y-axis-2',
+        //     type: 'linear',
+        //     display: true,
+        //     position: 'right'
+        //   }
+        ]
+      }
     };
 
+})
+};
+    
+$scope.getWeeklyData()
+  
+  // Simulate async data update
+//   $timeout(function () {
+//     $scope.data = [
+//       [28, 48, 40, 19, 86, 27, 90],
+//       [65, 59, 80, 81, 56, 55, 40]
+//     ];
+//   }, 3000);
+
+
+
+
+  
+
+})
+
+
+
+
+
+
+
+            // .then(function(reportData) {
+            //     angular.element(document).ready(function(){
+            //         console.log(reportData)
+            //         console.log(reportData.length)
+            //         // create data set on our data
+            //         var dataSet = anychart.data.mapAsTable(reportData);
+            
+            //         // map data for the first series, take x from the zero column and value from the first column of data set
+            //         // for (i=1; i<reportData[0].length; i++) {  //column 0 is x axis label, so don't include it in the date
+            //         //     let j = 1; 
+            //         //     global['seriesData_' + j] = 1
+            //         //      console.log(seriesData_1)
+            //         // }
+            //         // var seriesData_1 = dataSet.mapAs({'x': 0, 'value': 1});
+            //         // var seriesData_2 = dataSet.mapAs({'x': 0, 'value': 2});
+            //         // var seriesData_3 = dataSet.mapAs({'x': 0, 'value': 3});
+            //         // var seriesData_4 = dataSet.mapAs({'x': 0, 'value': 4})
+            //         // var seriesData_5 = dataSet.mapAs({'x': 0, 'value': 5})
+            //         // var seriesData_6 = dataSet.mapAs({'x': 0, 'value': 6})
+            //         // var seriesData_7 = dataSet.mapAs({'x': 0, 'value': 7})
+            //         // var seriesData_8 = dataSet.mapAs({'x': 0, 'value': 8})
+            //         // var seriesData_9 = dataSet.mapAs({'x': 0, 'value': 9})
+            //         // var seriesData_10 = dataSet.mapAs({'x': 0, 'value': 10})
+            //         // var seriesData_11 = dataSet.mapAs({'x': 0, 'value': 11})
+            
+            //         // create line chart
+            //         chart = anychart.line(dataSet[0], dataSet[1], dataSet[2], dataSet[3], dataSet[4], dataSet[5]);
+                    
+            //         for (i=0; i<6; i++) {
+            //             console.log(reportData[i])
+            //             chart.getSeries(i).name(reportData[i][0]);
+            //         }
+            //         // chart.getSeries(0).name('New York');
+            //         // chart.getSeries(1).name('San Francisco');
+            //         // chart.getSeries(2).name('Los Angeles');
+            
+            //         // // turn on chart animation
+            //         // chart.animation(true);
+            
+            //         // // set chart padding
+            //         // chart.padding([10, 20, 5, 20]);
+            
+            //         // // turn on the crosshair
+            //         // chart.crosshair()
+            //         //         .enabled(true)
+            //         //         .yLabel(false)
+            //         //         .yStroke(null);
+            
+            //         // // set tooltip mode to point
+            //         // chart.tooltip().positionMode('point');
+            
+            //         // set chart title text settings
+            //         chart.title('Total Hours by Employee');
+            
+            //         // set yAxis title
+            //         chart.yAxis().title('Total Hours');
+            //         chart.xAxis().labels().padding(5);
+            
+            //         // // create first series with mapped data
+            //         // var series_1 = chart.line(seriesData_1);
+            //         // series_1.name('Someone Name');
+            //         // series_1.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_1.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+                    
+                    
+            //         // // console.log('this is series one')
+            //         // // console.log(series_1)
+                    
+                    
+                    
+                    
+            //         // // create second series with mapped data
+            //         // var series_2 = chart.line(seriesData_2);
+            //         // series_2.name('Person 2');
+            //         // series_2.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_2.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            
+            //         // // create third series with mapped data
+            //         // var series_3 = chart.line(seriesData_3);
+            //         // series_3.name('Person 3');
+            //         // series_3.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_3.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+                            
+            //         // // create third series with mapped data
+            //         // var series_4 = chart.line(seriesData_4);
+            //         // series_4.name('Person 4');
+            //         // series_4.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_4.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_5 = chart.line(seriesData_5);
+            //         // series_5.name('Person 5');
+            //         // series_5.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_5.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_6 = chart.line(seriesData_6);
+            //         // series_6.name('Person 6');
+            //         // series_6.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_6.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_7 = chart.line(seriesData_7);
+            //         // series_7.name('Person 7');
+            //         // series_7.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_7.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_8 = chart.line(seriesData_8);
+            //         // series_8.name('Person 8');
+            //         // series_8.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_8.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_9 = chart.line(seriesData_9);
+            //         // series_9.name('Person 9');
+            //         // series_9.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_9.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_10 = chart.line(seriesData_10);
+            //         // series_10.name('Person 10');
+            //         // series_10.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_10.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // create third series with mapped data
+            //         // var series_11 = chart.line(seriesData_11);
+            //         // series_11.name('Person 11');
+            //         // series_11.hovered().markers()
+            //         //         .enabled(true)
+            //         //         .type('circle')
+            //         //         .size(4);
+            //         // series_11.tooltip()
+            //         //         .position('right')
+            //         //         .anchor('left-center')
+            //         //         .offsetX(5)
+            //         //         .offsetY(5);
+            //         // // turn the legend on
+            //         // chart.legend()
+            //         //         .enabled(true)
+            //         //         .fontSize(13)
+            //         //         .padding([0, 0, 10, 0]);
+            
+            //         // set container id for the chart and set up paddings
+            //         chart.container('UserTotalHoursByWeek');
+            
+            //         // initiate chart drawing
+            //         chart.draw();
+            
+            
+            //     });
+                        
+            // }) 
+            
+
+    //};
+
     //build report
-    $scope.getWeeklyData()
+    
 
 
 
@@ -461,7 +609,7 @@ angular.module('fullstack').controller('reportsCtrl', function($scope, user, rep
 
 
 
-});
+// });
     
 
 
