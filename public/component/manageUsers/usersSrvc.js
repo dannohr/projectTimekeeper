@@ -68,6 +68,13 @@ self.getSecurityGroup = function (id) {
     });
 };
 
+self.getUserGroup = function (id) {
+    return $http({
+        method: 'GET',
+        url: '/api/usergroup'
+    });
+};
+
 
 
 

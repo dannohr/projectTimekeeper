@@ -39,6 +39,7 @@ angular.module('fullstack')
             delete $scope.userDetails.usersecuritygroup
             delete $scope.userDetails.password
             delete $scope.userDetails.created_at
+            delete $scope.userDetails.usergroup
             usersService.update(id.id, $scope.userDetails).then (function(response) {
             })
         }
@@ -53,12 +54,10 @@ angular.module('fullstack')
 
     $scope.updatePW = function(id) {
         $scope.custForApi = {
-        password: $scope.userDetails.password  
+            password: $scope.userDetails.password  
         }
-
-    
-    usersService.update(id.id, $scope.custForApi).then (function(response) {
-        $state.go('users');  // go back to all users screen
+        usersService.update(id.id, $scope.custForApi).then (function(response) {
+            $state.go('users');  // go back to all users screen
         })
     }
 
@@ -71,15 +70,18 @@ angular.module('fullstack')
 
     $scope.getUserStatus()
 
-    $scope.getSecurityGroup = function () {
-        usersService.getSecurityGroup().then(function (response) {
-            $scope.securityGroup = response.data
-            console.log($scope.options)
-            });
-    }
+    $scope.getSecurityGroup =  usersService.getSecurityGroup()
+                                .then(function (response) {
+                                    $scope.securityGroup = response.data
+                                    console.log($scope.options)
+                                });
 
-    $scope.getSecurityGroup()
-
+    $scope.getUserGroup = usersService.getUserGroup()
+                            .then(function (response) {
+                                $scope.userGroup = response.data
+                                console.log($scope.userGroup)
+                            });
+ 
 
   // Delete will pop open a modal asking you to confirm
     $scope.delete = function(user) {

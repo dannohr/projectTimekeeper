@@ -75,6 +75,12 @@ app.get('/api/users', apiCtrl.getUsers)
 app.post('/api/users', apiCtrl.postUser)
 app.delete('/api/users', apiCtrl.deleteUser)
 app.put('/api/users', apiCtrl.updateUser)
+
+app.get('/api/usergroup', apiCtrl.getUserGroup)
+// app.post('/api/usergroup', apiCtrl.postUserGroup)
+// app.delete('/api/usergroup', apiCtrl.deleteUserGroup)
+// app.put('/api/usergroup', apiCtrl.updateUserGroup)
+
 app.get('/api/userstatus', apiCtrl.getUserStatus)
 app.get('/api/userpermission', apiCtrl.getUserPermission)
 app.put('/api/userpermission', apiCtrl.updateUserPermission)

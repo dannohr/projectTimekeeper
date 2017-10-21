@@ -61,7 +61,7 @@ passport.use('login', new LocalStrategy( {
     
     User
         .where({username: username})
-        .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission']}))
+        .fetch(({withRelated: ['userstatus','usersecuritygroup.userpermission','usergroup']}))
         .then((user, err) => {
                 user = (user.toJSON() )
         

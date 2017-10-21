@@ -1,7 +1,7 @@
 
 // _____  API ______ // 
 
-const { User, UserStatus, UserPermission, UserSecurityGroup, Project, ProjectType, ProjectRole, ProjectStatus, ProjectUser, TimeEntry, Task, TotalHoursByWeek } = require('../db/model.js')
+const { User, UserStatus, UserGroup, UserPermission, UserSecurityGroup, Project, ProjectType, ProjectRole, ProjectStatus, ProjectUser, TimeEntry, Task, TotalHoursByWeek } = require('../db/model.js')
 const { knex, Bookshelf } = require('../db/db.js');
 const bcrypt   = require('bcrypt-nodejs');
 
@@ -18,7 +18,7 @@ const validPassword = function(submittedPassword, hashedPassword) {
 const getUsers = function(req, res, next) {
     if (req.query.id) {
         User.where({id: req.query.id})
-            .fetch({withRelated: ['userstatus','usersecuritygroup.userpermission']})                         
+            .fetch({withRelated: ['userstatus','usersecuritygroup.userpermission','usergroup']})                         
             .then(function(user) {
                 console.log(user)
                 res.json({ error: false, data: user.toJSON() });
@@ -28,7 +28,7 @@ const getUsers = function(req, res, next) {
             });
 
     } else {
-        User.fetchAll({withRelated: ['userstatus','usersecuritygroup.userpermission','projectuser']})
+        User.fetchAll({withRelated: ['userstatus','usersecuritygroup.userpermission','projectuser','usergroup']})
             .then(function (data) {
                 res.json( {error: false, data: data.toJSON() });
             })
@@ -364,6 +364,15 @@ const updateProjectUser = function(req, res, next) {
         });
 }
 
+const getUserGroup = function(req, res, next) {
+    UserGroup.fetchAll()
+    .then(function (data) {
+        res.json(data);
+    })
+    .catch(function (err) {
+    res.status(500).json( {error: true, data: {message: err.message}} );
+    })
+}
 
 
 
@@ -397,5 +406,6 @@ module.exports = {
     deleteProjectUser,
     getProjRole,
     updateProjectUser,
-    getProjectUser
+    getProjectUser,
+    getUserGroup
 }

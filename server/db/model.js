@@ -8,6 +8,8 @@ const User = Bookshelf.Model.extend(
             return this.belongsTo(UserStatus)},
         usersecuritygroup: function() {
             return this.belongsTo(UserSecurityGroup)},
+        usergroup: function() {
+            return this.belongsTo(UserGroup)},
         timesheetdata: function() {
             return this.hasMany(TimeSheetData)},
         timeentry: function() {
@@ -60,6 +62,13 @@ const UserSecurityGroup = Bookshelf.Model.extend(
             return this.hasMany(UserPermission);
         }
     });
+
+const UserGroup = Bookshelf.Model.extend(
+    {   tableName: 'usergroup',
+        user: function() {
+            return this.hasMany(User)} 
+        }
+);
 
 const UserPermission = Bookshelf.Model.extend(
     {   tableName: 'userpermission',
@@ -129,6 +138,8 @@ const ProjectNotes = Bookshelf.Model.extend(
 
 
 
+
+
  module.exports = {
             User,
             UserStatus,
@@ -143,7 +154,8 @@ const ProjectNotes = Bookshelf.Model.extend(
             TotalHoursByWeek,
             ProjectUser,
             ProjectRole,
-            ProjectNotes
+            ProjectNotes,
+            UserGroup
         };
 
 

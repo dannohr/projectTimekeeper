@@ -10,7 +10,9 @@
         <label for="statusfilter">Search:</label>
         <input class = "searchbox" id="statusfilter" ng-model="usersearch"> </input>
         <label for="typefilter">Status:</label>
-        <select id="typefilter" ng-model="showstatus" ng-options="data.id as data.status for data in options"><option value="">All</option></select>
+        <select id="typefilter" ng-model="showstatus"  ng-options="data.id as data.status for data in options"><option value="">All</option></select>
+        <label for="typefilter">Group:</label>
+        <select id="typefilter" ng-model="showgroup" ng-options="data.id as data.groupname for data in userGroup"><option value="">All</option></select>
     </div>
 
 <br>
@@ -28,7 +30,7 @@
                 </tr>
             </thead>
                                     
-            <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: { userstatus_id: showstatus||undefined } | filter: usersearch: strict">
+            <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: { userstatus_id: showstatus||undefined } | filter: usersearch: strict | filter: { usergroup_id: showgroup||undefined }">
             <!-- <tbody ng-repeat="user in allusers | orderBy: ['lastname'] | filter: getFilter()"> -->
                 <tr>
                     <td class = "text-left modify-delete-col-width">

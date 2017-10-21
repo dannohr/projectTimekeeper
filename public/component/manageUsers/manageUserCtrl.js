@@ -1,7 +1,5 @@
 angular.module('fullstack').controller('manageUserCtrl', function($scope, user, $http, usersService, $stateParams, ModalService, $state) {
     
-    $scope.usersTest = "Test of Users Angular"
-
         
     $scope.getUsers = function () {
         usersService.readAll().then(function (response) {
@@ -56,7 +54,12 @@ angular.module('fullstack').controller('manageUserCtrl', function($scope, user, 
     };
     
     
-    
+    $scope.getUserGroup = usersService.getUserGroup()
+                            .then(function (response) {
+                                $scope.userGroup = response.data
+                                console.log('User Group Is:')
+                                console.log($scope.userGroup)
+                            });
 
     
     
