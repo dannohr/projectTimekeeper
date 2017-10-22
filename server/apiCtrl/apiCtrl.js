@@ -305,12 +305,12 @@ const deleteProjectType = function(req, res, next) {
 
 const getProjectTask = function(req, res, next) {
     Task.fetchAll()
-    .then(function (data) {
-        res.json(data);
-    })
-    .catch(function (err) {
-    res.status(500).json( {error: true, data: {message: err.message}} );
-    })
+        .then(function (data) {
+            res.json(data);
+        })
+        .catch(function (err) {
+        res.status(500).json( {error: true, data: {message: err.message}} );
+        })
 }
 
 const updateProjectTask = function(req, res, next) {
@@ -324,10 +324,10 @@ const updateProjectTask = function(req, res, next) {
 
 const postProjectTask = function(req, res, next) {
     new Task( req.body )
-      .save()
-      .then(function(saved) {
-        res.json({ saved });
-      });
+        .save()
+        .then(function(saved) {
+            res.json({ saved });
+        });
   };
 
 const deleteProjectTask = function(req, res, next) {
@@ -552,9 +552,9 @@ module.exports = {
     generateHash,
 
     getUsers,
+    updateUser,
     postUser,
     deleteUser,
-    updateUser,
     
     getUserStatus,
     updateUserStatus,
@@ -586,25 +586,29 @@ module.exports = {
     postProjectRole,
     deleteProjectRole,
 
-    getUserPermission,
-    updateUserPermission,
     getProjects,
+    updateProject,
     postProject,
     deleteProject,
-    updateProject,
+
     getWeekTimeSheet,
+    updateTimeSheetEntry,
     postTimeSheetEntry,
     deleteTimeSheetEntry,
-    updateTimeSheetEntry,
-    getTimeSheetEntry,
-    getTimeSheetEntries,
-    getTotalHoursByWeek,
+    
+    getProjectUser,
+    updateProjectUser,
     postProjectUser,
     deleteProjectUser,
-    updateProjectUser,
-    getProjectUser,
+
     getUserGroup,
     updateUserGroup,
     postUserGroup,
-    deleteUserGroup
+    deleteUserGroup,
+
+    getUserPermission,
+    updateUserPermission,
+    getTimeSheetEntry,
+    getTimeSheetEntries,
+    getTotalHoursByWeek,
 }

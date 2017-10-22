@@ -100,10 +100,10 @@ app.post('/api/projects', apiCtrl.postProject)
 app.delete('/api/projects', apiCtrl.deleteProject)
 app.put('/api/projects', apiCtrl.updateProject)
 
-app.get('/api/projectStatus', apiCtrl.getProjectStatus)
-app.put('/api/projectStatus', apiCtrl.updateProjectStatus)
-app.post('/api/projectStatus', apiCtrl.postProjectStatus)
-app.delete('/api/projectStatus', apiCtrl.deleteProjectStatus)
+app.get('/api/projectstatus', apiCtrl.getProjectStatus)
+app.put('/api/projectstatus', apiCtrl.updateProjectStatus)
+app.post('/api/projectstatus', apiCtrl.postProjectStatus)
+app.delete('/api/projectstatus', apiCtrl.deleteProjectStatus)
 
 
 app.get('/api/projecttype', apiCtrl.getProjectType)

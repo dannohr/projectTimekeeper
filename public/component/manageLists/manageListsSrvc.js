@@ -3,29 +3,20 @@ angular.module('fullstack').service('manageListsSrvc', function($http) {
     var self = this;
     var baseUrl = '/api/projects';
     
-    self.readAll = function () {
+
+    // This is used for all delete on Manage Lists page, 'table' come from the NG-CLICK in HTML
+    self.deleteListItem = function (id, table) {
         return $http({
-            method: 'GET',
-            url: baseUrl 
-        }).then(function (response) {
-            return response.data;
+            method: 'DELETE',
+            url: '/api/' + table + '/?id=' + id
         });
     };
-    
-    self.readOne = function (id) {
-        return $http({
-            method: 'GET',
-            url: baseUrl + '/?id=' + id
-        }).then(function (response) {
-            return response.data;
-        });
-    };
-    
-    self.create = function (data) {
-        console.log(data)
+
+
+    self.addListItem = function (api, data) {
         return $http({
             method: 'POST',
-            url: baseUrl,
+            url: '/api/' + api,
             data: data,
             params: {
                 returnObject: true
@@ -34,87 +25,18 @@ angular.module('fullstack').service('manageListsSrvc', function($http) {
             return response.data;
         });
     };
-    
-    self.update = function (id, data) {
+
+   
+    self.updateListItem = function (id, api, data) {
         return $http({
             method: 'PUT',
-            url: baseUrl + '?id=' + id,
+            url: '/api/' + api + '/?id=' + id,
             data: data
         }).then(function (response) {
             return response.data;
         });
     };
     
-    self.delete = function (id) {
-        return $http({
-            method: 'DELETE',
-            url: baseUrl + '/?id=' + id
-        });
-    };
-    
-    self.getStatus = function (id) {
-        return $http({
-            method: 'GET',
-            url: '/api/projectStatus'
-        });
-    };
-
-    self.getType = function (id) {
-        return $http({
-            method: 'GET',
-            url: '/api/ProjectType'
-        });
-    };
-
-    
-    self.getProjectRole = function (id) {
-        return $http({
-            method: 'GET',
-            url: '/api/projectrole'
-        });
-    };
-    
-    self.createProjectUser = function (data) {
-        console.log(data)
-        return $http({
-            method: 'POST',
-            url: '/api/projectuser',
-            data: data   //,
-            // params: {
-            //     returnObject: true
-            // }
-        }).then(function (response) {
-            return response.data;
-        });
-    };
-
-    self.deleteProjectUser = function (id) {
-        return $http({
-            method: 'DELETE',
-            url: '/api/projectuser/?id=' + id
-        });
-    };
-    
-    
-    self.updateProjectUser = function (id, data) {
-        return $http({
-            method: 'PUT',
-            url: '/api/projectuser/?id=' + id,
-            data: data
-        }).then(function (response) {
-            return response.data;
-        });
-    };
-
-    
-    self.getProjectUser = function (id) {
-        return $http({
-            method: 'GET',
-            url: '/api/projectuser/?id=' + id
-        }).then(function (response) {
-            return response.data;
-        });
-    };
 
 
 

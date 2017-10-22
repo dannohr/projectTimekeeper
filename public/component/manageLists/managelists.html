@@ -21,15 +21,15 @@
                                 <table id="projecttypetable" class="table table-hover table-sm">
                                     <thead>   
                                         <tr>
-                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'userstatus'}, {status: 'change and click save'})">Add New</button>  </th>
                                             <th class = "border-0">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody ng-repeat="status in userStatus">                                      
                                         <tr>
                                             <td class = "text-center modify-delete-col-width">
-                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: status.id, message: status.status, table: 'userstatus'})">
+                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: status.id}, {api: 'userstatus'}, {status: status.status} )"> </td>   
                                             <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="status.status"  /> </td>
                                         </tr>
                                     </tbody>
@@ -54,7 +54,7 @@
                                 <table id="projecttypetable" class="table table-hover table-sm">
                                     <thead>   
                                         <tr>
-                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'usergroup'}, {groupname: 'change and click save'})">Add New</button>  </th>
                                             <th class = "border-0 manage-lists-usergroup">Description</th>
                                             <th class = "border-0 manage-lists-usergroup">Leader</th>
                                         </tr>
@@ -62,8 +62,8 @@
                                     <tbody ng-repeat="group in userGroup">                                      
                                         <tr>
                                             <td class = "text-center modify-delete-col-width">
-                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: group.id, message: group.groupname, table: 'usergroup'})">
+                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: group.id}, {api: 'usergroup'}, {groupname: group.groupname, leader_id: group.leader_id } )"></td>   
                                             <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="group.groupname"  /> </td>
                                             <td class = "text-left">
                                                     <select class=" mb-2 mr-sm-2 mb-sm-0" ng-model="group.leader_id" ng-options="user.id as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ></select> 
@@ -92,15 +92,15 @@
                                     <table id="projecttypetable" class="table table-hover table-sm">
                                         <thead>   
                                             <tr>
-                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'usersecuritygroup'}, {usersecuritygroup: 'change and click save'})">Add New</button>  </th>
                                                 <th class = "border-0">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="group in securityGroups">                                      
                                             <tr>
                                                 <td class = "text-center modify-delete-col-width">
-                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: group.id, message: group.usersecuritygroup, table: 'usersecuritygroup'})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: group.id}, {api: 'usersecuritygroup'}, {usersecuritygroup: group.usersecuritygroup} )"></td>   
                                                 <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="group.usersecuritygroup"  /> </td>
                                             </tr>
                                         </tbody>
@@ -126,15 +126,15 @@
                                     <table id="projecttypetable" class="table table-hover table-sm">
                                         <thead>   
                                             <tr>
-                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'projectstatus'}, {status: 'change and click save' })">Add New</button>  </th>
                                                 <th class = "border-0">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="status in projectStatusOptions">                                      
                                             <tr>
                                                 <td class = "text-center modify-delete-col-width">
-                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: status.id, message: status.status, table: 'projectstatus'})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: status.id}, {api: 'projectstatus'}, {status: status.status} )"></td>   
                                                 <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="status.status"  /> </td>
                                             </tr>
                                         </tbody>
@@ -161,15 +161,15 @@
                                     <table id="projecttypetable" class="table table-hover table-sm">
                                         <thead>   
                                             <tr>
-                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'projecttype'}, {type: 'change and click save', })">Add New</button>  </th>
                                                 <th class = "border-0">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="type in projectTypeOptions">                                      
                                             <tr>
                                                 <td class = "text-center modify-delete-col-width">
-                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: type.id, message: type.type, table: 'projecttype'})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: type.id}, {api: 'projecttype'}, {type: type.type} )"></td>   
                                                 <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="type.type"  /> </td>
                                             </tr>
                                         </tbody>
@@ -196,15 +196,15 @@
                                     <table id="projecttypetable" class="table table-hover table-sm">
                                         <thead>   
                                             <tr>
-                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
-                                                <th class = "border-0">Description</th>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button"  ng-click="addListItem({api: 'projecttask'}, {task: 'change and click save'})">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>                                                        
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="task in projectTasks">                                      
                                             <tr>
                                                 <td class = "text-center modify-delete-col-width">
-                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: task.id, message: task.task, table: 'projecttask'})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: task.id}, {api: 'projecttask'}, {task: task.task} )"></td>   
                                                 <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="task.task"  /> </td>
                                             </tr>
                                         </tbody>
@@ -231,15 +231,15 @@
                                     <table id="projecttypetable" class="table table-hover table-sm">
                                         <thead>   
                                             <tr>
-                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button" ng-click="addListItem({api: 'projectrole'}, {projectrole: 'change and click save'})">Add New</button>  </th>
                                                 <th class = "border-0">Description</th>
                                             </tr>
                                         </thead>
                                         <tbody ng-repeat="role in projectRoleOptions">                                      
                                             <tr>
                                                 <td class = "text-center modify-delete-col-width">
-                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
-                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteListItem({id: role.id, message: role.projectrole, table: 'projectrole'})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="updateListItem( {id: role.id}, {api: 'projectrole'}, {projectrole: role.projectrole} )"></td>   
                                                 <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="role.projectrole"  /> </td>
                                             </tr>
                                         </tbody>
