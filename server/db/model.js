@@ -27,7 +27,6 @@ const TimeEntry = Bookshelf.Model.extend(
         user: function() {
             return this.belongsTo(User);
         } 
-
     });
 
 const TimeSheetData = Bookshelf.Model.extend(

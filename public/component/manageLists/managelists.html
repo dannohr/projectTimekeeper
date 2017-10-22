@@ -1,0 +1,259 @@
+<nav-directive> </nav-directive>
+
+
+<div class = "container py-5">
+    <h3 class = " py-4 text-center"> Manage Drop Down Selection Lists </h3>
+
+
+    <div class="container py-10">
+
+
+        <!-- USER STATUS -->
+        <div class="row py-3">
+            <div class="col-md-12">
+                <div class="col-md-6 mx-auto">
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h4 class="mb-0">User Status</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container border">
+                                <table id="projecttypetable" class="table table-hover table-sm">
+                                    <thead>   
+                                        <tr>
+                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                            <th class = "border-0">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="status in userStatus">                                      
+                                        <tr>
+                                            <td class = "text-center modify-delete-col-width">
+                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                            <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="status.status"  /> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  <!-- card body -->
+                    </div>  <!-- card -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- USER GROUP/TEAM -->
+        <div class="row py-3">
+            <div class="col-md-12">
+                <div class="col-md-6 mx-auto">
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h4 class="mb-0">User Group/Team</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container border">
+                                <table id="projecttypetable" class="table table-hover table-sm">
+                                    <thead>   
+                                        <tr>
+                                            <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                            <th class = "border-0 manage-lists-usergroup">Description</th>
+                                            <th class = "border-0 manage-lists-usergroup">Leader</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="group in userGroup">                                      
+                                        <tr>
+                                            <td class = "text-center modify-delete-col-width">
+                                                <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                            <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="group.groupname"  /> </td>
+                                            <td class = "text-left">
+                                                    <select class=" mb-2 mr-sm-2 mb-sm-0" ng-model="group.leader_id" ng-options="user.id as user.firstname +' '+ user.lastname for user in allusers | orderBy:'firstname'" ></select> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  <!-- card body -->
+                    </div>  <!-- card -->
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- USER SECURITY GROUP -->
+        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">User Security Group</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container border">
+                                    <table id="projecttypetable" class="table table-hover table-sm">
+                                        <thead>   
+                                            <tr>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="group in securityGroups">                                      
+                                            <tr>
+                                                <td class = "text-center modify-delete-col-width">
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="group.usersecuritygroup"  /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  <!-- card body -->
+                        </div>  <!-- card -->
+                    </div>
+                </div>
+            </div>
+            
+            
+        <!-- PROJECT STATUS -->
+        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">Project Status</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container border">
+                                    <table id="projecttypetable" class="table table-hover table-sm">
+                                        <thead>   
+                                            <tr>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="status in projectStatusOptions">                                      
+                                            <tr>
+                                                <td class = "text-center modify-delete-col-width">
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="status.status"  /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  <!-- card body -->
+                        </div>  <!-- card -->
+                    </div>
+                </div>
+            </div>
+            
+            
+
+        <!-- PROJECT TYPE -->
+        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">Project Type</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container border">
+                                    <table id="projecttypetable" class="table table-hover table-sm">
+                                        <thead>   
+                                            <tr>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="type in projectTypeOptions">                                      
+                                            <tr>
+                                                <td class = "text-center modify-delete-col-width">
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="type.type"  /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  <!-- card body -->
+                        </div>  <!-- card -->
+                    </div>
+                </div>
+            </div>
+            
+            
+
+        <!-- PROJECT TASKS -->
+        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">Project Timeclock Tasks</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container border">
+                                    <table id="projecttypetable" class="table table-hover table-sm">
+                                        <thead>   
+                                            <tr>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="task in projectTasks">                                      
+                                            <tr>
+                                                <td class = "text-center modify-delete-col-width">
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="task.task"  /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  <!-- card body -->
+                        </div>  <!-- card -->
+                    </div>
+                </div>
+            </div>
+            
+            
+
+        <!-- PROJECT ROLE -->
+        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">Project User Role</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="container border">
+                                    <table id="projecttypetable" class="table table-hover table-sm">
+                                        <thead>   
+                                            <tr>
+                                                <th class = "text-center"> <button type="button" class="btn btn-dark add-lists-button">Add New</button>  </th>
+                                                <th class = "border-0">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="role in projectRoleOptions">                                      
+                                            <tr>
+                                                <td class = "text-center modify-delete-col-width">
+                                                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})">
+                                                    <img src="./component/assets/saveicon.png" alt="" class = "edit-button" ng-click="deleteProject({project})"></td>   
+                                                <td class = "text-left"><input type="text" class="text-left" id="projecttype" required="" ng-model="role.projectrole"  /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  <!-- card body -->
+                        </div>  <!-- card -->
+                    </div>
+                </div>
+            </div>             
+
+
+
+
+
+    </div>
+</div>

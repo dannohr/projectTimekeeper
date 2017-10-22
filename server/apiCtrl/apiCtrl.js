@@ -39,24 +39,8 @@ const getUsers = function(req, res, next) {
 }
 
 const postUser = function(req, res, next) {
-    console.log('user before')
-    console.log(req.body)
     req.body.password = generateHash(req.body.password)
-    console.log('password after')
-    console.log(req.body)
-    new User(req.body
-        
-    //     { 
-    //   firstname: req.body.firstname,
-    //   lastname: req.body.lastname,
-    //   email: req.body.email,
-    //   username: req.body.username,
-    //   userstatus_id: req.body.userstatus_id,
-    //   usersecuritygroup_id: req.body.usersecuritygroup_id,
-    //   password: generateHash(req.body.password)
-    //     }
-    
-    )
+    new User(req.body)
       .save()
       .then(function(saved) {
         res.json({ saved });
@@ -88,6 +72,8 @@ const updateUser = function(req, res, next) {
         });
 }
 
+
+
 const getUserStatus = function(req, res, next) {
     UserStatus.fetchAll()
     .then(function (data) {
@@ -97,7 +83,38 @@ const getUserStatus = function(req, res, next) {
     res.status(500).json( {error: true, data: {message: err.message}} );
     })
 }
-// .fetch({withRelated: ['userstatus','usersecuritygroup.userpermission']})  
+ 
+
+const updateUserStatus = function(req, res, next) {
+    UserStatus
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postUserStatus = function(req, res, next) {
+    new UserStatus( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteUserStatus = function(req, res, next) {
+    UserStatus
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
+
+
+
+
+
 const getUserPermission = function(req, res, next) {
     UserPermission.fetchAll({withRelated: ['usersecuritygroup']})
     .then(function (data) {
@@ -127,7 +144,31 @@ const getUserSecurityGroup = function(req, res, next) {
     })
 }
 
+const updateUserSecurityGroup = function(req, res, next) {
+    UserSecurityGroup
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
 
+const postUserSecurityGroup = function(req, res, next) {
+    new UserSecurityGroup( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteUserSecurityGroup = function(req, res, next) {
+    UserSecurityGroup
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
 
 const getProjects = function(req, res, next) {
     if (req.query.id) {
@@ -190,7 +231,7 @@ const updateProject = function(req, res, next) {
         });
 }
 
-const getProjStatus = function(req, res, next) {
+const getProjectStatus = function(req, res, next) {
     ProjectStatus.fetchAll()
     .then(function (data) {
         res.json(data);
@@ -200,7 +241,33 @@ const getProjStatus = function(req, res, next) {
     })
 }
 
-const getProjType = function(req, res, next) {
+const updateProjectStatus = function(req, res, next) {
+    ProjectStatus
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postProjectStatus = function(req, res, next) {
+    new ProjectStatus( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteProjectStatus = function(req, res, next) {
+    ProjectStatus
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
+
+const getProjectType = function(req, res, next) {
     ProjectType.fetchAll()
     .then(function (data) {
         res.json(data);
@@ -210,7 +277,33 @@ const getProjType = function(req, res, next) {
     })
 }
 
-const getProjTask = function(req, res, next) {
+const updateProjectType = function(req, res, next) {
+    ProjectType
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postProjectType = function(req, res, next) {
+    new ProjectType( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteProjectType = function(req, res, next) {
+    ProjectType
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
+
+const getProjectTask = function(req, res, next) {
     Task.fetchAll()
     .then(function (data) {
         res.json(data);
@@ -219,6 +312,32 @@ const getProjTask = function(req, res, next) {
     res.status(500).json( {error: true, data: {message: err.message}} );
     })
 }
+
+const updateProjectTask = function(req, res, next) {
+    Task
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postProjectTask = function(req, res, next) {
+    new Task( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteProjectTask = function(req, res, next) {
+    Task
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
 
 
 const getWeekTimeSheet = function(req, res, next) {
@@ -330,7 +449,7 @@ const deleteProjectUser = function(req, res, next) {
 }
 
 
-const getProjRole = function(req, res, next) {
+const getProjectRole = function(req, res, next) {
     ProjectRole.fetchAll()
     .then(function (data) {
         res.json(data);
@@ -339,6 +458,32 @@ const getProjRole = function(req, res, next) {
     res.status(500).json( {error: true, data: {message: err.message}} );
     })
 }
+
+const updateProjectRole = function(req, res, next) {
+    ProjectRole
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postProjectRole = function(req, res, next) {
+    new ProjectRole( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteProjectRole = function(req, res, next) {
+    ProjectRole
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
 
 
 const getProjectUser = function(req, res, next) {
@@ -374,27 +519,79 @@ const getUserGroup = function(req, res, next) {
     })
 }
 
+const updateUserGroup = function(req, res, next) {
+    UserGroup
+        .where({id: req.query.id})
+        .save(req.body, {patch:true}) 
+        .then(function(model) {
+            res.json({ model });
+        });
+}
+
+const postUserGroup = function(req, res, next) {
+    new UserGroup( req.body )
+      .save()
+      .then(function(saved) {
+        res.json({ saved });
+      });
+  };
+
+const deleteUserGroup = function(req, res, next) {
+    UserGroup
+        .where({id: req.query.id}) 
+        .destroy()
+        .then(function(model) {
+            res.json({ model });
+        });
+};
 
 
    
 module.exports = {
     validPassword,
-    generateHash, 
+    generateHash,
+
     getUsers,
     postUser,
     deleteUser,
     updateUser,
+    
     getUserStatus,
+    updateUserStatus,
+    postUserStatus,
+    deleteUserStatus,
+    
     getUserSecurityGroup,
+    updateUserSecurityGroup,
+    postUserSecurityGroup,
+    deleteUserSecurityGroup,
+    
+    getProjectStatus,
+    updateProjectStatus,
+    postProjectStatus,
+    deleteProjectStatus,
+
+    getProjectType,
+    updateProjectType,
+    postProjectType,
+    deleteProjectType,
+
+    getProjectTask,
+    updateProjectTask,
+    postProjectTask,
+    deleteProjectTask,
+
+    getProjectRole,
+    updateProjectRole,
+    postProjectRole,
+    deleteProjectRole,
+
     getUserPermission,
     updateUserPermission,
     getProjects,
     postProject,
     deleteProject,
     updateProject,
-    getProjStatus,
-    getProjType,
-    getProjTask,
     getWeekTimeSheet,
     postTimeSheetEntry,
     deleteTimeSheetEntry,
@@ -404,8 +601,10 @@ module.exports = {
     getTotalHoursByWeek,
     postProjectUser,
     deleteProjectUser,
-    getProjRole,
     updateProjectUser,
     getProjectUser,
-    getUserGroup
+    getUserGroup,
+    updateUserGroup,
+    postUserGroup,
+    deleteUserGroup
 }

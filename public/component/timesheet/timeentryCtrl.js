@@ -4,7 +4,7 @@ angular.module('fullstack')
     $scope.getTimeSheetEntry = function (id) {
         timesheetSrvc.getTimeSheetEntry(id).then(function (response) {
             $scope.timeEntry = response
-            //In JSON, date in a string, apparently, so convert back to date
+            //In JSON, date is a string, apparently, so convert back to date
             $scope.timeEntry.taskdate = new Date($scope.timeEntry.taskdate)
             // console.log("Time Entry is:")
             // console.log(response)
@@ -48,7 +48,7 @@ angular.module('fullstack')
         $scope.entryForApi = {
            user_id: $scope.timeEntry.user_id,
            project_id: $scope.timeEntry.project_id,
-           taskid: $scope.timeEntry.taskid,
+           task_id: $scope.timeEntry.task_id,
            taskhours: $scope.timeEntry.taskhours,
            taskdate: sqlDate
            }

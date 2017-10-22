@@ -14,6 +14,7 @@
                 <th class = "border-0 text-center security-table-head">Manage Projects</th>
                 <th class = "border-0 text-center security-table-head">Manage Users</th>
                 <th class = "border-0 text-center security-table-head">Manage Security</th>
+                <th class = "border-0 text-center security-table-head">Manage Lists</th>
                 <th class = "border-0 text-center security-table-head">View All Timesheets</th>
                 <th class = "border-0 text-center security-table-head">View Reports</th>
             </tr>
@@ -23,13 +24,14 @@
             <tr>
                 <!-- <td>
                     <img src="./component/assets/editicon.png" alt="" class = "edit-button" ui-sref="userdetails({id: user.id})">
-                    <!-- <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>    -->
+                    <img src="./component/assets/deleteicon.png" alt="" class = "edit-button" ng-click="deleteUser({id: user.id})"></td>    -->
                 <td class = "text-left">{{group.usersecuritygroup}}</td>   
                 <td class = "text-left">{{group.userpermission[0].id}}</td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'adminmenu', value: group.userpermission[0].adminmenu} )" value="{{group.userpermission[0].adminmenu}}" ng-model="group.userpermission[0].adminmenu"></td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'manageprojects', value: group.userpermission[0].manageprojects} )" value="{{group.userpermission[0].manageprojects}}" ng-model="group.userpermission[0].manageprojects"></td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'manageusers', value: group.userpermission[0].manageusers} )" value="{{group.userpermission[0].manageusers}}" ng-model="group.userpermission[0].manageusers"></td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'managesecurity', value: group.userpermission[0].managesecurity} )" value="{{group.userpermission[0].managesecurity}}" ng-model="group.userpermission[0].managesecurity"></td>
+                <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'managelists', value: group.userpermission[0].managelists} )" value="{{group.userpermission[0].managelists}}" ng-model="group.userpermission[0].managelists"></td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'viewalltimesheets', value: group.userpermission[0].viewalltimesheets} )" value="{{group.userpermission[0].viewalltimesheets}}" ng-model="group.userpermission[0].viewalltimesheets"></td>
                 <td class = "text-center"><input type="checkbox" name="Something" ng-true-value="1" ng-false-value="0" ng-change="updatePermissions({id: group.userpermission[0].id, column: 'viewreports', value: group.userpermission[0].viewreports} )" value="{{group.userpermission[0].viewreports}}" ng-model="group.userpermission[0].viewreports"></td>
             </tr>

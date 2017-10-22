@@ -17,9 +17,13 @@ angular.module('fullstack').controller('manageProjCtrl', function($scope, user, 
 
     $scope.getProjectStatus()
 
+
     $scope.getProjectType = function () {
+        console.log("looking for types")
         manageProjSrvc.getType().then(function (response) {
             $scope.typeoptions = response.data
+            console.log("Type options are:")
+            console.log($scope.typeoptions)
             });
     }
 

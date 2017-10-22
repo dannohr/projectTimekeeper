@@ -138,8 +138,11 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     
     
     $scope.addTimeEntry = function (data) {
+
+        console.log('start of data')
+        console.log(data)
         // Date picker puts the date in a string format of MM/DD/YYYY
-        // Rearranging it to YYYY/MM/DD for sql query
+        // Rearranging it to YYYY-MM-DD for sql query
         let sqlDate = $scope.entryDate.toString().split("/")
         sqlDate = (sqlDate[2] + '-' + sqlDate[0] + '-' + sqlDate[1])
         

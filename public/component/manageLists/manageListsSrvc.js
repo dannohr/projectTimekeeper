@@ -1,4 +1,4 @@
-angular.module('fullstack').service('manageProjSrvc', function($http) {
+angular.module('fullstack').service('manageListsSrvc', function($http) {
     
     var self = this;
     var baseUrl = '/api/projects';
@@ -62,7 +62,7 @@ angular.module('fullstack').service('manageProjSrvc', function($http) {
     self.getType = function (id) {
         return $http({
             method: 'GET',
-            url: '/api/projecttype'
+            url: '/api/ProjectType'
         });
     };
 

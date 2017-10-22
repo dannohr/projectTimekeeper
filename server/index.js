@@ -77,29 +77,54 @@ app.delete('/api/users', apiCtrl.deleteUser)
 app.put('/api/users', apiCtrl.updateUser)
 
 app.get('/api/usergroup', apiCtrl.getUserGroup)
-// app.post('/api/usergroup', apiCtrl.postUserGroup)
-// app.delete('/api/usergroup', apiCtrl.deleteUserGroup)
-// app.put('/api/usergroup', apiCtrl.updateUserGroup)
+app.post('/api/usergroup', apiCtrl.postUserGroup)
+app.delete('/api/usergroup', apiCtrl.deleteUserGroup)
+app.put('/api/usergroup', apiCtrl.updateUserGroup)
 
 app.get('/api/userstatus', apiCtrl.getUserStatus)
+app.put('/api/userstatus', apiCtrl.updateUserStatus)
+app.post('/api/userstatus', apiCtrl.postUserStatus)
+app.delete('/api/userstatus', apiCtrl.deleteUserStatus)
+
+
 app.get('/api/userpermission', apiCtrl.getUserPermission)
 app.put('/api/userpermission', apiCtrl.updateUserPermission)
+
 app.get('/api/usersecuritygroup', apiCtrl.getUserSecurityGroup)
+app.put('/api/usersecuritygroup', apiCtrl.updateUserSecurityGroup)
+app.post('/api/usersecuritygroup', apiCtrl.postUserSecurityGroup)
+app.delete('/api/usersecuritygroup', apiCtrl.deleteUserSecurityGroup)
 
 app.get('/api/projects', apiCtrl.getProjects)
 app.post('/api/projects', apiCtrl.postProject)
 app.delete('/api/projects', apiCtrl.deleteProject)
 app.put('/api/projects', apiCtrl.updateProject)
-app.get('/api/projStatus', apiCtrl.getProjStatus)
-app.get('/api/projType', apiCtrl.getProjType)
-app.get('/api/projTask', apiCtrl.getProjTask)
+
+app.get('/api/projectStatus', apiCtrl.getProjectStatus)
+app.put('/api/projectStatus', apiCtrl.updateProjectStatus)
+app.post('/api/projectStatus', apiCtrl.postProjectStatus)
+app.delete('/api/projectStatus', apiCtrl.deleteProjectStatus)
+
+
+app.get('/api/projecttype', apiCtrl.getProjectType)
+app.put('/api/projecttype', apiCtrl.updateProjectType)
+app.post('/api/projecttype', apiCtrl.postProjectType)
+app.delete('/api/projecttype', apiCtrl.deleteProjectType)
+
+app.get('/api/projecttask', apiCtrl.getProjectTask)
+app.put('/api/projecttask', apiCtrl.updateProjectTask)
+app.post('/api/projecttask', apiCtrl.postProjectTask)
+app.delete('/api/projecttask', apiCtrl.deleteProjectTask)
 
 app.get('/api/projectuser', apiCtrl.getProjectUser)
 app.post('/api/projectuser', apiCtrl.postProjectUser)
 app.delete('/api/projectuser', apiCtrl.deleteProjectUser)
 app.put('/api/projectuser', apiCtrl.updateProjectUser)
 
-app.get('/api/projrole', apiCtrl.getProjRole)
+app.get('/api/projectrole', apiCtrl.getProjectRole)
+app.post('/api/projectrole', apiCtrl.postProjectRole)
+app.delete('/api/projectrole', apiCtrl.deleteProjectRole)
+app.put('/api/projectrole', apiCtrl.updateProjectRole)
 
 
 app.get('/api/timesheet', apiCtrl.getWeekTimeSheet)

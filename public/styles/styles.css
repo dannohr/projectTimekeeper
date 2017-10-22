@@ -67,13 +67,6 @@ th {
     font-size: 10px;
 }
 
-.anychart {   /* used on AnyChart on Reports page */
-    width: 100%;
-    height: 475px;
-    margin: 0;
-    padding: 0;
-}
-
 .modify-delete-col-width:not(:last-child){  /* column width for modify and delete buttons in table */
     white-space: nowrap;
     width: 70px;
@@ -81,4 +74,11 @@ th {
 
 .searchbox {
     width: 90px;
+}
+
+.add-lists-button {
+    width: 50px;
+    height: 15px;
+    font-size: 10px;
+    padding: 0px;
 }
