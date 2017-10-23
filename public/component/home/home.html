@@ -1,36 +1,90 @@
-<nav-directive> </nav-directive>
-<h1>HOME</h1>
-<!-- check if user has an auth id (meaning its the user and not the error message) -->
-<!-- if no authid, display error, else display user info -->
-<h1 ng-if="!user.username">{{user}}</h1>
-<div ng-if="user.username">
-    <p>Username is: {{user.username}}
-    <br>First name is: {{user.firstname}}
-    <br>Last name is: {{user.lastname}}</p> 
-</div>
-<hr>
-<h2> Not Done Items </h2>
-<ul style="list-style-type:square">
-    <li>Home Page</li>
-    <li>Projects Page</li>
-    <li>Reports Page</li>
-    <li>User Rights - so everyone can't do everything</li>
-</ul>
-
-<h2> Sorta Done Items / In Process </h2>
-<ul style="list-style-type:square">
-    <li>Login Page</li>
-    <li>Admin - Users</li>
-    <li>Admin - Projects</li>
-    <li>Timesheet</li>
-</ul>
-
-<h2 style="list-style-type:square"> Totally Done Items </h2>
-<ul>
-    <li>Navigation menu in both desktop and mobile</li>
-    <li>Logout Button</li>
-</ul>
 
 
+    <nav-directive> </nav-directive>
+    <div class = "vert_spacer_75px"></div> 
 
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Heading Row -->
+      <div class="row my-4">
+        <div class="col-lg-8">
+          <img class="img-fluid rounded" src="component/assets/where_does_the_time_go.jpg" alt="">
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4">
+          <h2>Project Time Keeper</h2>
+          <p>Track time again specific projects and tasks.</p>
+          <p>Keep a running list of project updates.</p>
+          <p>Monitor total project time against budget.</p>
+          <p>View reports and export data.</p>
+          <a class="btn btn-primary btn-lg" ui-sref="timesheet">Start Entering Time</a>
+        </div>
+        <!-- /.col-md-4 -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Call to Action Well -->
+      <div class="card text-white bg-secondary my-4 text-center">
+        <div class="card-body">
+          <p class="text-white m-0">Keep track of how long projects really take.</p>
+        </div>
+      </div>
+
+      <!-- Content Row -->
+      <!-- <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card One</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div> -->
+        <!-- /.col-md-4 -->
+        <!-- <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card Two</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div> -->
+        <!-- /.col-md-4 -->
+        <!-- <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card Three</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div> -->
+        <!-- /.col-md-4 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-2 bg-dark fixed-bottom ">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 

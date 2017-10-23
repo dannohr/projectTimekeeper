@@ -63,7 +63,7 @@
         <label class = "text-center" for="datefilter">Start Date</label>
         <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
             <div>
-                <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
+                <datepicker class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
                     <input class=" border-0 text-center finger" ng-model="invStartDate" date-time type="datetime"/>
                 </datepicker>
             </div> 
@@ -74,7 +74,7 @@
         <label class = "text-center" for="datefilter">End Date</label>
         <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
             <div>
-                <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{endDate.toString()}}">
+                <datepicker class = "text-center" date-format="MM/dd/yyyy" date-set="{{endDate.toString()}}">
                     <input class=" border-0 text-center finger" ng-model="invEndDate" date-time type="datetime"/>
                 </datepicker>
             </div> 
