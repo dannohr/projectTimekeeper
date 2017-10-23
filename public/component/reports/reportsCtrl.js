@@ -128,7 +128,7 @@ $scope.getInvoiceHours = (startDate, endDate, group) => {
 
             $http({
                 method: 'POST',
-                url: 'http://localhost:8001/api/report',
+                url: 'http://192.168.2.8:8001/api/report',
                 data: data,
                 responseType: 'arraybuffer'
             }).success(function (data, status, headers) {
