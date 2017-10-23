@@ -136,7 +136,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
     //Initial loading of timesheet
     timesheet()
     
-    
     $scope.addTimeEntry = function (data) {
 
         console.log('start of data')
@@ -156,8 +155,6 @@ angular.module('fullstack').controller('timesheetCtrl', function($scope, user, t
             timesheet()  // reload the table after adding new row
         });
     }
-
-
 
     $scope.copyLastWeek = function () {
         $scope.userLastWeek = {

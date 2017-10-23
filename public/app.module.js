@@ -18,9 +18,7 @@ angular
     }])
 
     
-
-
-  $(document).ready(function () {
+  $(document).ready(function () {  //This is used for the nav bar
     
             // Change Highlight On Nav menu, based on what was clicked
             $(".nav a").on("click", function(){

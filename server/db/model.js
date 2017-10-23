@@ -42,9 +42,7 @@ const TotalHoursByWeek = Bookshelf.Model.extend(
         return this.belongsTo(user);
     }
     });
-
-
-    
+  
 const UserStatus = Bookshelf.Model.extend(
     {   tableName: 'userstatus',
         user: function() {

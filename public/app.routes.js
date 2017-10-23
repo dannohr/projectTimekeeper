@@ -65,7 +65,6 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
             }
         })
 
-
         .state('reports', {
             url: '/reports',
             templateUrl: './component/reports/reports.html',
@@ -78,7 +77,6 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
                     })
             }
         })
-
 
         .state('manageProj', {
             url: '/manageProject',

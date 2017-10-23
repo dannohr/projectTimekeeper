@@ -56,7 +56,6 @@ app.use(function(req, res, next){
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 require('./passport')(passport); // pass passport for configuration
 
 //  app.use((req, res, next) => {
@@ -65,7 +64,6 @@ require('./passport')(passport); // pass passport for configuration
 //     console.log('REQ PARAMS', req.params);
 //     next();
 // });
-
 
 // Report Server Endpoints
 app.use('/api/reportserver/invoice', reports.invoiceReport)

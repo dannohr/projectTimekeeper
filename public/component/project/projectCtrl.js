@@ -1,11 +1,8 @@
 angular.module('fullstack').controller('projectCtrl', function($scope, user, manageProjSrvc, usersService, ModalService) {
     
-    $scope.projectTest = "Test of Projects"
 
     $scope.user = user
     $scope.userFilter = user.id
-    // console.log('logged in user is')
-    // console.log(user)
 
     $scope.getProjects = function () {
         manageProjSrvc.readAll().then(function (response) {
@@ -36,9 +33,6 @@ angular.module('fullstack').controller('projectCtrl', function($scope, user, man
     //Initially loaded data when page opens
     $scope.getProjectUser($scope.userFilter)
 
-
-
-
     $scope.addNotes = function() {
         
             ModalService.showModal({
@@ -61,8 +55,6 @@ angular.module('fullstack').controller('projectCtrl', function($scope, user, man
             });
         
           };
-
-
 
 
     // Delete will pop open a modal asking you to confirm

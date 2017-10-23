@@ -3,8 +3,6 @@ angular.module('fullstack').controller('reportsCtrl', function($scope, $sce, $ht
     $scope.startDate =moment().subtract(4, 'weeks').add(0,'days').format("YYYY-MM-DD");
     $scope.endDate = moment().startOf('week').add(0,'days').format("YYYY-MM-DD");
     
-    //$scope.groupid = 2;
-
     $scope.showgroup = usersService.getUserGroup().then(function (response) { $scope.userGroup = response.data;})
     
     $scope.getWeeklyData = function (startDate, endDate, group) {

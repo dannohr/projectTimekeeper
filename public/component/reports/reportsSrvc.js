@@ -21,8 +21,6 @@ angular.module('fullstack').service('reportService', function($http) {
         });
     };
 
-
-
     self.getInvoiceHours = function (startDate, endDate, project) {
         startDate = moment(moment(startDate).toDate()).format("YYYY-MM-DD")
         endDate   = moment(moment(endDate).toDate()).format("YYYY-MM-DD")

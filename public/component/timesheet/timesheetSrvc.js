@@ -31,8 +31,6 @@ angular.module('fullstack').service('timesheetSrvc', function($http) {
     };
 
     self.addTimeEntry = function (data) {
-        console.log('data passing to create entry API');
-        console.log(data)
         return $http({
             method: 'POST',
             url: '/api/timeentry',

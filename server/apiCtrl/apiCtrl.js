@@ -547,7 +547,6 @@ const deleteUserGroup = function(req, res, next) {
 
 const getInvoiceData = function(req, res, next) {
     knex.raw( 'SELECT te.project_id, p.projectname, t.task, concat(u.firstname,\' \',u.lastname) as Employee, te.taskhours, DATE_FORMAT(te.taskdate, "%m/%d/%Y") as taskdate, u.hourlyrate,te.taskhours * u.hourlyrate AS lineTotal FROM timeentry te JOIN project p on te.project_id = p.id JOIN user u on te.user_id = u.id JOIN task t on te.task_id = t.id WHERE	project_id = 1 AND taskdate BETWEEN \'2017-10-10\' AND \'2017-10-30\' ORDER BY task, taskdate, employee')
-    // knex.raw(?'Call sp_totaltimebyuserweek(' + req.query.start + ', ' + req.query.end + ', ' + req.query.group + ');')
     .then(function (data) {
         res.json(data[0]);
     })

@@ -61,7 +61,7 @@ angular.module('fullstack')
                 console.log(err)
             })
 
-        $state.go('timesheet');  // go back to timesheet
+        $state.go('timesheet');  
    
     }
 
