@@ -2,19 +2,20 @@ var express = require('express');
 var reports = express.Router()
 var request = require ('request')
 
-reports.get('/', function (req,res,next) {
-
+const invoiceReport = reports.get('/', function (req,res,next) {
+    
+    console.log(req)
     var data = {
         template: {'shortid':'rkJTnK2ce'},
         data: {
             "number": "123",
             "seller": {
-                "name": "Next Step Webs, Inc.",
+                "name": "Dan's Amazing Website",
                 "road": "12345 Sunny Road",
                 "country": "Sunnyville, TX 12345"
             },
             "buyer": {
-                "name": "Acme Corp.",
+                "name": "Pat's Company",
                 "road": "16 Johnson Road",
                 "country": "Paris, France 8060"
             },
@@ -29,9 +30,16 @@ reports.get('/', function (req,res,next) {
             {
                 "name": "This Works!",
                 "price": .01
+            },
+            {
+                "name": "This Works!",
+                "price": .01
+            },
+            {
+                "name": "Apples",
+                "price": 150.02
             }
-        
-        ]
+            ]   
         },
         options: {
             preview:true
@@ -44,8 +52,12 @@ reports.get('/', function (req,res,next) {
         json: data
     }
 
+    
     request(options).pipe(res);
 
 })
 
-module.exports = reports
+
+module.exports = {
+    invoiceReport
+}

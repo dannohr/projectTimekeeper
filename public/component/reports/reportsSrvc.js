@@ -1,84 +1,44 @@
 angular.module('fullstack').service('reportService', function($http) {
     
     var self = this;
-    var baseUrl = 'http://192.168.2.8:5488/api/report';
-
-
-
-    self.getWeeklyTotalHours = function () {
-        return $http({
-            method: 'GET',
-            url: '/api/reports/totalhours' 
-        }).then(function (response) {
-            return response.data;
-        });
-    };
-
-
-
-
-
-
-
-
-
-    self.getUserReport = function (data) {
-        console.log(data)
-        return $http({
-            method: 'POST',
-            url: baseUrl,
-            data: data,
-            headers: { 'Content-Type': 'application/json; charset=UTF-8'}
-            // params: {
-            //     returnObject: true
-            // }
-        }).then(function (response) {
-            return response.data;
-        });
-    };
-
-
-    self.try = function (data) {
+    
+    self.getWeeklyTotalHours = function (startDate, endDate, group) {
+        startDate = moment(moment(startDate).toDate()).format("YYYY-MM-DD")
+        endDate   = moment(moment(endDate).toDate()).format("YYYY-MM-DD")
         
         return $http({
-            method: 'POST',
-            url: 'http://192.168.2.8:5488/api/report',
-            headers: { // this is were you should look into
-                'Content-Type' : 'application/json'
-            },
-            body: { 
-                "template": { "shortid" : "S1i9Nh-6W" }
-            }
-            
-            //json: true 
-
+            method: 'GET',
+            url: '/api/reports/totalhours?start=\'' + startDate + '\'&end=\''+ endDate + '\'&group=\''+ group + '\'' 
         }).then(function (response) {
-                return response;
-            })
-            .catch(function (response) {
-                return response;
-            });
-        };
+            return response.data;
+        });
+    };
+    
+    self.showReportOnScreen = function (parameter) {   //Shows report in screen
+        var reportUrl = "http://localhost:8001/api/report";
+        return $http.post(reportUrl, parameter, { responseType: 'arraybuffer' }).success(function (response) {
+            return response;
+        });
+    };
 
 
 
+    self.getInvoiceHours = function (startDate, endDate, project) {
+        startDate = moment(moment(startDate).toDate()).format("YYYY-MM-DD")
+        endDate   = moment(moment(endDate).toDate()).format("YYYY-MM-DD")
+        
+        return $http({
+            method: 'GET',
+            url: '/api/reports/invoicedata/?start=\'' + startDate + '\'&end=\''+ endDate + '\'&group=\''+ project + '\'' 
+        }).then(function (response) {
+            return response.data;
+        });
+    };
 
-        self.list = function (data) {
-            
-            return $http({
-                method: 'GET',
-                url: 'http://192.168.2.8:5488/odata/$metadata'
     
     
-            }).then(function (response) {
-                    console.log(response)
-                    return response;
-                })
-                .catch(function (response) {
-                    console.log(response)
-                    return response;
-                });
-            };
+
+
 
 })
    

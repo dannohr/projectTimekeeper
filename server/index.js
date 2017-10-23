@@ -15,7 +15,7 @@ const { secret } = require('../config').session;
 const apiCtrl = require('./apiCtrl/apiCtrl.js')
 
 const flash = require("connect-flash");
-// 
+
 const router = express.Router();
 const reports = require('./routes/reports.js')
 
@@ -67,10 +67,13 @@ require('./passport')(passport); // pass passport for configuration
 // });
 
 
+// Report Server Endpoints
+app.use('/api/reportserver/invoice', reports.invoiceReport)
+
+app.get('/api/reports/totalhours', apiCtrl.getTotalHoursByWeek)
+app.get('/api/reports/invoicedata', apiCtrl.getInvoiceData)
+
 // General Endpoints
-
-app.use('/api/reports', reports)
-
 app.get('/api/users', apiCtrl.getUsers)
 app.post('/api/users', apiCtrl.postUser)
 app.delete('/api/users', apiCtrl.deleteUser)
@@ -133,7 +136,6 @@ app.delete('/api/timeentry', apiCtrl.deleteTimeSheetEntry)
 app.put('/api/timeentry', apiCtrl.updateTimeSheetEntry)
 app.get('/api/timeentry', apiCtrl.getTimeSheetEntry)
 app.get('/api/timeentries', apiCtrl.getTimeSheetEntries)   //get all betwwen two dates by user_id
-app.get('/api/reports/totalhours', apiCtrl.getTotalHoursByWeek)
 
 // auth endpoints
 
