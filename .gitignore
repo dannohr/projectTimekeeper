@@ -3,4 +3,5 @@ config.js
 migrations/
 knexfile.js
 public/component/assets/google_signin_buttons/
+public/component/home/vendor/
 

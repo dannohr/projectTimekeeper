@@ -6,7 +6,16 @@ angular.module('fullstack').controller('reportsCtrl', function($scope, $sce, $ht
     $scope.showgroup = usersService.getUserGroup().then(function (response) { $scope.userGroup = response.data;})
     
     $scope.getWeeklyData = function (startDate, endDate, group) {
+        console.log('start date');
+        console.log(startDate);
+        console.log('end date');
+        console.log(endDate);    
+        console.log('group')
+        console.log(group);
+        
+        
         if (typeof group == "undefined" || group == null) {
+            console.log('no group')
             group = -1  // the stored procedure in mysql uses -1 for all groups
         }
 
@@ -72,7 +81,10 @@ angular.module('fullstack').controller('reportsCtrl', function($scope, $sce, $ht
                                         position: 'left'
                                     }
                                 ]
-                    }   
+                        },
+                    tooltips: {
+                        itemSort: (a, b, data) => b.yLabel - a.yLabel
+                        }   
                 };
 
             })

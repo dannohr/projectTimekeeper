@@ -13,8 +13,20 @@ angular
       // Configure all line charts
       ChartJsProvider.setOptions('line', {
         showLines: true,
-        fill: false
+        fill: false,
+        tooltipFillColor: '#EEE',
+        tooltipFontColor: '#000',
+        tooltipFontSize: 8,
+        tooltipCornerRadius: 8,
+        responsive: true
       });
+
+    //   ChartJsProvider.setOptions({
+    //     tooltipFillColor: '#EEE',
+    //     tooltipFontColor: '#000',
+    //     tooltipFontSize: 8,
+    //     tooltipCornerRadius: 8
+    // });
     }])
 
     
