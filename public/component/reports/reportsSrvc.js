@@ -27,7 +27,7 @@ angular.module('fullstack').service('reportService', function($http) {
         
         return $http({
             method: 'GET',
-            url: '/api/reports/invoicedata/?start=\'' + startDate + '\'&end=\''+ endDate + '\'&group=\''+ project + '\'' 
+            url: '/api/reports/invoicedata/?start=\'' + startDate + '\'&end=\''+ endDate + '\'&project=\''+ project + '\'' 
         }).then(function (response) {
             return response.data;
         });

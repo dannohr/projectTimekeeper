@@ -9,7 +9,7 @@
             <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
                 <div>
                     <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
-                        <input class=" border-0 text-center finger" ng-model="startDate" date-time type="datetime"/>
+                        <input class=" border-0 text-center finger"  ng-model="startDate" date-time type="datetime"/>
                     </datepicker>
                 </div> 
             </div>
@@ -20,7 +20,7 @@
             <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
                 <div>
                     <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{endDate.toString()}}">
-                        <input class=" border-0 text-center finger" ng-model="endDate" date-time type="datetime"/>
+                        <input class=" border-0 text-center finger"  ng-model="endDate" date-time type="datetime"/>
                     </datepicker>
                 </div> 
             </div>
@@ -28,7 +28,7 @@
 
         <div class = "m-1">
             <label class = "text-center" for="datefilter">Group</label>
-            <select  class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger" id="groupfilter" ng-model="showgroup" ng-options="group.id as group.groupname for group in userGroup"><option value="">All</option></select>
+            <select  class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger" id="groupfilter" ng-model="showgroup" ng-options="group.id as group.groupname for group in userGroup" ><option value="">All</option></select>
         </div>
 
         <div class = "m-1">
@@ -60,7 +60,7 @@
 <form class="form-inline justify-content-center">    
         
     <div class = "m-1">
-        <label class = "text-center" for="datefilter">Start Week</label>
+        <label class = "text-center" for="datefilter">Start Date</label>
         <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
             <div>
                 <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{startDate.toString()}}">
@@ -71,7 +71,7 @@
     </div>
 
     <div class = "m-1">
-        <label class = "text-center" for="datefilter">End Week</label>
+        <label class = "text-center" for="datefilter">End Date</label>
         <div class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger">
             <div>
                 <datepicker date-disabled-weekdays="[1,2,3,4,5,6]" class = "text-center" date-format="MM/dd/yyyy" date-set="{{endDate.toString()}}">
@@ -83,12 +83,12 @@
 
     <div class = "m-1">
         <label class = "text-center" for="datefilter">Project</label>
-        <select  class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger" id="groupfilter" ng-model="groupip" ng-options="project.id as project.projectname for project in allprojects"></select>
+        <select  class = "form-control mb-2 mr-sm-2 mb-sm-0 d-inline-flex finger" id="projectselection" ng-model="projectid" ng-options="project.id as project.projectname for project in allprojects"></select>
     </div>
 
     <div class = "m-1">
         <label for="datefilter">.</label>
-        <button type="submit" class="btn btn-outline-primary align-bottom" ng-click="getInvoiceHours(invStartDate, invEndDate, groupid)" >Create Invoice Twp</button>
+        <button type="submit" class="btn btn-outline-primary align-bottom" ng-click="getInvoiceHours(invStartDate, invEndDate, projectid)" >Generate Invoice</button>
         <!-- <button type="submit" class="btn btn-outline-primary align-bottom finger" ng-click="downloadFile()" >Create Invoice</button> -->
     </div> 
     <!-- <a href="http://localhost:3000/api/reportserver/invoice" target="_blank">Invoice Report</a> -->

@@ -100,8 +100,9 @@ $scope.showReportOnScreen = function () {
 
 
 
-$scope.getInvoiceHours = (startDate, endDate, group) => { 
-    reportService.getInvoiceHours(startDate, endDate, group)
+$scope.getInvoiceHours = (startDate, endDate, project) => { 
+    console.log(project)
+    reportService.getInvoiceHours(startDate, endDate, project)
         .then(function (response) { 
             console.log(response);
             dbData = response; 

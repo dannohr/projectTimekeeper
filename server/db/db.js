@@ -8,7 +8,7 @@ const knex = require('knex')({
                     password : myPass,
                     database : myDB
                 },
-                debug: false
+                debug: true
             })
 
 const Bookshelf = require('bookshelf')(knex)
