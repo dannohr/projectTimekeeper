@@ -177,7 +177,7 @@ angular.module('fullstack').config(($urlRouterProvider, $stateProvider) => {
 
         .state("manageLists", {
             url: "/manageLists",   
-            templateUrl: './component/managelists/managelists.html',
+            templateUrl: './component/manageLists/managelists.html',
             controller: 'manageListsCtrl',
             resolve: {
                 user: loginSrvc => loginSrvc.getUser()
