@@ -147,7 +147,7 @@ app.get(
 );
 
 app.post(
-  "/app1/login",
+  "/login",
   passport.authenticate("login", { successRedirect: "/" }),
   (req, res) => {
     res.status(200).json(req.user);
@@ -156,7 +156,7 @@ app.post(
 
 // if not logged in, send error message and catch in resolve
 // else send user
-app.get("/app1/auth/me", (req, res) => {
+app.get("/auth/me", (req, res) => {
   // console.log('checked to see if logged in coming from index.js')
   if (!req.user) return res.status(401).json({ err: "User Not Authenticated" });
 
